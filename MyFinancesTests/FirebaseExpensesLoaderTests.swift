@@ -21,8 +21,13 @@ class FirebaseExpensesLoader {
         self.client = client
     }
 
-    func load() {
+    enum Error: Swift.Error {
+        case connectivity
+    }
+
+    func load(completion: @escaping (Error) -> Void) {
         client.get(url: url)
+        completion(.connectivity)
     }
 }
 
@@ -41,10 +46,23 @@ class FirebaseExpensesLoaderTests: XCTestCase {
         let client = HTTPClientSpy()
         let sut = FirebaseExpensesLoader(url: url, client: client)
 
-        sut.load()
+        sut.load { _ in }
 
         XCTAssertEqual(client.requestCount, 1)
         XCTAssertEqual(client.requestedUrl, url)
+    }
+
+    func test_load_deliversNoConnectivityErrorOnClientError() {
+        let url = URL(string: "http://any-url.com")!
+        let client = HTTPClientSpy()
+        let sut = FirebaseExpensesLoader(url: url, client: client)
+
+        var receivedErrors = [FirebaseExpensesLoader.Error]()
+        sut.load { err in
+            receivedErrors.append(err)
+        }
+
+        XCTAssertEqual(receivedErrors, [.connectivity])
 
     }
 
