@@ -22,8 +22,14 @@ public class RemoteExpensesLoader {
     }
 
     public func load(completion: @escaping (Error) -> Void) {
-        client.get(url: url) { err in
-            completion(.connectivity)
+        client.get(url: url) { result in
+            switch result {
+            case .failure:
+                completion(.connectivity)
+
+            case .success:
+                completion(.invalidData)
+            }
         }
     }
 }
