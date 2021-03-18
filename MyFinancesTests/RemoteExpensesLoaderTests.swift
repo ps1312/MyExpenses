@@ -13,7 +13,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
     func test_init_doesMakeRequests() {
         let (_, client) = makeSUT()
 
-        XCTAssertEqual(client.requestCount, 0)
+        XCTAssertEqual(client.requestedUrls, [])
     }
 
     func test_load_makeRequestWithURL() {
@@ -22,8 +22,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
 
         sut.load { _ in }
 
-        XCTAssertEqual(client.requestCount, 1)
-        XCTAssertEqual(client.requestedUrl, url)
+        XCTAssertEqual(client.requestedUrls, [url])
     }
 
     func test_load_deliversNoConnectivityErrorOnClientError() {
@@ -45,12 +44,10 @@ class RemoteExpensesLoaderTests: XCTestCase {
     }
 
     class HTTPClientSpy: HTTPClient {
-        var requestCount: Int = 0
-        var requestedUrl: URL? = nil
+        var requestedUrls = [URL]()
 
         func get(url: URL) {
-            requestCount += 1
-            requestedUrl = url
+            requestedUrls.append(url)
         }
     }
 
