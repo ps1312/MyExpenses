@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct ExpenseItem {
-    let id: UUID
-    let title: String
-    let amount: Float
-    let createdAt: Date
+public struct ExpenseItem: Equatable {
+    public let id: UUID
+    public let title: String
+    public let amount: Float
+    public let createdAt: Date
 }

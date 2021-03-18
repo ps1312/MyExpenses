@@ -11,24 +11,26 @@ public class RemoteExpensesLoader {
     private let url: URL
     private let client: HTTPClient
 
-    public enum Error: Swift.Error {
-        case connectivity
-        case invalidData
-    }
-
     public init(url: URL,  client: HTTPClient) {
         self.url = url
         self.client = client
     }
 
-    public func load(completion: @escaping (Error) -> Void) {
+    public enum Error: Swift.Error {
+        case connectivity
+        case invalidData
+    }
+
+    public typealias Result = Swift.Result<ExpenseItem, Error>
+
+    public func load(completion: @escaping (Result) -> Void) {
         client.get(url: url) { result in
             switch result {
             case .failure:
-                completion(.connectivity)
+                completion(.failure(.connectivity))
 
             case .success:
-                completion(.invalidData)
+                completion(.failure(.invalidData))
             }
         }
     }

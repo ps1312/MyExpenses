@@ -28,7 +28,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
     func test_load_deliversNoConnectivityErrorOnClientError() {
         let (sut, client) = makeSUT()
 
-        expect(sut, toCompleteWith: [.connectivity]) {
+        expect(sut, toCompleteWith: .connectivity) {
             let error = NSError(domain: "any", code: 0)
             client.completeWith(error: error)
         }
@@ -38,7 +38,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
 
         [199, 201, 300, 400, 500].enumerated().forEach { index, code in
-            expect(sut, toCompleteWith: [.invalidData]) {
+            expect(sut, toCompleteWith: .invalidData) {
                 client.completeWith(withStatusCode: code, at: index)
             }
         }
@@ -47,7 +47,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
     func test_load_deliversInvalidDataOn200StatusCodeAndInvalidJSON() {
         let (sut, client) = makeSUT()
 
-        expect(sut, toCompleteWith: [.invalidData]) {
+        expect(sut, toCompleteWith: .invalidData) {
             let invalidJSON = Data("invalid json".utf8)
             client.completeWith(withStatusCode: 200, data: invalidJSON)
         }
@@ -60,19 +60,19 @@ class RemoteExpensesLoaderTests: XCTestCase {
         return (sut, client)
     }
 
-    func expect(_ sut: RemoteExpensesLoader, toCompleteWith expectedError: [RemoteExpensesLoader.Error], when: () -> Void, file: StaticString = #file, line: UInt = #line) {
+    func expect(_ sut: RemoteExpensesLoader, toCompleteWith expectedError: RemoteExpensesLoader.Error, when: () -> Void, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "wait for client completion")
 
-        var receivedErrors = [RemoteExpensesLoader.Error]()
-        sut.load { err in
-            receivedErrors.append(err)
+        var receivedResult = [RemoteExpensesLoader.Result]()
+        sut.load { result in
+            receivedResult.append(result)
             exp.fulfill()
         }
 
         when()
 
         wait(for: [exp], timeout: 1.0)
-        XCTAssertEqual(receivedErrors, expectedError, file: file, line: line)
+        XCTAssertEqual(receivedResult, [.failure(expectedError)], file: file, line: line)
     }
 
     class HTTPClientSpy: HTTPClient {
