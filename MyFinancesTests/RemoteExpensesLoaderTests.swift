@@ -28,7 +28,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
     func test_load_deliversNoConnectivityErrorOnClientError() {
         let (sut, client) = makeSUT()
 
-        expect(sut, toCompleteWith: .connectivity) {
+        expect(sut, toCompleteWith: .failure(.connectivity)) {
             let error = NSError(domain: "any", code: 0)
             client.completeWith(error: error)
         }
@@ -39,7 +39,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
 
         let subjects = [199, 201, 300, 400, 500]
         subjects.enumerated().forEach { index, code in
-            expect(sut, toCompleteWith: .invalidData) {
+            expect(sut, toCompleteWith: .failure(.invalidData)) {
                 let emptyListJSON = Data("{ \"items\": []}".utf8)
                 client.completeWith(withStatusCode: code, data: emptyListJSON, at: index)
             }
@@ -49,7 +49,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
     func test_load_deliversInvalidDataOn200StatusCodeAndInvalidJSON() {
         let (sut, client) = makeSUT()
 
-        expect(sut, toCompleteWith: .invalidData) {
+        expect(sut, toCompleteWith: .failure(.invalidData)) {
             let invalidJSON = Data("invalid json".utf8)
             client.completeWith(withStatusCode: 200, data: invalidJSON)
         }
@@ -57,19 +57,11 @@ class RemoteExpensesLoaderTests: XCTestCase {
 
     func test_load_deliversNoItemsOn200StatusCodeAndValidJSONEmptyList() {
         let (sut, client) = makeSUT()
-        let exp = expectation(description: "wait for client completion with success")
-        var capturedResult = [RemoteExpensesLoader.Result]()
 
-        sut.load { result in
-            capturedResult.append(result)
-            exp.fulfill()
+        expect(sut, toCompleteWith: .success([])) {
+            let emptyListJSON = Data("{ \"items\": []}".utf8)
+            client.completeWith(withStatusCode: 200, data: emptyListJSON)
         }
-
-        let emptyListJSON = Data("{ \"items\": []}".utf8)
-        client.completeWith(withStatusCode: 200, data: emptyListJSON)
-        wait(for: [exp], timeout: 1.0)
-
-        XCTAssertEqual(capturedResult, [.success([])])
     }
 
     func makeSUT(url: URL = URL(string: "http://any-url.com")!) -> (sut: RemoteExpensesLoader, client: HTTPClientSpy) {
@@ -79,7 +71,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
         return (sut, client)
     }
 
-    func expect(_ sut: RemoteExpensesLoader, toCompleteWith expectedError: RemoteExpensesLoader.Error, when: () -> Void, file: StaticString = #file, line: UInt = #line) {
+    func expect(_ sut: RemoteExpensesLoader, toCompleteWith expectedResult: RemoteExpensesLoader.Result, when: () -> Void, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "wait for client completion")
 
         var receivedResult = [RemoteExpensesLoader.Result]()
@@ -91,7 +83,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
         when()
 
         wait(for: [exp], timeout: 1.0)
-        XCTAssertEqual(receivedResult, [.failure(expectedError)], file: file, line: line)
+        XCTAssertEqual(receivedResult, [expectedResult], file: file, line: line)
     }
 
     class HTTPClientSpy: HTTPClient {
