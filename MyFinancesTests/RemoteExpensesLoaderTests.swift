@@ -28,33 +28,19 @@ class RemoteExpensesLoaderTests: XCTestCase {
     func test_load_deliversNoConnectivityErrorOnClientError() {
         let (sut, client) = makeSUT()
 
-        let exp = expectation(description: "wait for client completion")
-        var receivedErrors = [RemoteExpensesLoader.Error]()
-        sut.load { err in
-            receivedErrors.append(err)
-            exp.fulfill()
+        expect(sut, toCompleteWith: [.connectivity]) {
+            let error = NSError(domain: "any", code: 0)
+            client.completeWith(error: error)
         }
-
-        let error = NSError(domain: "any", code: 0)
-        client.completeWith(error: error)
-
-        wait(for: [exp], timeout: 1.0)
-        XCTAssertEqual(receivedErrors, [.connectivity])
     }
 
     func test_load_deliversInvalidDataErrorOnNon200StatusCode() {
         let (sut, client) = makeSUT()
 
-
         [199, 201, 300, 400, 500].enumerated().forEach { index, code in
-            var receivedErrors = [RemoteExpensesLoader.Error]()
-            sut.load { err in
-                receivedErrors.append(err)
+            expect(sut, toCompleteWith: [.invalidData]) {
+                client.completeWith(withStatusCode: code, at: index)
             }
-
-            client.completeWith(withStatusCode: code, at: index)
-
-            XCTAssertEqual(receivedErrors, [.invalidData])
         }
     }
 
@@ -63,6 +49,21 @@ class RemoteExpensesLoaderTests: XCTestCase {
         let sut = RemoteExpensesLoader(url: url, client: client)
 
         return (sut, client)
+    }
+
+    func expect(_ sut: RemoteExpensesLoader, toCompleteWith expectedError: [RemoteExpensesLoader.Error], when: () -> Void) {
+        let exp = expectation(description: "wait for client completion")
+
+        var receivedErrors = [RemoteExpensesLoader.Error]()
+        sut.load { err in
+            receivedErrors.append(err)
+            exp.fulfill()
+        }
+
+        when()
+
+        wait(for: [exp], timeout: 1.0)
+        XCTAssertEqual(receivedErrors, expectedError)
     }
 
     class HTTPClientSpy: HTTPClient {
