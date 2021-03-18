@@ -44,6 +44,15 @@ class RemoteExpensesLoaderTests: XCTestCase {
         }
     }
 
+    func test_load_deliversInvalidDataOn200StatusCodeAndInvalidJSON() {
+        let (sut, client) = makeSUT()
+
+        expect(sut, toCompleteWith: [.invalidData]) {
+            let invalidJSON = Data("invalid json".utf8)
+            client.completeWith(withStatusCode: 200, data: invalidJSON)
+        }
+    }
+
     func makeSUT(url: URL = URL(string: "http://any-url.com")!) -> (sut: RemoteExpensesLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteExpensesLoader(url: url, client: client)
@@ -51,7 +60,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
         return (sut, client)
     }
 
-    func expect(_ sut: RemoteExpensesLoader, toCompleteWith expectedError: [RemoteExpensesLoader.Error], when: () -> Void) {
+    func expect(_ sut: RemoteExpensesLoader, toCompleteWith expectedError: [RemoteExpensesLoader.Error], when: () -> Void, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "wait for client completion")
 
         var receivedErrors = [RemoteExpensesLoader.Error]()
@@ -63,17 +72,17 @@ class RemoteExpensesLoaderTests: XCTestCase {
         when()
 
         wait(for: [exp], timeout: 1.0)
-        XCTAssertEqual(receivedErrors, expectedError)
+        XCTAssertEqual(receivedErrors, expectedError, file: file, line: line)
     }
 
     class HTTPClientSpy: HTTPClient {
-        private var messages = [(url: URL, completion: (Result<HTTPURLResponse, Error>) -> Void)]()
+        private var messages = [(url: URL, completion: (Result<(Data, HTTPURLResponse), Error>) -> Void)]()
 
         var requestedUrls: [URL] {
             return messages.map { $0.url }
         }
 
-        func get(url: URL, completion: @escaping (Result<HTTPURLResponse, Error>) -> Void) {
+        func get(url: URL, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> Void) {
             messages.append((url: url, completion: completion))
         }
 
@@ -81,9 +90,9 @@ class RemoteExpensesLoaderTests: XCTestCase {
             messages[index].completion(.failure(error))
         }
 
-        func completeWith(withStatusCode code: Int, at index: Int = 0) {
+        func completeWith(withStatusCode code: Int, data: Data = Data(), at index: Int = 0) {
             let response = HTTPURLResponse(url: messages[index].url, statusCode: code, httpVersion: nil, headerFields: nil)!
-            messages[index].completion(.success(response))
+            messages[index].completion(.success((data, response)))
         }
     }
 
