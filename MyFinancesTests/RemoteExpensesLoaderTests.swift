@@ -34,12 +34,14 @@ class RemoteExpensesLoaderTests: XCTestCase {
         }
     }
 
-    func test_load_deliversInvalidDataErrorOnNon200StatusCode() {
+    func test_load_deliversInvalidDataErrorOnNon200StatusCodeEvenWithValidJSON() {
         let (sut, client) = makeSUT()
 
-        [199, 201, 300, 400, 500].enumerated().forEach { index, code in
+        let subjects = [199, 201, 300, 400, 500]
+        subjects.enumerated().forEach { index, code in
             expect(sut, toCompleteWith: .invalidData) {
-                client.completeWith(withStatusCode: code, at: index)
+                let emptyListJSON = Data("{ \"items\": []}".utf8)
+                client.completeWith(withStatusCode: code, data: emptyListJSON, at: index)
             }
         }
     }

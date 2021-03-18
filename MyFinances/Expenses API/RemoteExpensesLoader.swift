@@ -29,12 +29,16 @@ public class RemoteExpensesLoader {
             case .failure:
                 completion(.failure(.connectivity))
 
-            case let .success((data, _)):
-                do {
-                    _ = try JSONDecoder().decode(Root.self, from: data)
-                    completion(.success([]))
-                } catch {
+            case let .success((data, response)):
+                if response.statusCode != 200 {
                     completion(.failure(.invalidData))
+                } else {
+                    do {
+                        _ = try JSONDecoder().decode(Root.self, from: data)
+                        completion(.success([]))
+                    } catch {
+                        completion(.failure(.invalidData))
+                    }
                 }
             }
         }
