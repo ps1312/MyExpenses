@@ -11,17 +11,14 @@ import MyFinances
 class RemoteExpensesLoaderTests: XCTestCase {
 
     func test_init_doesMakeRequests() {
-        let url = URL(string: "http://any-url.com")!
-        let client = HTTPClientSpy()
-        _ = RemoteExpensesLoader(url: url, client: client)
+        let (_, client) = makeSUT()
 
         XCTAssertEqual(client.requestCount, 0)
     }
 
     func test_load_makeRequestWithURL() {
-        let url = URL(string: "http://any-url.com")!
-        let client = HTTPClientSpy()
-        let sut = RemoteExpensesLoader(url: url, client: client)
+        let url = URL(string: "http://another-url.com")!
+        let (sut, client) = makeSUT(url: url)
 
         sut.load { _ in }
 
@@ -30,9 +27,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
     }
 
     func test_load_deliversNoConnectivityErrorOnClientError() {
-        let url = URL(string: "http://any-url.com")!
-        let client = HTTPClientSpy()
-        let sut = RemoteExpensesLoader(url: url, client: client)
+        let (sut, _) = makeSUT()
 
         var receivedErrors = [RemoteExpensesLoader.Error]()
         sut.load { err in
@@ -40,6 +35,13 @@ class RemoteExpensesLoaderTests: XCTestCase {
         }
 
         XCTAssertEqual(receivedErrors, [.connectivity])
+    }
+
+    func makeSUT(url: URL = URL(string: "http://any-url.com")!) -> (sut: RemoteExpensesLoader, client: HTTPClientSpy) {
+        let client = HTTPClientSpy()
+        let sut = RemoteExpensesLoader(url: url, client: client)
+
+        return (sut, client)
     }
 
     class HTTPClientSpy: HTTPClient {
