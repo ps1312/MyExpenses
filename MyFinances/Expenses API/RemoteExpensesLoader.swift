@@ -13,6 +13,7 @@ public class RemoteExpensesLoader {
 
     public enum Error: Swift.Error {
         case connectivity
+        case invalidData
     }
 
     public init(url: URL,  client: HTTPClient) {
@@ -21,7 +22,8 @@ public class RemoteExpensesLoader {
     }
 
     public func load(completion: @escaping (Error) -> Void) {
-        client.get(url: url)
-        completion(.connectivity)
+        client.get(url: url) { err in
+            completion(.connectivity)
+        }
     }
 }

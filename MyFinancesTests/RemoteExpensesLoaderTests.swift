@@ -26,13 +26,19 @@ class RemoteExpensesLoaderTests: XCTestCase {
     }
 
     func test_load_deliversNoConnectivityErrorOnClientError() {
-        let (sut, _) = makeSUT()
+        let (sut, client) = makeSUT()
 
+        let exp = expectation(description: "wait for client completion")
         var receivedErrors = [RemoteExpensesLoader.Error]()
         sut.load { err in
             receivedErrors.append(err)
+            exp.fulfill()
         }
 
+        let error = NSError(domain: "any", code: 0)
+        client.completeWith(error: error)
+
+        wait(for: [exp], timeout: 1.0)
         XCTAssertEqual(receivedErrors, [.connectivity])
     }
 
@@ -45,9 +51,15 @@ class RemoteExpensesLoaderTests: XCTestCase {
 
     class HTTPClientSpy: HTTPClient {
         var requestedUrls = [URL]()
+        var completions = [(Error) -> Void]()
 
-        func get(url: URL) {
+        func get(url: URL, completion: @escaping (Error) -> Void) {
             requestedUrls.append(url)
+            completions.append(completion)
+        }
+
+        func completeWith(error: Error) {
+            completions[0](error)
         }
     }
 
