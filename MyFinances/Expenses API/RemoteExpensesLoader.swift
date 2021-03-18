@@ -34,8 +34,10 @@ public class RemoteExpensesLoader {
                     completion(.failure(.invalidData))
                 } else {
                     do {
-                        _ = try JSONDecoder().decode(Root.self, from: data)
-                        completion(.success([]))
+                        let decoder = JSONDecoder()
+                        decoder.dateDecodingStrategy = .iso8601
+                        let root = try decoder.decode(Root.self, from: data)
+                        completion(.success(root.expenses))
                     } catch {
                         completion(.failure(.invalidData))
                     }
@@ -45,6 +47,19 @@ public class RemoteExpensesLoader {
     }
 }
 
+struct ApiExpense: Decodable {
+    let id: UUID
+    let title: String
+    let amount: Float
+    let created_at: Date
+}
+
 struct Root: Decodable {
-    var items: [ExpenseItem]
+    var items: [ApiExpense]
+
+    var expenses: [ExpenseItem] {
+        return items.map { item in
+            return ExpenseItem(id: item.id, title: item.title, amount: item.amount, createdAt: item.created_at)
+        }
+    }
 }

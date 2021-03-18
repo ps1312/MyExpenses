@@ -64,6 +64,29 @@ class RemoteExpensesLoaderTests: XCTestCase {
         }
     }
 
+    func test_load_deliversExpenseItemsOn200StatusCodeAndValidJSON() {
+        let (sut, client) = makeSUT()
+
+
+        let item1 = ExpenseItem(id: UUID(), title: "a title", amount: 33.99, createdAt: Date(timeIntervalSince1970: 1598627222))
+
+        let item1JSON: [String: Any] = [
+            "id": item1.id.uuidString,
+            "title": item1.title,
+            "amount": item1.amount,
+            "created_at": "2020-08-28T15:07:02+00:00"
+        ]
+
+        let listJSON = [
+            "items": [item1JSON]
+        ]
+
+        expect(sut, toCompleteWith: .success([item1])) {
+            let json = try! JSONSerialization.data(withJSONObject: listJSON)
+            client.completeWith(withStatusCode: 200, data: json)
+        }
+    }
+
     func makeSUT(url: URL = URL(string: "http://any-url.com")!) -> (sut: RemoteExpensesLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteExpensesLoader(url: url, client: client)
