@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3A2B0FA22602CEC000D59C4D /* MyFinances.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2B0F982602CEBF00D59C4D /* MyFinances.framework */; };
-		3A2B0FA72602CEC000D59C4D /* MyFinancesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B0FA62602CEC000D59C4D /* MyFinancesTests.swift */; };
+		3A2B0FA72602CEC000D59C4D /* FirebaseExpensesLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B0FA62602CEC000D59C4D /* FirebaseExpensesLoaderTests.swift */; };
 		3A2B0FB82602D16A00D59C4D /* ExpensesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B0FB72602D16A00D59C4D /* ExpensesLoader.swift */; };
 		3A2B0FBE2602D22A00D59C4D /* ExpenseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B0FBD2602D22A00D59C4D /* ExpenseItem.swift */; };
 /* End PBXBuildFile section */
@@ -27,7 +27,7 @@
 		3A2B0F982602CEBF00D59C4D /* MyFinances.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyFinances.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A2B0F9C2602CEBF00D59C4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A2B0FA12602CEC000D59C4D /* MyFinancesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFinancesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A2B0FA62602CEC000D59C4D /* MyFinancesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFinancesTests.swift; sourceTree = "<group>"; };
+		3A2B0FA62602CEC000D59C4D /* FirebaseExpensesLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseExpensesLoaderTests.swift; sourceTree = "<group>"; };
 		3A2B0FA82602CEC000D59C4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A2B0FB72602D16A00D59C4D /* ExpensesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesLoader.swift; sourceTree = "<group>"; };
 		3A2B0FBD2602D22A00D59C4D /* ExpenseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseItem.swift; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 		3A2B0FA52602CEC000D59C4D /* MyFinancesTests */ = {
 			isa = PBXGroup;
 			children = (
-				3A2B0FA62602CEC000D59C4D /* MyFinancesTests.swift */,
+				3A2B0FA62602CEC000D59C4D /* FirebaseExpensesLoaderTests.swift */,
 				3A2B0FA82602CEC000D59C4D /* Info.plist */,
 			);
 			path = MyFinancesTests;
@@ -214,7 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A2B0FA72602CEC000D59C4D /* MyFinancesTests.swift in Sources */,
+				3A2B0FA72602CEC000D59C4D /* FirebaseExpensesLoaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
