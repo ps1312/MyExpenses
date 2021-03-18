@@ -53,6 +53,23 @@ class RemoteExpensesLoaderTests: XCTestCase {
         }
     }
 
+    func test_load_deliversNoItemsOn200StatusCodeAndValidJSONEmptyList() {
+        let (sut, client) = makeSUT()
+        let exp = expectation(description: "wait for client completion with success")
+        var capturedResult = [RemoteExpensesLoader.Result]()
+
+        sut.load { result in
+            capturedResult.append(result)
+            exp.fulfill()
+        }
+
+        let emptyListJSON = Data("{ \"items\": []}".utf8)
+        client.completeWith(withStatusCode: 200, data: emptyListJSON)
+        wait(for: [exp], timeout: 1.0)
+
+        XCTAssertEqual(capturedResult, [.success([])])
+    }
+
     func makeSUT(url: URL = URL(string: "http://any-url.com")!) -> (sut: RemoteExpensesLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteExpensesLoader(url: url, client: client)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ExpenseItem: Equatable {
+public struct ExpenseItem: Equatable, Decodable {
     public let id: UUID
     public let title: String
     public let amount: Float

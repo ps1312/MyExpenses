@@ -21,7 +21,7 @@ public class RemoteExpensesLoader {
         case invalidData
     }
 
-    public typealias Result = Swift.Result<ExpenseItem, Error>
+    public typealias Result = Swift.Result<[ExpenseItem], Error>
 
     public func load(completion: @escaping (Result) -> Void) {
         client.get(url: url) { result in
@@ -29,9 +29,18 @@ public class RemoteExpensesLoader {
             case .failure:
                 completion(.failure(.connectivity))
 
-            case .success:
-                completion(.failure(.invalidData))
+            case let .success((data, _)):
+                do {
+                    _ = try JSONDecoder().decode(Root.self, from: data)
+                    completion(.success([]))
+                } catch {
+                    completion(.failure(.invalidData))
+                }
             }
         }
     }
+}
+
+struct Root: Decodable {
+    var items: [ExpenseItem]
 }
