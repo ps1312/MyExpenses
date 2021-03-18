@@ -45,14 +45,17 @@ class RemoteExpensesLoaderTests: XCTestCase {
     func test_load_deliversInvalidDataErrorOnNon200StatusCode() {
         let (sut, client) = makeSUT()
 
-        var receivedErrors = [RemoteExpensesLoader.Error]()
-        sut.load { err in
-            receivedErrors.append(err)
+
+        [199, 201, 300, 400, 500].enumerated().forEach { index, code in
+            var receivedErrors = [RemoteExpensesLoader.Error]()
+            sut.load { err in
+                receivedErrors.append(err)
+            }
+
+            client.completeWith(withStatusCode: code, at: index)
+
+            XCTAssertEqual(receivedErrors, [.invalidData])
         }
-
-        client.completeWith(withStatusCode: 199)
-
-        XCTAssertEqual(receivedErrors, [.invalidData])
     }
 
     func makeSUT(url: URL = URL(string: "http://any-url.com")!) -> (sut: RemoteExpensesLoader, client: HTTPClientSpy) {
@@ -75,9 +78,9 @@ class RemoteExpensesLoaderTests: XCTestCase {
             completions[0](.failure(error))
         }
 
-        func completeWith(withStatusCode code: Int) {
+        func completeWith(withStatusCode code: Int, at index: Int) {
             let response = HTTPURLResponse(url: requestedUrls[0], statusCode: code, httpVersion: nil, headerFields: nil)!
-            completions[0](.success(response))
+            completions[index](.success(response))
         }
     }
 
