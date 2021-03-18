@@ -67,21 +67,23 @@ class RemoteExpensesLoaderTests: XCTestCase {
     }
 
     class HTTPClientSpy: HTTPClient {
-        var requestedUrls = [URL]()
-        var completions = [(Swift.Result<HTTPURLResponse, Error>) -> Void]()
+        private var messages = [(url: URL, completion: (Result<HTTPURLResponse, Error>) -> Void)]()
 
-        func get(url: URL, completion: @escaping (Swift.Result<HTTPURLResponse, Error>) -> Void) {
-            requestedUrls.append(url)
-            completions.append(completion)
+        var requestedUrls: [URL] {
+            return messages.map { $0.url }
         }
 
-        func completeWith(error: Error) {
-            completions[0](.failure(error))
+        func get(url: URL, completion: @escaping (Result<HTTPURLResponse, Error>) -> Void) {
+            messages.append((url: url, completion: completion))
         }
 
-        func completeWith(withStatusCode code: Int, at index: Int) {
-            let response = HTTPURLResponse(url: requestedUrls[0], statusCode: code, httpVersion: nil, headerFields: nil)!
-            completions[index](.success(response))
+        func completeWith(error: Error, at index: Int = 0) {
+            messages[index].completion(.failure(error))
+        }
+
+        func completeWith(withStatusCode code: Int, at index: Int = 0) {
+            let response = HTTPURLResponse(url: messages[index].url, statusCode: code, httpVersion: nil, headerFields: nil)!
+            messages[index].completion(.success(response))
         }
     }
 
