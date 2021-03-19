@@ -24,19 +24,19 @@ The expected API object used for expenses retrieval will be:
             "id": "a UUID",
             "title": "a title",
             "amount": 16.99,
-            "created_at": "2021-03-18T12:31:22Z"
+            "created_at": "2021-03-19T00:11:00+00:00"
         },
         {
             "id": "another UUID",
             "title": "another title",
             "amount": 0.99,
-            "created_at": "2020-12-02T12:31:22Z"
+            "created_at": "2021-03-19T00:11:00+00:00"
         },
         {
             "id": "even another UUID",
             "title": "even another title",
             "amount": 1024.00,
-            "created_at": "2019-05-24T12:31:22Z"
+            "created_at": "2021-03-19T00:11:00+00:00"
         },
     ]
 }
