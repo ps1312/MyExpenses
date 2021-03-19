@@ -71,7 +71,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
             id: UUID(),
             title: "a title",
             amount: 35.99,
-            createdAt: (date: Date(timeIntervalSince1970: 1616112660), iso8601String: "2021-03-19T15:07:00+11:00")
+            createdAt: (date: Date(timeIntervalSince1970: 1616112660), iso8601String: "2021-03-19T00:11:00+00:00")
         )
 
         let (item2, item2JSON) = makeExpenseItem(
@@ -99,13 +99,13 @@ class RemoteExpensesLoaderTests: XCTestCase {
     }
 
     func makeExpenseItem(id: UUID, title: String, amount: Float, createdAt: (date: Date, iso8601String: String)) -> (ExpenseItem, [String: Any]) {
-        let model = ExpenseItem(id: UUID(), title: "a title", amount: 33.99, createdAt: Date(timeIntervalSince1970: 1598627222))
+        let model = ExpenseItem(id: id, title: title, amount: amount, createdAt: createdAt.date)
 
         let json: [String: Any] = [
-            "id": model.id.uuidString,
-            "title": model.title,
-            "amount": model.amount,
-            "created_at": "2020-08-28T15:07:02+00:00"
+            "id": id.uuidString,
+            "title": title,
+            "amount": amount,
+            "created_at": createdAt.iso8601String
         ]
 
         return (model, json)
