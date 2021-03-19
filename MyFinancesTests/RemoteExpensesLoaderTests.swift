@@ -64,6 +64,27 @@ class RemoteExpensesLoaderTests: XCTestCase {
         }
     }
 
+
+    func test_load_deliversInvalidDataErrorOnInvalidIsoString() {
+        let (sut, client) = makeSUT()
+
+        let (_, item1JSON) = makeExpenseItem(
+            id: UUID(),
+            title: "a title",
+            amount: 35.99,
+            createdAt: (date: Date(timeIntervalSince1970: 1616112660), iso8601String: "20215:07:00+11:00")
+        )
+
+        let listJSON = [
+            "items": [item1JSON]
+        ]
+
+        expect(sut, toCompleteWith: .failure(.invalidData)) {
+            let json = try! JSONSerialization.data(withJSONObject: listJSON)
+            client.completeWith(withStatusCode: 200, data: json)
+        }
+    }
+
     func test_load_deliversExpenseItemsOn200StatusCodeAndValidJSON() {
         let (sut, client) = makeSUT()
 
