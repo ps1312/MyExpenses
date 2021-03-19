@@ -30,36 +30,8 @@ public class RemoteExpensesLoader {
                 completion(.failure(.connectivity))
 
             case let .success((data, response)):
-                if response.statusCode != 200 {
-                    completion(.failure(.invalidData))
-                } else {
-                    do {
-                        let decoder = JSONDecoder()
-                        decoder.dateDecodingStrategy = .iso8601
-                        let root = try decoder.decode(Root.self, from: data)
-                        completion(.success(root.expenses))
-                    } catch {
-                        completion(.failure(.invalidData))
-                    }
-                }
+                completion(ExpenseItemsMapper.map(response, data))
             }
-        }
-    }
-}
-
-struct ApiExpense: Decodable {
-    let id: UUID
-    let title: String
-    let amount: Float
-    let created_at: Date
-}
-
-struct Root: Decodable {
-    var items: [ApiExpense]
-
-    var expenses: [ExpenseItem] {
-        return items.map { item in
-            return ExpenseItem(id: item.id, title: item.title, amount: item.amount, createdAt: item.created_at)
         }
     }
 }

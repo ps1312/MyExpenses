@@ -13,6 +13,7 @@
 		3A2B0FBE2602D22A00D59C4D /* ExpenseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B0FBD2602D22A00D59C4D /* ExpenseItem.swift */; };
 		3A2B0FCB2602DC7200D59C4D /* RemoteExpensesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B0FCA2602DC7200D59C4D /* RemoteExpensesLoader.swift */; };
 		3A2B0FCF2602DCA900D59C4D /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B0FCE2602DCA900D59C4D /* HTTPClient.swift */; };
+		3A7BEFE52604284000EDF385 /* ExpenseItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BEFE42604284000EDF385 /* ExpenseItemsMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		3A2B0FBD2602D22A00D59C4D /* ExpenseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseItem.swift; sourceTree = "<group>"; };
 		3A2B0FCA2602DC7200D59C4D /* RemoteExpensesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteExpensesLoader.swift; sourceTree = "<group>"; };
 		3A2B0FCE2602DCA900D59C4D /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		3A7BEFE42604284000EDF385 /* ExpenseItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseItemsMapper.swift; sourceTree = "<group>"; };
 		3AC525BD26037CE600C9B4E2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				3A2B0FCA2602DC7200D59C4D /* RemoteExpensesLoader.swift */,
+				3A7BEFE42604284000EDF385 /* ExpenseItemsMapper.swift */,
 			);
 			path = "Expenses API";
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A2B0FCB2602DC7200D59C4D /* RemoteExpensesLoader.swift in Sources */,
+				3A7BEFE52604284000EDF385 /* ExpenseItemsMapper.swift in Sources */,
 				3A2B0FB82602D16A00D59C4D /* ExpensesLoader.swift in Sources */,
 				3A2B0FCF2602DCA900D59C4D /* HTTPClient.swift in Sources */,
 				3A2B0FBE2602D22A00D59C4D /* ExpenseItem.swift in Sources */,
