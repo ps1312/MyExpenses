@@ -67,21 +67,25 @@ class RemoteExpensesLoaderTests: XCTestCase {
     func test_load_deliversExpenseItemsOn200StatusCodeAndValidJSON() {
         let (sut, client) = makeSUT()
 
+        let (item1, item1JSON) = makeExpenseItem(
+            id: UUID(),
+            title: "a title",
+            amount: 35.99,
+            createdAt: (date: Date(timeIntervalSince1970: 1616112660), iso8601String: "2021-03-19T15:07:00+11:00")
+        )
 
-        let item1 = ExpenseItem(id: UUID(), title: "a title", amount: 33.99, createdAt: Date(timeIntervalSince1970: 1598627222))
-
-        let item1JSON: [String: Any] = [
-            "id": item1.id.uuidString,
-            "title": item1.title,
-            "amount": item1.amount,
-            "created_at": "2020-08-28T15:07:02+00:00"
-        ]
+        let (item2, item2JSON) = makeExpenseItem(
+            id: UUID(),
+            title: "another title",
+            amount: 0.99,
+            createdAt: (date: Date(timeIntervalSince1970: 1561255200), iso8601String: "2019-06-23T02:00:00+00:00")
+        )
 
         let listJSON = [
-            "items": [item1JSON]
+            "items": [item1JSON, item2JSON]
         ]
 
-        expect(sut, toCompleteWith: .success([item1])) {
+        expect(sut, toCompleteWith: .success([item1, item2])) {
             let json = try! JSONSerialization.data(withJSONObject: listJSON)
             client.completeWith(withStatusCode: 200, data: json)
         }
@@ -92,6 +96,19 @@ class RemoteExpensesLoaderTests: XCTestCase {
         let sut = RemoteExpensesLoader(url: url, client: client)
 
         return (sut, client)
+    }
+
+    func makeExpenseItem(id: UUID, title: String, amount: Float, createdAt: (date: Date, iso8601String: String)) -> (ExpenseItem, [String: Any]) {
+        let model = ExpenseItem(id: UUID(), title: "a title", amount: 33.99, createdAt: Date(timeIntervalSince1970: 1598627222))
+
+        let json: [String: Any] = [
+            "id": model.id.uuidString,
+            "title": model.title,
+            "amount": model.amount,
+            "created_at": "2020-08-28T15:07:02+00:00"
+        ]
+
+        return (model, json)
     }
 
     func expect(_ sut: RemoteExpensesLoader, toCompleteWith expectedResult: RemoteExpensesLoader.Result, when: () -> Void, file: StaticString = #file, line: UInt = #line) {
