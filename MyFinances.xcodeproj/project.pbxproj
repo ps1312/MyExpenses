@@ -37,6 +37,7 @@
 		3A2B0FCA2602DC7200D59C4D /* RemoteExpensesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteExpensesLoader.swift; sourceTree = "<group>"; };
 		3A2B0FCE2602DCA900D59C4D /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		3A7BEFE42604284000EDF385 /* ExpenseItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseItemsMapper.swift; sourceTree = "<group>"; };
+		3AC0C1F92605802900E8CFC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AC525BD26037CE600C9B4E2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,6 +65,7 @@
 			children = (
 				3A2B0F9A2602CEBF00D59C4D /* MyFinances */,
 				3A2B0FA52602CEC000D59C4D /* MyFinancesTests */,
+				3AC0C1F92605802900E8CFC3 /* Assets.xcassets */,
 				3AC525BD26037CE600C9B4E2 /* README.md */,
 				3A2B0F992602CEBF00D59C4D /* Products */,
 			);
