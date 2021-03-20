@@ -24,7 +24,9 @@ public class RemoteExpensesLoader {
     public typealias Result = Swift.Result<[ExpenseItem], Error>
 
     public func load(completion: @escaping (Result) -> Void) {
-        client.get(url: url) { result in
+        client.get(url: url) { [weak self] result in
+            guard self != nil else { return }
+
             switch result {
             case .failure:
                 completion(.failure(.connectivity))

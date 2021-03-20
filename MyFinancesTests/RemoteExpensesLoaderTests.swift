@@ -64,7 +64,6 @@ class RemoteExpensesLoaderTests: XCTestCase {
         }
     }
 
-
     func test_load_deliversInvalidDataErrorOnInvalidIsoString() {
         let (sut, client) = makeSUT()
 
@@ -110,6 +109,19 @@ class RemoteExpensesLoaderTests: XCTestCase {
             let json = try! JSONSerialization.data(withJSONObject: listJSON)
             client.completeWith(withStatusCode: 200, data: json)
         }
+    }
+
+    func test_load_doesNotDeliverResultsOnceDeallocated() {
+        let url = URL(string: "http://another-url.com")!
+        let client = HTTPClientSpy()
+        var sut: RemoteExpensesLoader? = RemoteExpensesLoader(url: url, client: client)
+
+        var capturedResult = [RemoteExpensesLoader.Result]()
+        sut?.load { capturedResult.append($0) }
+        sut = nil
+        client.completeWith(error: NSError(domain: "domain", code: 1))
+
+        XCTAssertTrue(capturedResult.isEmpty)
     }
 
     func makeSUT(url: URL = URL(string: "http://any-url.com")!) -> (sut: RemoteExpensesLoader, client: HTTPClientSpy) {
