@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ExpenseItemsMapper {
+internal class ExpenseItemsMapper {
     private struct Root: Decodable {
         private struct ApiExpense: Decodable {
             let id: UUID
@@ -23,7 +23,7 @@ class ExpenseItemsMapper {
         }
     }
 
-    static func map(_ response: HTTPURLResponse, _ data: Data) -> RemoteExpensesLoader.Result {
+    internal static func map(_ response: HTTPURLResponse, _ data: Data) -> RemoteExpensesLoader.Result {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
 
