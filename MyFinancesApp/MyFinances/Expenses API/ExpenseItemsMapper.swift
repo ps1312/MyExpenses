@@ -7,22 +7,48 @@
 
 import Foundation
 
-internal class ExpenseItemsMapper {
-    private struct Root: Decodable {
-        private struct ApiExpense: Decodable {
-            let id: UUID
-            let title: String
-            let amount: Float
-            let created_at: Date
+private struct Root {
+    var expenses: [ExpenseItem]
+
+    init(expenses: [ExpenseItem] = []) {
+        self.expenses = expenses
+    }
+}
+
+extension Root: Decodable {
+    struct ExpenseKey: CodingKey {
+        var stringValue: String
+        init?(stringValue: String) {
+            self.stringValue = stringValue
         }
 
-        private var items: [ApiExpense]
+        var intValue: Int?
+        init?(intValue: Int) { return nil }
 
-        var expenses: [ExpenseItem] {
-            return items.map { ExpenseItem(id: $0.id, title: $0.title, amount: $0.amount, createdAt: $0.created_at) }
-        }
+        static let title = ExpenseKey(stringValue: "title")!
+        static let amount = ExpenseKey(stringValue: "amount")!
+        static let created_at = ExpenseKey(stringValue: "created_at")!
     }
 
+    public init(from decoder: Decoder) throws {
+        var expenses = [ExpenseItem]()
+        let container = try decoder.container(keyedBy: ExpenseKey.self)
+        for key in container.allKeys {
+            let productContainer = try container.nestedContainer(keyedBy: ExpenseKey.self, forKey: key)
+            let title = try productContainer.decode(String.self, forKey: .title)
+            let amount = try productContainer.decode(Float.self, forKey: .amount)
+            let created_at = try productContainer.decode(Date.self, forKey: .created_at)
+
+            let expense = ExpenseItem(id: UUID(uuidString: key.stringValue)!, title: title, amount: amount, createdAt: created_at)
+
+            expenses.append(expense)
+        }
+
+        self.init(expenses: expenses)
+    }
+}
+
+internal class ExpenseItemsMapper {
     internal static func map(_ response: HTTPURLResponse, _ data: Data) -> RemoteExpensesLoader.Result {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601

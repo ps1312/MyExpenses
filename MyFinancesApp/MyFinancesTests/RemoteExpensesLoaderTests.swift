@@ -58,7 +58,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
 
         expect(sut, toCompleteWith: .success([])) {
-            let emptyListJSON = Data("{ \"items\": []}".utf8)
+            let emptyListJSON = Data("{}".utf8)
             client.completeWith(withStatusCode: 200, data: emptyListJSON)
         }
     }
@@ -73,12 +73,8 @@ class RemoteExpensesLoaderTests: XCTestCase {
             createdAt: (date: Date(timeIntervalSince1970: 1616112660), iso8601String: "20215:07:00+11:00")
         )
 
-        let listJSON = [
-            "items": [item1JSON]
-        ]
-
         expect(sut, toCompleteWith: .failure(.invalidData)) {
-            let json = try! JSONSerialization.data(withJSONObject: listJSON)
+            let json = try! JSONSerialization.data(withJSONObject: item1JSON)
             client.completeWith(withStatusCode: 200, data: json)
         }
     }
@@ -86,26 +82,36 @@ class RemoteExpensesLoaderTests: XCTestCase {
     func test_load_deliversExpenseItemsOn200StatusCodeAndValidJSON() {
         let (sut, client) = makeSUT()
 
-        let (item1, item1JSON) = makeExpenseItem(
+        let (item1, _) = makeExpenseItem(
             id: UUID(),
             title: "a title",
             amount: 35.99,
             createdAt: (date: Date(timeIntervalSince1970: 1616112660), iso8601String: "2021-03-19T00:11:00+00:00")
         )
 
-        let (item2, item2JSON) = makeExpenseItem(
+        let (item2, _) = makeExpenseItem(
             id: UUID(),
-            title: "another title",
-            amount: 0.99,
-            createdAt: (date: Date(timeIntervalSince1970: 1561255200), iso8601String: "2019-06-23T02:00:00+00:00")
+            title: "second title",
+            amount: 35.99,
+            createdAt: (date: Date(timeIntervalSince1970: 1616112660), iso8601String: "2021-03-19T00:11:00+00:00")
         )
 
-        let listJSON = [
-            "items": [item1JSON, item2JSON]
-        ]
+        let json = """
+        {
+            "\(item1.id.uuidString)": {
+                "title": "\(item1.title)",
+                "amount": \(item1.amount),
+                "created_at": "2021-03-19T00:11:00+00:00",
+            },
+            "\(item2.id.uuidString)": {
+                "title": "\(item2.title)",
+                "amount": \(item2.amount),
+                "created_at": "2021-03-19T00:11:00+00:00",
+            }
+        }
+        """.data(using: .utf8)!
 
-        expect(sut, toCompleteWith: .success([item1, item2])) {
-            let json = try! JSONSerialization.data(withJSONObject: listJSON)
+        expect(sut, toCompleteWith: .success([item1, item2  ])) {
             client.completeWith(withStatusCode: 200, data: json)
         }
     }
@@ -141,10 +147,11 @@ class RemoteExpensesLoaderTests: XCTestCase {
         let model = ExpenseItem(id: id, title: title, amount: amount, createdAt: createdAt.date)
 
         let json: [String: Any] = [
-            "id": id.uuidString,
-            "title": title,
-            "amount": amount,
-            "created_at": createdAt.iso8601String
+            id.uuidString: [
+                "title": title,
+                "amount": amount,
+                "created_at": createdAt.iso8601String
+            ]
         ]
 
         return (model, json)
