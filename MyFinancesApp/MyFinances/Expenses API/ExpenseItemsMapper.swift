@@ -33,14 +33,13 @@ extension Root: Decodable {
     public init(from decoder: Decoder) throws {
         var expenses = [ExpenseItem]()
         let container = try decoder.container(keyedBy: ExpenseKey.self)
+
         for key in container.allKeys {
             let productContainer = try container.nestedContainer(keyedBy: ExpenseKey.self, forKey: key)
             let title = try productContainer.decode(String.self, forKey: .title)
             let amount = try productContainer.decode(Float.self, forKey: .amount)
             let created_at = try productContainer.decode(Date.self, forKey: .created_at)
-
             let expense = ExpenseItem(id: UUID(uuidString: key.stringValue)!, title: title, amount: amount, createdAt: created_at)
-
             expenses.append(expense)
         }
 
@@ -57,6 +56,6 @@ internal class ExpenseItemsMapper {
             return .failure(.invalidData)
         }
 
-        return .success(root.expenses)
+        return .success(root.expenses.sorted(by: {$0.createdAt.timeIntervalSince1970 < $1.createdAt.timeIntervalSince1970}))
     }
 }

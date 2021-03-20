@@ -73,45 +73,42 @@ class RemoteExpensesLoaderTests: XCTestCase {
             createdAt: (date: Date(timeIntervalSince1970: 1616112660), iso8601String: "20215:07:00+11:00")
         )
 
+        let json = """
+        {
+            \(item1JSON)
+        }
+        """.data(using: .utf8)!
+
         expect(sut, toCompleteWith: .failure(.invalidData)) {
-            let json = try! JSONSerialization.data(withJSONObject: item1JSON)
             client.completeWith(withStatusCode: 200, data: json)
         }
     }
 
-    func test_load_deliversExpenseItemsOn200StatusCodeAndValidJSON() {
+    func test_load_deliversExpenseItemsOn200StatusCodeAndValidJSONOrderedByDate() {
         let (sut, client) = makeSUT()
 
-        let (item1, _) = makeExpenseItem(
+        let (item1, item1JSON) = makeExpenseItem(
             id: UUID(),
             title: "a title",
             amount: 35.99,
             createdAt: (date: Date(timeIntervalSince1970: 1616112660), iso8601String: "2021-03-19T00:11:00+00:00")
         )
 
-        let (item2, _) = makeExpenseItem(
+        let (item2, item2JSON) = makeExpenseItem(
             id: UUID(),
             title: "second title",
-            amount: 35.99,
-            createdAt: (date: Date(timeIntervalSince1970: 1616112660), iso8601String: "2021-03-19T00:11:00+00:00")
+            amount: 0.99,
+            createdAt: (date: Date(timeIntervalSince1970: 1616266800), iso8601String: "2021-03-20T19:00:00+00:00")
         )
 
         let json = """
         {
-            "\(item1.id.uuidString)": {
-                "title": "\(item1.title)",
-                "amount": \(item1.amount),
-                "created_at": "2021-03-19T00:11:00+00:00",
-            },
-            "\(item2.id.uuidString)": {
-                "title": "\(item2.title)",
-                "amount": \(item2.amount),
-                "created_at": "2021-03-19T00:11:00+00:00",
-            }
+            \(item1JSON),
+            \(item2JSON)
         }
         """.data(using: .utf8)!
 
-        expect(sut, toCompleteWith: .success([item1, item2  ])) {
+        expect(sut, toCompleteWith: .success([item1, item2])) {
             client.completeWith(withStatusCode: 200, data: json)
         }
     }
@@ -143,16 +140,16 @@ class RemoteExpensesLoaderTests: XCTestCase {
         }
     }
 
-    func makeExpenseItem(id: UUID, title: String, amount: Float, createdAt: (date: Date, iso8601String: String)) -> (ExpenseItem, [String: Any]) {
+    func makeExpenseItem(id: UUID, title: String, amount: Float, createdAt: (date: Date, iso8601String: String)) -> (ExpenseItem, String) {
         let model = ExpenseItem(id: id, title: title, amount: amount, createdAt: createdAt.date)
 
-        let json: [String: Any] = [
-            id.uuidString: [
-                "title": title,
-                "amount": amount,
-                "created_at": createdAt.iso8601String
-            ]
-        ]
+        let json = """
+            "\(model.id.uuidString)": {
+                "title": "\(title)",
+                "amount": \(amount),
+                "created_at": "\(createdAt.iso8601String)",
+            }
+        """
 
         return (model, json)
     }
