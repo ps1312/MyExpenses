@@ -126,13 +126,15 @@ class RemoteExpensesLoaderTests: XCTestCase {
     func makeSUT(url: URL = URL(string: "http://any-url.com")!, file: StaticString = #file, line: UInt = #line) -> (sut: RemoteExpensesLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteExpensesLoader(url: url, client: client)
-
-        addTeardownBlock { [weak sut, weak client] in
-            XCTAssertNil(sut, "Expect sut to be deallocated. Possible memory leak.", file: file, line: line)
-            XCTAssertNil(client, "Expect sut to be deallocated. Possible memory leak.", file: file, line: line)
-        }
-
+        testMemoryLeak(sut, file: file, line: line)
+        testMemoryLeak(client, file: file, line: line)
         return (sut, client)
+    }
+
+    func testMemoryLeak(_ instance: AnyObject, file: StaticString, line: UInt) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "Expect sut to be deallocated. Possible memory leak.", file: file, line: line)
+        }
     }
 
     func makeExpenseItem(id: UUID, title: String, amount: Float, createdAt: (date: Date, iso8601String: String)) -> (ExpenseItem, [String: Any]) {
