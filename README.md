@@ -20,7 +20,6 @@ The expected API object used for expenses retrieval will be:
 
 ```json
 {
-  {
   "0B8FB609-39D8-4E6E-8F57-0DCBEBD23850": {
     "amount": 99999.99,
     "created_at": "2021-03-20T19:00:00+00:00",
