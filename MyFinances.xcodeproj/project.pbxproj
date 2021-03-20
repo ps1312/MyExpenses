@@ -13,6 +13,7 @@
 		3A2B0FBE2602D22A00D59C4D /* ExpenseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B0FBD2602D22A00D59C4D /* ExpenseItem.swift */; };
 		3A2B0FCB2602DC7200D59C4D /* RemoteExpensesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B0FCA2602DC7200D59C4D /* RemoteExpensesLoader.swift */; };
 		3A2B0FCF2602DCA900D59C4D /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B0FCE2602DCA900D59C4D /* HTTPClient.swift */; };
+		3A76E22626057D2800610D4D /* ClassDiagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A76E22526057D2800610D4D /* ClassDiagram.png */; };
 		3A7BEFE52604284000EDF385 /* ExpenseItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BEFE42604284000EDF385 /* ExpenseItemsMapper.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		3A2B0FBD2602D22A00D59C4D /* ExpenseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseItem.swift; sourceTree = "<group>"; };
 		3A2B0FCA2602DC7200D59C4D /* RemoteExpensesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteExpensesLoader.swift; sourceTree = "<group>"; };
 		3A2B0FCE2602DCA900D59C4D /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		3A76E22526057D2800610D4D /* ClassDiagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ClassDiagram.png; path = ../../../Downloads/ClassDiagram.png; sourceTree = "<group>"; };
 		3A7BEFE42604284000EDF385 /* ExpenseItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseItemsMapper.swift; sourceTree = "<group>"; };
 		3AC525BD26037CE600C9B4E2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,6 +67,7 @@
 				3A2B0F9A2602CEBF00D59C4D /* MyFinances */,
 				3A2B0FA52602CEC000D59C4D /* MyFinancesTests */,
 				3AC525BD26037CE600C9B4E2 /* README.md */,
+				3A76E22526057D2800610D4D /* ClassDiagram.png */,
 				3A2B0F992602CEBF00D59C4D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A76E22626057D2800610D4D /* ClassDiagram.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

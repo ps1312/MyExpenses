@@ -41,3 +41,8 @@ The expected API object used for expenses retrieval will be:
     ]
 }
 ```
+
+---
+
+### Class diagram
+The current application class diagram will be updated:
