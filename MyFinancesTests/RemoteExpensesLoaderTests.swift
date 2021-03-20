@@ -29,8 +29,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
 
         expect(sut, toCompleteWith: .failure(.connectivity)) {
-            let error = NSError(domain: "any", code: 0)
-            client.completeWith(error: error)
+            client.completeWith(error: anyNSError())
         }
     }
 
@@ -119,7 +118,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
         var capturedResult = [RemoteExpensesLoader.Result]()
         sut?.load { capturedResult.append($0) }
         sut = nil
-        client.completeWith(error: NSError(domain: "domain", code: 1))
+        client.completeWith(error: anyNSError())
 
         XCTAssertTrue(capturedResult.isEmpty)
     }
@@ -142,6 +141,10 @@ class RemoteExpensesLoaderTests: XCTestCase {
         ]
 
         return (model, json)
+    }
+
+    func anyNSError() -> Error {
+        return NSError(domain: "domain", code: 1)
     }
 
     func expect(_ sut: RemoteExpensesLoader, toCompleteWith expectedResult: RemoteExpensesLoader.Result, when: () -> Void, file: StaticString = #file, line: UInt = #line) {
