@@ -15,34 +15,37 @@ As for the technical side, the application should be made with _decoupled_ modul
 ---
 
 ### The Expense API response
+
 The expected API object used for expenses retrieval will be:
 
 ```json
 {
-    "expenses": [
-        {
-            "id": "a UUID",
-            "title": "a title",
-            "amount": 16.99,
-            "created_at": "2021-03-19T00:11:00+00:00"
-        },
-        {
-            "id": "another UUID",
-            "title": "another title",
-            "amount": 0.99,
-            "created_at": "2021-03-19T00:11:00+00:00"
-        },
-        {
-            "id": "even another UUID",
-            "title": "even another title",
-            "amount": 1024.00,
-            "created_at": "2021-03-19T00:11:00+00:00"
-        },
-    ]
+  "expenses": [
+    {
+      "id": "a UUID",
+      "title": "a title",
+      "amount": 16.99,
+      "created_at": "2021-03-19T00:11:00+00:00"
+    },
+    {
+      "id": "another UUID",
+      "title": "another title",
+      "amount": 0.99,
+      "created_at": "2021-03-19T00:11:00+00:00"
+    },
+    {
+      "id": "even another UUID",
+      "title": "even another title",
+      "amount": 1024.0,
+      "created_at": "2021-03-19T00:11:00+00:00"
+    }
+  ]
 }
 ```
 
 ---
 
 ### Class diagram
-The current application class diagram will be updated:
+
+The current application class diagram (will be updated):
+![Swiftie the cat](framework.png)
