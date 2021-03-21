@@ -133,12 +133,6 @@ class RemoteExpensesLoaderTests: XCTestCase {
         return (sut, client)
     }
 
-    func testMemoryLeak(_ instance: AnyObject, file: StaticString, line: UInt) {
-        addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, "Expect sut to be deallocated. Possible memory leak.", file: file, line: line)
-        }
-    }
-
     func makeExpenseItem(id: UUID, title: String, amount: Float, createdAt: (date: Date, iso8601String: String)) -> (ExpenseItem, String) {
         let model = ExpenseItem(id: id, title: title, amount: amount, createdAt: createdAt.date)
 
