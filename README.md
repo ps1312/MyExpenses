@@ -20,26 +20,16 @@ The expected API object used for expenses retrieval will be:
 
 ```json
 {
-  "expenses": [
-    {
-      "id": "a UUID",
-      "title": "a title",
-      "amount": 16.99,
-      "created_at": "2021-03-19T00:11:00+00:00"
-    },
-    {
-      "id": "another UUID",
-      "title": "another title",
-      "amount": 0.99,
-      "created_at": "2021-03-19T00:11:00+00:00"
-    },
-    {
-      "id": "even another UUID",
-      "title": "even another title",
-      "amount": 1024.0,
-      "created_at": "2021-03-19T00:11:00+00:00"
-    }
-  ]
+  "0B8FB609-39D8-4E6E-8F57-0DCBEBD23850": {
+    "amount": 99999.99,
+    "created_at": "2021-03-20T19:00:00+00:00",
+    "title": "Expensive item"
+  },
+  "1ACD6801-CDFA-4C11-9BA8-803A774EC49D": {
+    "amount": 19.9,
+    "created_at": "2021-03-19T00:11:00+00:00",
+    "title": "Food"
+  }
 }
 ```
 
