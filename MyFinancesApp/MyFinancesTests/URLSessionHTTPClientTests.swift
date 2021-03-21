@@ -32,7 +32,7 @@ class URLSessionHTTPClientTests: XCTestCase {
         let sut = URLSessionHTTPClient()
         let exp = expectation(description: "Wait for session completion")
 
-        URLProtocolStub.setStub(url, error: anyNSError())
+        URLProtocolStub.setStub(data: nil, response: nil, error: anyNSError())
         sut.get(from: url) { result in
             switch result {
             case .failure(let capturedError as NSError?):
@@ -53,6 +53,8 @@ class URLSessionHTTPClientTests: XCTestCase {
         private static var stub: Stub?
 
         private struct Stub {
+            let data: Data?
+            let response: HTTPURLResponse?
             let error: Error?
         }
 
@@ -65,8 +67,8 @@ class URLSessionHTTPClientTests: XCTestCase {
             stub = nil
         }
 
-        static func setStub(_ url: URL, error: Error) {
-            stub = Stub(error: error)
+        static func setStub(data: Data?, response: HTTPURLResponse?, error: Error) {
+            stub = Stub(data: data, response: response, error: error)
         }
 
         override class func canInit(with request: URLRequest) -> Bool {
