@@ -105,26 +105,44 @@ class URLSessionHTTPClientTests: XCTestCase {
     }
 
     func resultSuccessFor(data: Data?, response: URLResponse?, error: Error?) -> (data: Data, response: HTTPURLResponse)? {
+        let result = resultFor(data: data, response: response, error: error)
+
+        switch result {
+        case.success((let receivedData, let receivedResponse)):
+            return (data: receivedData, response: receivedResponse)
+
+        case .failure:
+            XCTFail("Expected success, instead got \(result)")
+            return nil
+        }
+    }
+
+    func resultErrorFor(data: Data?, response: URLResponse?, error: Error?) -> Error? {
+        let result = resultFor(data: data, response: response, error: error)
+
+        switch result {
+        case .failure(let error as NSError?):
+            return error
+
+        case.success:
+            XCTFail("Expected failure, instead got \(result)")
+            return nil
+        }
+    }
+
+    func resultFor(data: Data?, response: URLResponse?, error: Error?) -> HTTPClient.Result {
         let exp = expectation(description: "Wait for completion")
         URLProtocolStub.setStub(data: data, response: response, error: error)
 
-        var capturedResult: (data: Data, response: HTTPURLResponse)!
+        var capturedResult: HTTPClient.Result!
         makeSUT().get(from: anyURL()) { result in
-            switch result {
-            case.success((let receivedData, let receivedResponse)):
-                capturedResult = (data: receivedData, response: receivedResponse)
-
-            case .failure:
-                XCTFail("Expected success, instead got \(result)")
-            }
-
+            capturedResult = result
             exp.fulfill()
         }
 
         wait(for: [exp], timeout: 1.0)
         return capturedResult
     }
-
 
     func nonHTTPURLResponse() -> URLResponse {
         return URLResponse(url: anyURL(), mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
@@ -136,27 +154,6 @@ class URLSessionHTTPClientTests: XCTestCase {
 
     func anyData() -> Data {
         return Data("any data".utf8)
-    }
-
-    func resultErrorFor(data: Data?, response: URLResponse?, error: Error?) -> Error? {
-        let exp = expectation(description: "Wait for completion")
-        URLProtocolStub.setStub(data: data, response: response, error: error)
-
-        var capturedError: Error?
-        makeSUT().get(from: anyURL()) { result in
-            switch result {
-            case .failure(let error as NSError?):
-                capturedError = error
-
-            case.success:
-                XCTFail("Expected failure, instead got \(result)")
-            }
-
-            exp.fulfill()
-        }
-
-        wait(for: [exp], timeout: 1.0)
-        return capturedError
     }
 
     class URLProtocolStub: URLProtocol {
