@@ -25,6 +25,26 @@ class URLSessionHTTPClient: HTTPClient {
 }
 
 class URLSessionHTTPClientTests: XCTestCase {
+    func test_getFromURL_makesGETRequestWithCorrectURL() {
+        URLProtocolStub.startInterceptingRequests()
+
+        let url = URL(string: "http://another-url.com")!
+        let sut = URLSessionHTTPClient()
+        let exp = expectation(description: "Wait for session completion")
+        URLProtocolStub.setStub(data: nil, response: nil, error: anyNSError())
+
+        URLProtocolStub.setRequestObserver { request in
+            XCTAssertEqual(request.url, url)
+            XCTAssertEqual(request.httpMethod, "GET")
+            exp.fulfill()
+        }
+
+        sut.get(from: url) { _ in }
+
+        wait(for: [exp], timeout: 1.0)
+        URLProtocolStub.stopInterceptingRequests()
+    }
+
     func test_getFromURL_deliversErrorOnRequestFailure() {
         URLProtocolStub.startInterceptingRequests()
 
@@ -58,6 +78,8 @@ class URLSessionHTTPClientTests: XCTestCase {
             let error: Error?
         }
 
+        static var requestObserver: ((URLRequest) -> Void)?
+
         static func startInterceptingRequests() {
             URLProtocol.registerClass(URLProtocolStub.self)
         }
@@ -65,13 +87,19 @@ class URLSessionHTTPClientTests: XCTestCase {
         static func stopInterceptingRequests() {
             URLProtocol.unregisterClass(URLProtocolStub.self)
             stub = nil
+            requestObserver = nil
         }
 
-        static func setStub(data: Data?, response: HTTPURLResponse?, error: Error) {
+        static func setStub(data: Data?, response: HTTPURLResponse?, error: Error?) {
             stub = Stub(data: data, response: response, error: error)
         }
 
+        static func setRequestObserver(completion: @escaping (URLRequest) -> Void) {
+            requestObserver = completion
+        }
+
         override class func canInit(with request: URLRequest) -> Bool {
+            requestObserver?(request)
             return true
         }
 
@@ -80,11 +108,7 @@ class URLSessionHTTPClientTests: XCTestCase {
         }
 
         override func startLoading() {
-            guard let stub = URLProtocolStub.stub else {
-                fatalError("Expected to have a stub")
-            }
-
-            if let error = stub.error {
+            if let error = URLProtocolStub.stub?.error {
                 client?.urlProtocol(self, didFailWithError: error)
             }
 
