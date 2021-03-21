@@ -8,17 +8,17 @@
 import XCTest
 import MyFinances
 
-class URLSessionHTTPClient {
+class URLSessionHTTPClient: HTTPClient {
     let session: URLSession
 
     init(session: URLSession = .shared) {
         self.session = session
     }
 
-    func get(_ url: URL, completion: @escaping (Error) -> Void) {
+    func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
         session.dataTask(with: url) { _, _, error in
             if let error = error {
-                completion(error)
+                completion(.failure(error))
             }
         }.resume()
     }
@@ -32,7 +32,7 @@ class URLSessionHTTPClientTests: XCTestCase {
         session.stub(url, with: task)
         let sut = URLSessionHTTPClient(session: session)
 
-        sut.get(url) { _ in }
+        sut.get(from: url) { _ in }
 
         XCTAssertEqual(task.resumedCallsCount, 1)
     }
@@ -41,13 +41,23 @@ class URLSessionHTTPClientTests: XCTestCase {
         let error = NSError(domain: "domain", code: 1)
         let url = URL(string: "http://any-url.com")!
         let session = URLSessionSpy()
-        session.stub(url, error: error)
         let sut = URLSessionHTTPClient(session: session)
+        let exp = expectation(description: "Wait for session completion")
 
-        var capturedError: Error?
-        sut.get(url) { capturedError = $0 }
+        session.stub(url, error: error)
+        sut.get(from: url) { result in
+            switch result {
+            case .failure(let capturedError as NSError?):
+                XCTAssertEqual(capturedError, error)
 
-        XCTAssertEqual(capturedError as NSError?, error)
+            case.success:
+                XCTFail("Expected failure, instead got \(result)")
+            }
+
+            exp.fulfill()
+        }
+
+        wait(for: [exp], timeout: 1.0)
     }
 
     class URLSessionSpy: URLSession {

@@ -174,13 +174,13 @@ class RemoteExpensesLoaderTests: XCTestCase {
     }
 
     class HTTPClientSpy: HTTPClient {
-        private var messages = [(url: URL, completion: (Result<(Data, HTTPURLResponse), Error>) -> Void)]()
+        private var messages = [(url: URL, completion: (Result) -> Void)]()
 
         var requestedUrls: [URL] {
             return messages.map { $0.url }
         }
 
-        func get(url: URL, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> Void) {
+        func get(from url: URL, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> Void) {
             messages.append((url: url, completion: completion))
         }
 
