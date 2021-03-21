@@ -114,9 +114,8 @@ class RemoteExpensesLoaderTests: XCTestCase {
     }
 
     func test_load_doesNotDeliverResultsOnceDeallocated() {
-        let url = URL(string: "http://another-url.com")!
         let client = HTTPClientSpy()
-        var sut: RemoteExpensesLoader? = RemoteExpensesLoader(url: url, client: client)
+        var sut: RemoteExpensesLoader? = RemoteExpensesLoader(url: anyURL(), client: client)
 
         var capturedResult = [RemoteExpensesLoader.Result]()
         sut?.load { capturedResult.append($0) }
@@ -126,7 +125,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
         XCTAssertTrue(capturedResult.isEmpty)
     }
 
-    func makeSUT(url: URL = URL(string: "http://any-url.com")!, file: StaticString = #file, line: UInt = #line) -> (sut: RemoteExpensesLoader, client: HTTPClientSpy) {
+    func makeSUT(url: URL = anyURL(), file: StaticString = #file, line: UInt = #line) -> (sut: RemoteExpensesLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteExpensesLoader(url: url, client: client)
         testMemoryLeak(sut, file: file, line: line)
@@ -152,10 +151,6 @@ class RemoteExpensesLoaderTests: XCTestCase {
         """
 
         return (model, json)
-    }
-
-    func anyNSError() -> Error {
-        return NSError(domain: "domain", code: 1)
     }
 
     func expect(_ sut: RemoteExpensesLoader, toCompleteWith expectedResult: RemoteExpensesLoader.Result, when: () -> Void, file: StaticString = #file, line: UInt = #line) {

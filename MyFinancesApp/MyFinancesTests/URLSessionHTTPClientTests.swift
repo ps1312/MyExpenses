@@ -25,15 +25,14 @@ class URLSessionHTTPClient: HTTPClient {
 }
 
 class URLSessionHTTPClientTests: XCTestCase {
-    func test_getFromURL_deliversErrorOnDataTaskFailure() {
+    func test_getFromURL_deliversErrorOnRequestFailure() {
         URLProtocolStub.startInterceptingRequests()
-        let error = NSError(domain: "domain", code: 1)
-        let url = URL(string: "http://any-url.com")!
+
+        let url = anyURL()
         let sut = URLSessionHTTPClient()
         let exp = expectation(description: "Wait for session completion")
 
-        URLProtocolStub.setStub(url, error: error)
-
+        URLProtocolStub.setStub(url, error: anyNSError())
         sut.get(from: url) { result in
             switch result {
             case .failure(let capturedError as NSError?):
@@ -45,8 +44,8 @@ class URLSessionHTTPClientTests: XCTestCase {
 
             exp.fulfill()
         }
-
         wait(for: [exp], timeout: 1.0)
+
         URLProtocolStub.stopInterceptingRequests()
     }
 
