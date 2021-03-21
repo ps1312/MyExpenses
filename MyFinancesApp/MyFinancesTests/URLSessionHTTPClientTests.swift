@@ -25,35 +25,35 @@ class URLSessionHTTPClient: HTTPClient {
 }
 
 class URLSessionHTTPClientTests: XCTestCase {
-    func test_getFromURL_makesGETRequestWithCorrectURL() {
+    override func setUp() {
         URLProtocolStub.startInterceptingRequests()
+    }
 
+    override func tearDown() {
+        URLProtocolStub.stopInterceptingRequests()
+    }
+
+    func test_getFromURL_makesGETRequestWithCorrectURL() {
         let url = URL(string: "http://another-url.com")!
-        let sut = URLSessionHTTPClient()
         let exp = expectation(description: "Wait for session completion")
-        URLProtocolStub.setStub(data: nil, response: nil, error: anyNSError())
 
+        URLProtocolStub.setStub(data: nil, response: nil, error: anyNSError())
         URLProtocolStub.setRequestObserver { request in
             XCTAssertEqual(request.url, url)
             XCTAssertEqual(request.httpMethod, "GET")
             exp.fulfill()
         }
 
-        sut.get(from: url) { _ in }
+        makeSUT().get(from: url) { _ in }
 
         wait(for: [exp], timeout: 1.0)
-        URLProtocolStub.stopInterceptingRequests()
     }
 
     func test_getFromURL_deliversErrorOnRequestFailure() {
-        URLProtocolStub.startInterceptingRequests()
-
-        let url = anyURL()
-        let sut = URLSessionHTTPClient()
         let exp = expectation(description: "Wait for session completion")
 
         URLProtocolStub.setStub(data: nil, response: nil, error: anyNSError())
-        sut.get(from: url) { result in
+        makeSUT().get(from: anyURL()) { result in
             switch result {
             case .failure(let capturedError as NSError?):
                 XCTAssertNotNil(capturedError)
@@ -66,7 +66,11 @@ class URLSessionHTTPClientTests: XCTestCase {
         }
         wait(for: [exp], timeout: 1.0)
 
-        URLProtocolStub.stopInterceptingRequests()
+    }
+
+    func makeSUT() -> HTTPClient {
+        let sut = URLSessionHTTPClient()
+        return sut
     }
 
     class URLProtocolStub: URLProtocol {
