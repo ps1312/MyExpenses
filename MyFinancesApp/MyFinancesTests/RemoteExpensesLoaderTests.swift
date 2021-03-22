@@ -91,14 +91,14 @@ class RemoteExpensesLoaderTests: XCTestCase {
             id: UUID(),
             title: "a title",
             amount: 35.99,
-            createdAt: (date: Date(timeIntervalSince1970: 1616112660), iso8601String: "2021-03-19T00:11:00+00:00")
+            createdAt: (date: Date(timeIntervalSince1970: 1616266800), iso8601String: "2021-03-20T19:00:00+00:00")
         )
 
         let (item2, item2JSON) = makeExpenseItem(
             id: UUID(),
             title: "second title",
             amount: 0.99,
-            createdAt: (date: Date(timeIntervalSince1970: 1616266800), iso8601String: "2021-03-20T19:00:00+00:00")
+            createdAt: (date: Date(timeIntervalSince1970: 1616112660), iso8601String: "2021-03-19T00:11:00+00:00")
         )
 
         let json = """

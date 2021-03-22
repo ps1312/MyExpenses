@@ -56,6 +56,6 @@ internal class ExpenseItemsMapper {
             return .failure(.invalidData)
         }
 
-        return .success(root.expenses.sorted(by: {$0.createdAt.timeIntervalSince1970 < $1.createdAt.timeIntervalSince1970}))
+        return .success(root.expenses.sorted(by: {$0.createdAt.timeIntervalSince1970 > $1.createdAt.timeIntervalSince1970}))
     }
 }
