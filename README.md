@@ -1,5 +1,7 @@
 # MyFinances
 
+[![Build Status](https://travis-ci.com/ps1312/MyFinances.svg?branch=main)](https://travis-ci.com/ps1312/MyFinances)
+
 App made with Swift and UIKit to practice various topics:
 
 - TDD
