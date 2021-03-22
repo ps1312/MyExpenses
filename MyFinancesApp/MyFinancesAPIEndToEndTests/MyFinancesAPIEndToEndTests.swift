@@ -11,9 +11,24 @@ import MyFinances
 class MyFinancesAPIEndToEndTests: XCTestCase {
 
     func test_getExpenses_returnExpectedExpensesOnAPIEndpoint() {
+        switch getExpensesResult() {
+        case .success(let expenses):
+            XCTAssertEqual(expenses.count, 2)
+            XCTAssertEqual(expenses[0], expectedItem(at: 0))
+            XCTAssertEqual(expenses[1], expectedItem(at: 1))
+
+        case .failure:
+            XCTFail("Expected success, instead got error")
+        }
+    }
+
+    func getExpensesResult(file: StaticString = #file, line: UInt = #line) -> RemoteExpensesLoader.Result {
         let url = URL(string: "https://my-finances-715d4-default-rtdb.firebaseio.com/expenses.json")!
         let client = URLSessionHTTPClient()
         let loader = RemoteExpensesLoader(url: url, client: client)
+
+        testMemoryLeak(client, file: file, line: line)
+        testMemoryLeak(loader, file: file, line: line)
 
         let exp = expectation(description: "Wait for request completion")
 
@@ -24,18 +39,7 @@ class MyFinancesAPIEndToEndTests: XCTestCase {
         }
         wait(for: [exp], timeout: 5.0)
 
-        switch capturedResult {
-        case .success(let expenses):
-            XCTAssertEqual(expenses.count, 2)
-            XCTAssertEqual(expenses[0], expectedItem(at: 0))
-            XCTAssertEqual(expenses[1], expectedItem(at: 1))
-
-        case .failure:
-            XCTFail("Expected success, instead got error")
-
-        default:
-            XCTFail("Expected success, instead got error")
-        }
+        return capturedResult
     }
 
     func expectedItem(at index: Int) -> ExpenseItem {
