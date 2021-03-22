@@ -18,10 +18,19 @@
 		3AF94ABA26078774003A612C /* SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94AB926078774003A612C /* SharedHelpers.swift */; };
 		3AF94AC02607B49A003A612C /* XCTestCase+TestMemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */; };
 		3AF94AC42607E1F6003A612C /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94AC32607E1F6003A612C /* URLSessionHTTPClient.swift */; };
+		3AF94ACE260818A7003A612C /* MyFinancesAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94ACD260818A7003A612C /* MyFinancesAPIEndToEndTests.swift */; };
+		3AF94AD0260818A7003A612C /* MyFinances.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2B0F982602CEBF00D59C4D /* MyFinances.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		3A2B0FA32602CEC000D59C4D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A2B0F8F2602CEBF00D59C4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A2B0F972602CEBF00D59C4D;
+			remoteInfo = MyFinances;
+		};
+		3AF94AD1260818A7003A612C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3A2B0F8F2602CEBF00D59C4D /* Project object */;
 			proxyType = 1;
@@ -45,6 +54,9 @@
 		3AF94AB926078774003A612C /* SharedHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedHelpers.swift; sourceTree = "<group>"; };
 		3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+TestMemoryLeak.swift"; sourceTree = "<group>"; };
 		3AF94AC32607E1F6003A612C /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
+		3AF94ACB260818A7003A612C /* MyFinancesAPIEndToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFinancesAPIEndToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AF94ACD260818A7003A612C /* MyFinancesAPIEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFinancesAPIEndToEndTests.swift; sourceTree = "<group>"; };
+		3AF94ACF260818A7003A612C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +75,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3AF94AC8260818A7003A612C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AF94AD0260818A7003A612C /* MyFinances.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -71,6 +91,7 @@
 			children = (
 				3A2B0F9A2602CEBF00D59C4D /* MyFinances */,
 				3A2B0FA52602CEC000D59C4D /* MyFinancesTests */,
+				3AF94ACC260818A7003A612C /* MyFinancesAPIEndToEndTests */,
 				3A2B0F992602CEBF00D59C4D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -80,6 +101,7 @@
 			children = (
 				3A2B0F982602CEBF00D59C4D /* MyFinances.framework */,
 				3A2B0FA12602CEC000D59C4D /* MyFinancesTests.xctest */,
+				3AF94ACB260818A7003A612C /* MyFinancesAPIEndToEndTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,6 +156,15 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		3AF94ACC260818A7003A612C /* MyFinancesAPIEndToEndTests */ = {
+			isa = PBXGroup;
+			children = (
+				3AF94ACD260818A7003A612C /* MyFinancesAPIEndToEndTests.swift */,
+				3AF94ACF260818A7003A612C /* Info.plist */,
+			);
+			path = MyFinancesAPIEndToEndTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -183,6 +214,24 @@
 			productReference = 3A2B0FA12602CEC000D59C4D /* MyFinancesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		3AF94ACA260818A7003A612C /* MyFinancesAPIEndToEndTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3AF94AD3260818A7003A612C /* Build configuration list for PBXNativeTarget "MyFinancesAPIEndToEndTests" */;
+			buildPhases = (
+				3AF94AC7260818A7003A612C /* Sources */,
+				3AF94AC8260818A7003A612C /* Frameworks */,
+				3AF94AC9260818A7003A612C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3AF94AD2260818A7003A612C /* PBXTargetDependency */,
+			);
+			name = MyFinancesAPIEndToEndTests;
+			productName = MyFinancesAPIEndToEndTests;
+			productReference = 3AF94ACB260818A7003A612C /* MyFinancesAPIEndToEndTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -197,6 +246,9 @@
 						LastSwiftMigration = 1240;
 					};
 					3A2B0FA02602CEC000D59C4D = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					3AF94ACA260818A7003A612C = {
 						CreatedOnToolsVersion = 12.4;
 					};
 				};
@@ -216,6 +268,7 @@
 			targets = (
 				3A2B0F972602CEBF00D59C4D /* MyFinances */,
 				3A2B0FA02602CEC000D59C4D /* MyFinancesTests */,
+				3AF94ACA260818A7003A612C /* MyFinancesAPIEndToEndTests */,
 			);
 		};
 /* End PBXProject section */
@@ -229,6 +282,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3A2B0F9F2602CEC000D59C4D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AF94AC9260818A7003A612C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -262,6 +322,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3AF94AC7260818A7003A612C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AF94ACE260818A7003A612C /* MyFinancesAPIEndToEndTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -269,6 +337,11 @@
 			isa = PBXTargetDependency;
 			target = 3A2B0F972602CEBF00D59C4D /* MyFinances */;
 			targetProxy = 3A2B0FA32602CEC000D59C4D /* PBXContainerItemProxy */;
+		};
+		3AF94AD2260818A7003A612C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3A2B0F972602CEBF00D59C4D /* MyFinances */;
+			targetProxy = 3AF94AD1260818A7003A612C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -483,6 +556,42 @@
 			};
 			name = Release;
 		};
+		3AF94AD4260818A7003A612C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 99FHZVWMRA;
+				INFOPLIST_FILE = MyFinancesAPIEndToEndTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.MyFinancesAPIEndToEndTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3AF94AD5260818A7003A612C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 99FHZVWMRA;
+				INFOPLIST_FILE = MyFinancesAPIEndToEndTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.MyFinancesAPIEndToEndTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -509,6 +618,15 @@
 			buildConfigurations = (
 				3A2B0FB02602CEC000D59C4D /* Debug */,
 				3A2B0FB12602CEC000D59C4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3AF94AD3260818A7003A612C /* Build configuration list for PBXNativeTarget "MyFinancesAPIEndToEndTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AF94AD4260818A7003A612C /* Debug */,
+				3AF94AD5260818A7003A612C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
