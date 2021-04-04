@@ -37,32 +37,32 @@ class ExpensesViewController: UITableViewController {
 class ExpensesViewControllerTests: XCTestCase {
     func test_loadExpensesActions_requestsForExpenseItems() {
         let (sut, loaderSpy) = makeSUT()
-        XCTAssertEqual(loaderSpy.callsCount, 0)
+        XCTAssertEqual(loaderSpy.callsCount, 0, "Expected no loading requests before view is loaded")
 
         sut.loadViewIfNeeded()
-        XCTAssertEqual(loaderSpy.callsCount, 1)
+        XCTAssertEqual(loaderSpy.callsCount, 1, "Expected a loading request once view is loaded")
 
         sut.simulateUserInitiatedExpensesReload()
-        XCTAssertEqual(loaderSpy.callsCount, 2)
+        XCTAssertEqual(loaderSpy.callsCount, 2, "Expected another loading request once user initiates a reload")
 
         sut.simulateUserInitiatedExpensesReload()
-        XCTAssertEqual(loaderSpy.callsCount, 3)
+        XCTAssertEqual(loaderSpy.callsCount, 3, "Expected another loading request once user initiates a reload")
     }
 
     func test_userInitiatesExpensesLoad_showsLoadingIndicatorCorrecty() {
         let (sut, loaderSpy) = makeSUT()
 
         sut.loadViewIfNeeded()
-        XCTAssertTrue(sut.isShowingLoadingIndicator)
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected a loading indicator once view is loaded")
 
         loaderSpy.completeWith(error: anyNSError())
-        XCTAssertFalse(sut.isShowingLoadingIndicator)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading completes")
 
         sut.simulateUserInitiatedExpensesReload()
-        XCTAssertTrue(sut.isShowingLoadingIndicator)
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected a loading indicator once user initiates a reload")
 
         loaderSpy.completeWith(error: anyNSError(), at: 1)
-        XCTAssertFalse(sut.isShowingLoadingIndicator)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once reload completes")
     }
 
     func makeSUT(file: StaticString = #file, line: UInt = #line) -> (ExpensesViewController, LoaderSpy) {
@@ -75,10 +75,11 @@ class ExpensesViewControllerTests: XCTestCase {
 
     class LoaderSpy: ExpensesLoader {
         var completions = [((LoadExpensesResult) -> Void)]()
-        var callsCount: Int = 0
+        var callsCount: Int {
+            return completions.count
+        }
 
         func load(completion: @escaping (LoadExpensesResult) -> Void) {
-            callsCount += 1
             completions.append(completion)
         }
 
