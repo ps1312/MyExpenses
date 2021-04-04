@@ -7,8 +7,14 @@
 
 import UIKit
 
+struct ExpenseItemViewModel {
+    let title: String
+    let amount: Float
+    let createdAt: Date
+}
+
 class ExpensesViewController: UITableViewController {
-    var count: Int = 0
+    var items = [ExpenseItemViewModel]()
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -23,13 +29,13 @@ class ExpensesViewController: UITableViewController {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
             self?.refreshControl?.endRefreshing()
-            self?.count = 50
+            self?.items = ExpenseItemViewModel.prototypeExpenses
             self?.tableView.reloadData()
         }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return count
+        return items.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
