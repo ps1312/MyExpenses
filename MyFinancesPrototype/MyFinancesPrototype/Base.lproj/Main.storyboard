@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ExpenseItemCell" rowHeight="96" id="GzK-cT-9RF">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ExpenseItemCell" rowHeight="96" id="GzK-cT-9RF" customClass="ExpenseItemViewCell" customModule="MyFinancesPrototype" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GzK-cT-9RF" id="zFK-4T-RVY">
@@ -63,6 +63,11 @@
                                         <constraint firstItem="5xr-AZ-ERe" firstAttribute="top" secondItem="zFK-4T-RVY" secondAttribute="topMargin" priority="999" constant="8" id="loo-nO-erV"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="amount" destination="V39-xK-QYf" id="V8k-n1-qhI"/>
+                                    <outlet property="createdAt" destination="TkP-Qc-xEz" id="WGt-q6-owb"/>
+                                    <outlet property="title" destination="Yze-SL-TrC" id="ZdW-Sm-9FB"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

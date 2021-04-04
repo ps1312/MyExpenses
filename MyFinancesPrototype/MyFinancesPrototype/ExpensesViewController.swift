@@ -39,6 +39,18 @@ class ExpensesViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "ExpenseItemCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ExpenseItemCell", for: indexPath) as! ExpenseItemViewCell
+        cell.title?.text = items[indexPath.row].title
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = .current
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
+        dateFormatter.doesRelativeDateFormatting = true
+
+        cell.createdAt?.text = dateFormatter.string(from: items[indexPath.row].createdAt)
+
+        cell.amount?.text = String(format: "R$ %.2f", items[indexPath.row].amount)
+        return cell
     }
 }
