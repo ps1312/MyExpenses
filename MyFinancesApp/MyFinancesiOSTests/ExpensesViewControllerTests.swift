@@ -78,6 +78,23 @@ class ExpensesViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
     }
 
+    func test_pullToRefresh_showsLoadingIndicator() {
+        let (sut, _) = makeSUT()
+
+        sut.refreshControl?.simulatePullToRefresh()
+
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
+    }
+
+    func test_pullToRefresh_hidesLoadingIndicatorOnLoadingComplete() {
+        let (sut, loaderSpy) = makeSUT()
+
+        sut.refreshControl?.simulatePullToRefresh()
+        loaderSpy.completeWith(error: anyNSError())
+
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
+    }
+
     func makeSUT(file: StaticString = #file, line: UInt = #line) -> (ExpensesViewController, LoaderSpy) {
         let loaderSpy = LoaderSpy()
         let sut = ExpensesViewController(loader: loaderSpy)
