@@ -18,8 +18,12 @@ class ExpensesViewController: UITableViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        refreshControl?.beginRefreshing()
+
         refresh()
     }
 
@@ -53,6 +57,13 @@ class ExpensesViewControllerTests: XCTestCase {
 
         sut.refreshControl?.simulatePullToRefresh()
         XCTAssertEqual(loaderSpy.callsCount, 3)
+    }
+
+    func test_viewDidLoad_showsLoadingIndicator() {
+        let (sut, _) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
     }
 
     func makeSUT(file: StaticString = #file, line: UInt = #line) -> (ExpensesViewController, LoaderSpy) {
