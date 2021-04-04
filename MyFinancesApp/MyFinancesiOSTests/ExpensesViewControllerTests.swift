@@ -22,12 +22,13 @@ class ExpensesViewController: UITableViewController {
 
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        refreshControl?.beginRefreshing()
 
         refresh()
     }
 
     @objc func refresh() {
+        refreshControl?.beginRefreshing()
+
         loader?.load { [weak self] result in
             self?.refreshControl?.endRefreshing()
         }
@@ -49,15 +50,15 @@ class ExpensesViewControllerTests: XCTestCase {
         XCTAssertEqual(loaderSpy.callsCount, 1)
     }
 
-    func test_pullToRefresh_loadExpenses() {
+    func test_userInitiatedExpensesReload_loadExpenses() {
         let (sut, loaderSpy) = makeSUT()
 
         sut.loadViewIfNeeded()
 
-        sut.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedExpensesReload()
         XCTAssertEqual(loaderSpy.callsCount, 2)
 
-        sut.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedExpensesReload()
         XCTAssertEqual(loaderSpy.callsCount, 3)
     }
 
@@ -78,21 +79,21 @@ class ExpensesViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
     }
 
-    func test_pullToRefresh_showsLoadingIndicator() {
+    func test_userInitiatedExpensesReload_showsLoadingIndicator() {
         let (sut, _) = makeSUT()
 
-        sut.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedExpensesReload()
 
-        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
+        XCTAssertTrue(sut.isShowingLoadingIndicator)
     }
 
     func test_pullToRefresh_hidesLoadingIndicatorOnLoadingComplete() {
         let (sut, loaderSpy) = makeSUT()
 
-        sut.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedExpensesReload()
         loaderSpy.completeWith(error: anyNSError())
 
-        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
+        XCTAssertFalse(sut.isShowingLoadingIndicator)
     }
 
     func makeSUT(file: StaticString = #file, line: UInt = #line) -> (ExpensesViewController, LoaderSpy) {
@@ -119,7 +120,18 @@ class ExpensesViewControllerTests: XCTestCase {
 
 }
 
-extension UIRefreshControl {
+
+private extension ExpensesViewController {
+    var isShowingLoadingIndicator: Bool {
+        return refreshControl?.isRefreshing == true
+    }
+
+    func simulateUserInitiatedExpensesReload() {
+        refreshControl?.simulatePullToRefresh()
+    }
+}
+
+private extension UIRefreshControl {
     func simulatePullToRefresh() {
         self.allTargets.forEach { target in
             self.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach { (target as NSObject).perform(Selector($0)) }
