@@ -28,7 +28,9 @@ class ExpensesViewController: UITableViewController {
     }
 
     @objc func refresh() {
-        loader?.load { _ in }
+        loader?.load { [weak self] result in
+            self?.refreshControl?.endRefreshing()
+        }
     }
 }
 
@@ -66,6 +68,16 @@ class ExpensesViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
     }
 
+    func test_viewDidLoad_hidesLoadingIndicatorOnLoadingComplete() {
+        let (sut, loaderSpy) = makeSUT()
+
+        sut.loadViewIfNeeded()
+
+        loaderSpy.completeWith(error: anyNSError())
+
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
+    }
+
     func makeSUT(file: StaticString = #file, line: UInt = #line) -> (ExpensesViewController, LoaderSpy) {
         let loaderSpy = LoaderSpy()
         let sut = ExpensesViewController(loader: loaderSpy)
@@ -75,10 +87,16 @@ class ExpensesViewControllerTests: XCTestCase {
     }
 
     class LoaderSpy: ExpensesLoader {
+        var completions = [((LoadExpensesResult) -> Void)]()
         var callsCount: Int = 0
 
         func load(completion: @escaping (LoadExpensesResult) -> Void) {
             callsCount += 1
+            completions.append(completion)
+        }
+
+        func completeWith(error: Error, at index: Int = 0) {
+            completions[index](.failure(error))
         }
     }
 
