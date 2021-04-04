@@ -14,9 +14,16 @@ class ExpensesViewController: UITableViewController {
     convenience init(loader: ExpensesLoader) {
         self.init()
         self.loader = loader
+
     }
 
     override func viewDidLoad() {
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        refresh()
+    }
+
+    @objc func refresh() {
         loader?.load { _ in }
     }
 }
@@ -38,6 +45,21 @@ class ExpensesViewControllerTests: XCTestCase {
         XCTAssertEqual(loaderSpy.callsCount, 1)
     }
 
+    func test_pullToRefresh_loadExpenses() {
+        let loaderSpy = LoaderSpy()
+        let sut = ExpensesViewController(loader: loaderSpy)
+
+        sut.loadViewIfNeeded()
+
+        sut.refreshControl?.simulatePullToRefresh()
+
+        XCTAssertEqual(loaderSpy.callsCount, 2)
+
+        sut.refreshControl?.simulatePullToRefresh()
+
+        XCTAssertEqual(loaderSpy.callsCount, 3)
+    }
+
     class LoaderSpy: ExpensesLoader {
         var callsCount: Int = 0
 
@@ -46,4 +68,12 @@ class ExpensesViewControllerTests: XCTestCase {
         }
     }
 
+}
+
+extension UIRefreshControl {
+    func simulatePullToRefresh() {
+        self.allTargets.forEach { target in
+            self.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach { (target as NSObject).perform(Selector($0)) }
+        }
+    }
 }
