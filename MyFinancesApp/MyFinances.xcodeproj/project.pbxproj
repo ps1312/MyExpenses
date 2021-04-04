@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,9 @@
 		3A5849D126058616002CAE6C /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5849D026058616002CAE6C /* URLSessionHTTPClientTests.swift */; };
 		3A690E0F2618B3B200080E08 /* MyFinancesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A690E062618B3B200080E08 /* MyFinancesiOS.framework */; };
 		3A7BEFE52604284000EDF385 /* ExpenseItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BEFE42604284000EDF385 /* ExpenseItemsMapper.swift */; };
+		3ABD8CE626195C7D006C5C07 /* ExpensesViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD8CE526195C7D006C5C07 /* ExpensesViewControllerTests.swift */; };
+		3ABD8CF226195D19006C5C07 /* MyFinances.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2B0F982602CEBF00D59C4D /* MyFinances.framework */; platformFilter = ios; };
+		3ABD8CF326195D19006C5C07 /* MyFinances.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2B0F982602CEBF00D59C4D /* MyFinances.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AF94ABA26078774003A612C /* SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94AB926078774003A612C /* SharedHelpers.swift */; };
 		3AF94AC02607B49A003A612C /* XCTestCase+TestMemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */; };
 		3AF94AC42607E1F6003A612C /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94AC32607E1F6003A612C /* URLSessionHTTPClient.swift */; };
@@ -39,6 +42,13 @@
 			remoteGlobalIDString = 3A690E052618B3B200080E08;
 			remoteInfo = MyFinancesiOS;
 		};
+		3ABD8CF426195D19006C5C07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A2B0F8F2602CEBF00D59C4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A2B0F972602CEBF00D59C4D;
+			remoteInfo = MyFinances;
+		};
 		3AF94AD1260818A7003A612C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3A2B0F8F2602CEBF00D59C4D /* Project object */;
@@ -47,6 +57,20 @@
 			remoteInfo = MyFinances;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3ABD8CF626195D19006C5C07 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3ABD8CF326195D19006C5C07 /* MyFinances.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3A2B0F982602CEBF00D59C4D /* MyFinances.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyFinances.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +88,7 @@
 		3A690E0E2618B3B200080E08 /* MyFinancesiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFinancesiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A690E152618B3B200080E08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A7BEFE42604284000EDF385 /* ExpenseItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseItemsMapper.swift; sourceTree = "<group>"; };
+		3ABD8CE526195C7D006C5C07 /* ExpensesViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewControllerTests.swift; sourceTree = "<group>"; };
 		3AF94AB926078774003A612C /* SharedHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedHelpers.swift; sourceTree = "<group>"; };
 		3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+TestMemoryLeak.swift"; sourceTree = "<group>"; };
 		3AF94AC32607E1F6003A612C /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
@@ -92,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3ABD8CF226195D19006C5C07 /* MyFinances.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +149,7 @@
 				3A690E072618B3B200080E08 /* MyFinancesiOS */,
 				3A690E122618B3B200080E08 /* MyFinancesiOSTests */,
 				3A2B0F992602CEBF00D59C4D /* Products */,
+				3ABD8CF126195D19006C5C07 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -190,9 +217,17 @@
 		3A690E122618B3B200080E08 /* MyFinancesiOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				3ABD8CE526195C7D006C5C07 /* ExpensesViewControllerTests.swift */,
 				3A690E152618B3B200080E08 /* Info.plist */,
 			);
 			path = MyFinancesiOSTests;
+			sourceTree = "<group>";
+		};
+		3ABD8CF126195D19006C5C07 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		3AF94AB826078769003A612C /* Helpers */ = {
@@ -277,10 +312,12 @@
 				3A690E022618B3B200080E08 /* Sources */,
 				3A690E032618B3B200080E08 /* Frameworks */,
 				3A690E042618B3B200080E08 /* Resources */,
+				3ABD8CF626195D19006C5C07 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3ABD8CF526195D19006C5C07 /* PBXTargetDependency */,
 			);
 			name = MyFinancesiOS;
 			productName = MyFinancesiOS;
@@ -344,6 +381,7 @@
 					};
 					3A690E0D2618B3B200080E08 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 					};
 					3AF94ACA260818A7003A612C = {
 						CreatedOnToolsVersion = 12.4;
@@ -446,6 +484,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3ABD8CE626195C7D006C5C07 /* ExpensesViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +509,12 @@
 			isa = PBXTargetDependency;
 			target = 3A690E052618B3B200080E08 /* MyFinancesiOS */;
 			targetProxy = 3A690E102618B3B200080E08 /* PBXContainerItemProxy */;
+		};
+		3ABD8CF526195D19006C5C07 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = 3A2B0F972602CEBF00D59C4D /* MyFinances */;
+			targetProxy = 3ABD8CF426195D19006C5C07 /* PBXContainerItemProxy */;
 		};
 		3AF94AD2260818A7003A612C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -749,6 +794,7 @@
 		3A690E1B2618B3B200080E08 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 99FHZVWMRA;
 				INFOPLIST_FILE = MyFinancesiOSTests/Info.plist;
@@ -761,6 +807,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.MyFinancesiOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -769,6 +816,7 @@
 		3A690E1C2618B3B200080E08 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 99FHZVWMRA;
 				INFOPLIST_FILE = MyFinancesiOSTests/Info.plist;
