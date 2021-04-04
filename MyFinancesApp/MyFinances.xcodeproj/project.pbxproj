@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A29D8062619FD1700794529 /* MyFinances.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2B0F982602CEBF00D59C4D /* MyFinances.framework */; platformFilter = ios; };
+		3A29D8072619FD1700794529 /* MyFinances.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2B0F982602CEBF00D59C4D /* MyFinances.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A2B0FA22602CEC000D59C4D /* MyFinances.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2B0F982602CEBF00D59C4D /* MyFinances.framework */; };
 		3A2B0FA72602CEC000D59C4D /* RemoteExpensesLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B0FA62602CEC000D59C4D /* RemoteExpensesLoaderTests.swift */; };
 		3A2B0FB82602D16A00D59C4D /* ExpensesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B0FB72602D16A00D59C4D /* ExpensesLoader.swift */; };
@@ -17,8 +19,6 @@
 		3A690E0F2618B3B200080E08 /* MyFinancesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A690E062618B3B200080E08 /* MyFinancesiOS.framework */; };
 		3A7BEFE52604284000EDF385 /* ExpenseItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BEFE42604284000EDF385 /* ExpenseItemsMapper.swift */; };
 		3ABD8CE626195C7D006C5C07 /* ExpensesViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD8CE526195C7D006C5C07 /* ExpensesViewControllerTests.swift */; };
-		3ABD8CF226195D19006C5C07 /* MyFinances.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2B0F982602CEBF00D59C4D /* MyFinances.framework */; platformFilter = ios; };
-		3ABD8CF326195D19006C5C07 /* MyFinances.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2B0F982602CEBF00D59C4D /* MyFinances.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AF94ABA26078774003A612C /* SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94AB926078774003A612C /* SharedHelpers.swift */; };
 		3AF94AC02607B49A003A612C /* XCTestCase+TestMemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */; };
 		3AF94AC42607E1F6003A612C /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94AC32607E1F6003A612C /* URLSessionHTTPClient.swift */; };
@@ -28,6 +28,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3A29D8082619FD1700794529 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A2B0F8F2602CEBF00D59C4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A2B0F972602CEBF00D59C4D;
+			remoteInfo = MyFinances;
+		};
 		3A2B0FA32602CEC000D59C4D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3A2B0F8F2602CEBF00D59C4D /* Project object */;
@@ -42,13 +49,6 @@
 			remoteGlobalIDString = 3A690E052618B3B200080E08;
 			remoteInfo = MyFinancesiOS;
 		};
-		3ABD8CF426195D19006C5C07 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A2B0F8F2602CEBF00D59C4D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3A2B0F972602CEBF00D59C4D;
-			remoteInfo = MyFinances;
-		};
 		3AF94AD1260818A7003A612C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3A2B0F8F2602CEBF00D59C4D /* Project object */;
@@ -59,13 +59,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3ABD8CF626195D19006C5C07 /* Embed Frameworks */ = {
+		3A29D80A2619FD1700794529 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3ABD8CF326195D19006C5C07 /* MyFinances.framework in Embed Frameworks */,
+				3A29D8072619FD1700794529 /* MyFinances.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,7 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ABD8CF226195D19006C5C07 /* MyFinances.framework in Frameworks */,
+				3A29D8062619FD1700794529 /* MyFinances.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,12 +312,12 @@
 				3A690E022618B3B200080E08 /* Sources */,
 				3A690E032618B3B200080E08 /* Frameworks */,
 				3A690E042618B3B200080E08 /* Resources */,
-				3ABD8CF626195D19006C5C07 /* Embed Frameworks */,
+				3A29D80A2619FD1700794529 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3ABD8CF526195D19006C5C07 /* PBXTargetDependency */,
+				3A29D8092619FD1700794529 /* PBXTargetDependency */,
 			);
 			name = MyFinancesiOS;
 			productName = MyFinancesiOS;
@@ -500,6 +500,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3A29D8092619FD1700794529 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = 3A2B0F972602CEBF00D59C4D /* MyFinances */;
+			targetProxy = 3A29D8082619FD1700794529 /* PBXContainerItemProxy */;
+		};
 		3A2B0FA42602CEC000D59C4D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3A2B0F972602CEBF00D59C4D /* MyFinances */;
@@ -509,12 +515,6 @@
 			isa = PBXTargetDependency;
 			target = 3A690E052618B3B200080E08 /* MyFinancesiOS */;
 			targetProxy = 3A690E102618B3B200080E08 /* PBXContainerItemProxy */;
-		};
-		3ABD8CF526195D19006C5C07 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = 3A2B0F972602CEBF00D59C4D /* MyFinances */;
-			targetProxy = 3ABD8CF426195D19006C5C07 /* PBXContainerItemProxy */;
 		};
 		3AF94AD2260818A7003A612C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

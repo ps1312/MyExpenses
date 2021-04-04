@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum LoadExpensesResult {
+public enum LoadExpensesResult {
     case success([ExpenseItem])
     case failure(Error)
 }
 
-protocol ExpensesLoader {
+public protocol ExpensesLoader {
     func load(completion: @escaping (LoadExpensesResult) -> Void)
 }

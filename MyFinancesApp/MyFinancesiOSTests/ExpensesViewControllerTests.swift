@@ -6,17 +6,18 @@
 //
 
 import XCTest
+import MyFinances
 
 class ExpensesViewController: UITableViewController {
-    private var loader: ExpensesViewControllerTests.LoaderSpy?
+    private var loader: ExpensesLoader?
 
-    convenience init(loader: ExpensesViewControllerTests.LoaderSpy) {
+    convenience init(loader: ExpensesLoader) {
         self.init()
         self.loader = loader
     }
 
     override func viewDidLoad() {
-        loader?.load()
+        loader?.load { _ in }
     }
 }
 
@@ -37,10 +38,10 @@ class ExpensesViewControllerTests: XCTestCase {
         XCTAssertEqual(loaderSpy.callsCount, 1)
     }
 
-    class LoaderSpy {
+    class LoaderSpy: ExpensesLoader {
         var callsCount: Int = 0
 
-        func load() {
+        func load(completion: @escaping (LoadExpensesResult) -> Void) {
             callsCount += 1
         }
     }
