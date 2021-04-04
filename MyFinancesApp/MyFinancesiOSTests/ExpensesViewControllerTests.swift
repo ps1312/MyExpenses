@@ -28,7 +28,6 @@ class ExpensesViewController: UITableViewController {
 
     @objc func refresh() {
         refreshControl?.beginRefreshing()
-
         loader?.load { [weak self] result in
             self?.refreshControl?.endRefreshing()
         }
@@ -36,24 +35,12 @@ class ExpensesViewController: UITableViewController {
 }
 
 class ExpensesViewControllerTests: XCTestCase {
-    func test_init_doesNotLoadExpenses() {
-        let (_, loaderSpy) = makeSUT()
-
+    func test_loadExpensesActions_requestsForExpenseItems() {
+        let (sut, loaderSpy) = makeSUT()
         XCTAssertEqual(loaderSpy.callsCount, 0)
-    }
-
-    func test_viewDidLoad_loadExpenses() {
-        let (sut, loaderSpy) = makeSUT()
 
         sut.loadViewIfNeeded()
-
         XCTAssertEqual(loaderSpy.callsCount, 1)
-    }
-
-    func test_userInitiatedExpensesReload_loadExpenses() {
-        let (sut, loaderSpy) = makeSUT()
-
-        sut.loadViewIfNeeded()
 
         sut.simulateUserInitiatedExpensesReload()
         XCTAssertEqual(loaderSpy.callsCount, 2)
@@ -62,37 +49,19 @@ class ExpensesViewControllerTests: XCTestCase {
         XCTAssertEqual(loaderSpy.callsCount, 3)
     }
 
-    func test_viewDidLoad_showsLoadingIndicator() {
-        let (sut, _) = makeSUT()
-
-        sut.loadViewIfNeeded()
-        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
-    }
-
-    func test_viewDidLoad_hidesLoadingIndicatorOnLoadingComplete() {
+    func test_userInitiatesExpensesLoad_showsLoadingIndicatorCorrecty() {
         let (sut, loaderSpy) = makeSUT()
 
         sut.loadViewIfNeeded()
-
-        loaderSpy.completeWith(error: anyNSError())
-
-        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
-    }
-
-    func test_userInitiatedExpensesReload_showsLoadingIndicator() {
-        let (sut, _) = makeSUT()
-
-        sut.simulateUserInitiatedExpensesReload()
-
         XCTAssertTrue(sut.isShowingLoadingIndicator)
-    }
 
-    func test_pullToRefresh_hidesLoadingIndicatorOnLoadingComplete() {
-        let (sut, loaderSpy) = makeSUT()
+        loaderSpy.completeWith(error: anyNSError())
+        XCTAssertFalse(sut.isShowingLoadingIndicator)
 
         sut.simulateUserInitiatedExpensesReload()
-        loaderSpy.completeWith(error: anyNSError())
+        XCTAssertTrue(sut.isShowingLoadingIndicator)
 
+        loaderSpy.completeWith(error: anyNSError(), at: 1)
         XCTAssertFalse(sut.isShowingLoadingIndicator)
     }
 
