@@ -14,28 +14,6 @@ struct ExpenseItemViewModel {
 }
 
 class ExpensesViewController: UITableViewController {
-    var retryButton: UIView? {
-        let container = UIView()
-
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        label.text = "Could not load expenses"
-
-        let button = UIButton()
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.setTitle("Retry loading", for: .normal)
-        button.addTarget(self, action: #selector(refresh), for: .touchUpInside)
-
-        let stackView = UIStackView(frame: CGRect(x: view.bounds.width / 2 - 100, y: view.bounds.height / 2, width: 200, height: 60))
-        stackView.axis = .vertical
-        stackView.addArrangedSubview(label)
-        stackView.addArrangedSubview(button)
-
-        container.addSubview(stackView)
-        return container
-    }
-
     var items = [ExpenseItemViewModel]()
     var error: Bool = true
 
@@ -47,15 +25,47 @@ class ExpensesViewController: UITableViewController {
         refresh()
     }
 
-    @IBAction @objc func refresh() {
+    func hideErrorView() {
         tableView.backgroundView = nil
+    }
+
+    func showErrorView() {
+        let container = UIView()
+
+        let label = UILabel()
+        label.textAlignment = .center
+        label.text = "Could not load expenses"
+
+        let button = UIButton()
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitle("Retry loading", for: .normal)
+        button.addTarget(self, action: #selector(refresh), for: .touchUpInside)
+
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(label)
+        stackView.addArrangedSubview(button)
+
+        container.addSubview(stackView)
+
+        NSLayoutConstraint.activate([
+            stackView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+        ])
+
+        tableView.backgroundView = container
+    }
+
+    @IBAction @objc func refresh() {
+        hideErrorView()
         refreshControl?.beginRefreshing()
         tableView.reloadData()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
             if self!.error {
                 self?.error = false
-                self?.tableView.backgroundView = self?.retryButton
+                self?.showErrorView()
             } else {
                 self?.items = ExpenseItemViewModel.prototypeExpenses
                 self?.tableView.reloadData()
