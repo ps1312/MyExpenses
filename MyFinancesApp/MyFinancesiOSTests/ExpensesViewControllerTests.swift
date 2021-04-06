@@ -7,40 +7,7 @@
 
 import XCTest
 import MyFinances
-
-class ExpensesViewController: UITableViewController {
-    private var loader: ExpensesLoader?
-
-    convenience init(loader: ExpensesLoader) {
-        self.init()
-        self.loader = loader
-
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-
-        refresh()
-    }
-
-    @objc func refresh() {
-        refreshControl?.beginRefreshing()
-
-        loader?.load { [weak self] result in
-            switch (result) {
-            case .failure:
-                self?.tableView.backgroundView = UIView()
-            case .success:
-                break
-            }
-            self?.refreshControl?.endRefreshing()
-
-        }
-    }
-}
+import MyFinancesiOS
 
 class ExpensesViewControllerTests: XCTestCase {
     func test_loadExpensesActions_requestsForExpenseItems() {
