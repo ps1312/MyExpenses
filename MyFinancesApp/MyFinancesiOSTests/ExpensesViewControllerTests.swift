@@ -28,8 +28,16 @@ class ExpensesViewController: UITableViewController {
 
     @objc func refresh() {
         refreshControl?.beginRefreshing()
+
         loader?.load { [weak self] result in
+            switch (result) {
+            case .failure:
+                self?.tableView.backgroundView = UIView()
+            case .success:
+                break
+            }
             self?.refreshControl?.endRefreshing()
+
         }
     }
 }
@@ -65,6 +73,17 @@ class ExpensesViewControllerTests: XCTestCase {
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once reload completes")
     }
 
+    func test_loadExpensesFailure_showsErrorViewOnLoadFailure() {
+        let (sut, loaderSpy) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        XCTAssertFalse(sut.isShowingErrorView)
+
+        loaderSpy.completeWith(error: anyNSError())
+
+        XCTAssertTrue(sut.isShowingErrorView)
+    }
+
     func makeSUT(file: StaticString = #file, line: UInt = #line) -> (ExpensesViewController, LoaderSpy) {
         let loaderSpy = LoaderSpy()
         let sut = ExpensesViewController(loader: loaderSpy)
@@ -87,13 +106,15 @@ class ExpensesViewControllerTests: XCTestCase {
             completions[index](.failure(error))
         }
     }
-
 }
-
 
 private extension ExpensesViewController {
     var isShowingLoadingIndicator: Bool {
         return refreshControl?.isRefreshing == true
+    }
+
+    var isShowingErrorView: Bool {
+        return self.tableView.backgroundView !== nil
     }
 
     func simulateUserInitiatedExpensesReload() {
