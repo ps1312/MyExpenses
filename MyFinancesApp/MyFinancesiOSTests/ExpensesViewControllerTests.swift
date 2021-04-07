@@ -51,12 +51,36 @@ class ExpensesViewControllerTests: XCTestCase {
         XCTAssertTrue(sut.isShowingErrorView)
     }
 
+    func test_loadExpensesSuccess_displaysExpenseItems() {
+        let (sut, loaderSpy) = makeSUT()
+        let expectedItems = [makeExpense(), makeExpense()]
+
+        sut.loadViewIfNeeded()
+        loaderSpy.completeWith(items: expectedItems)
+
+        let items = sut.tableView.dataSource?.tableView(sut.tableView, numberOfRowsInSection: 0)
+        XCTAssertEqual(items, 2)
+
+        expectedItems.enumerated().forEach { index, expense in
+            let ds = sut.tableView.dataSource
+            let index = IndexPath(row: index, section: 0)
+            let cell = ds?.tableView(sut.tableView, cellForRowAt: index) as! ExpenseViewCell
+            XCTAssertEqual(cell.titleLabel.text, expense.title)
+            XCTAssertEqual(cell.amountLabel.text, "R$ 9,99")
+            XCTAssertEqual(cell.createdAtLabel.text, "Amanhã às 21:25")
+        }
+    }
+
     func makeSUT(file: StaticString = #file, line: UInt = #line) -> (ExpensesViewController, LoaderSpy) {
         let loaderSpy = LoaderSpy()
         let sut = ExpensesViewController(loader: loaderSpy)
         testMemoryLeak(loaderSpy, file: file, line: line)
         testMemoryLeak(sut, file: file, line: line)
         return (sut,  loaderSpy)
+    }
+
+    func makeExpense(title: String = "Any title", amount: Float = 9.99) -> ExpenseItem {
+        return ExpenseItem(id: UUID(), title: title, amount: amount, createdAt: Date(timeIntervalSince1970: 1617841530))
     }
 
     class LoaderSpy: ExpensesLoader {
@@ -71,6 +95,10 @@ class ExpensesViewControllerTests: XCTestCase {
 
         func completeWith(error: Error, at index: Int = 0) {
             completions[index](.failure(error))
+        }
+
+        func completeWith(items: [ExpenseItem], at index: Int = 0) {
+            completions[index](.success(items))
         }
     }
 }
