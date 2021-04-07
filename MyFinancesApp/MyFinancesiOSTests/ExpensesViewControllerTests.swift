@@ -53,21 +53,43 @@ class ExpensesViewControllerTests: XCTestCase {
 
     func test_loadExpensesSuccess_displaysExpenseItems() {
         let (sut, loaderSpy) = makeSUT()
-        let expectedItems = [makeExpense(), makeExpense()]
+
+        let expense1 = makeExpense(
+            amount: 0.99, amountText: "R$ 0,99",
+            timestamp: 1617757108, createdAtText: "Hoje às 21:58"
+        )
+
+        let expense2 = makeExpense(
+            amount: 0.99, amountText: "R$ 0,99",
+            timestamp: 1617670708, createdAtText: "Ontem às 21:58"
+        )
+
+        let expense3 = makeExpense(
+            amount: 250.53, amountText: "R$ 250,53",
+            timestamp: 1617584308, createdAtText: "Anteontem às 21:58"
+        )
+
+        let expense4 = makeExpense(
+            amount: 250.53, amountText: "R$ 250,53",
+            timestamp: 1617497908, createdAtText: "03/04/2021 às 21:58"
+        )
+
+        let expectedItems = [expense1, expense2, expense3, expense4]
+        let expectedItemsModels = [expense1.model, expense2.model, expense3.model, expense4.model]
 
         sut.loadViewIfNeeded()
-        loaderSpy.completeWith(items: expectedItems)
+        loaderSpy.completeWith(items: expectedItemsModels)
 
         let items = sut.tableView.dataSource?.tableView(sut.tableView, numberOfRowsInSection: 0)
-        XCTAssertEqual(items, 2)
+        XCTAssertEqual(items, 4)
 
         expectedItems.enumerated().forEach { index, expense in
             let ds = sut.tableView.dataSource
             let index = IndexPath(row: index, section: 0)
             let cell = ds?.tableView(sut.tableView, cellForRowAt: index) as! ExpenseViewCell
-            XCTAssertEqual(cell.titleLabel.text, expense.title)
-            XCTAssertEqual(cell.amountLabel.text, "R$ 9,99")
-            XCTAssertEqual(cell.createdAtLabel.text, "Amanhã às 21:25")
+            XCTAssertEqual(cell.title, expense.model.title)
+            XCTAssertEqual(cell.amount, expense.amountText)
+            XCTAssertEqual(cell.createdAt, expense.createdAtText)
         }
     }
 
@@ -79,8 +101,9 @@ class ExpensesViewControllerTests: XCTestCase {
         return (sut,  loaderSpy)
     }
 
-    func makeExpense(title: String = "Any title", amount: Float = 9.99) -> ExpenseItem {
-        return ExpenseItem(id: UUID(), title: title, amount: amount, createdAt: Date(timeIntervalSince1970: 1617841530))
+    func makeExpense(title: String = "Any title", amount: Float = 9.99, amountText: String = "R$ 9,99", timestamp: Double = 1617841530, createdAtText: String = "Amanhã às 21:25") -> (model: ExpenseItem, amountText: String, createdAtText: String) {
+        let model = ExpenseItem(id: UUID(), title: title, amount: amount, createdAt: Date(timeIntervalSince1970: timestamp))
+        return (model, amountText, createdAtText)
     }
 
     class LoaderSpy: ExpensesLoader {
@@ -100,6 +123,20 @@ class ExpensesViewControllerTests: XCTestCase {
         func completeWith(items: [ExpenseItem], at index: Int = 0) {
             completions[index](.success(items))
         }
+    }
+}
+
+private extension ExpenseViewCell {
+    var title: String {
+        return titleLabel.text!
+    }
+
+    var amount: String {
+        return amountLabel.text!
+    }
+
+    var createdAt: String {
+        return createdAtLabel.text!
     }
 }
 
