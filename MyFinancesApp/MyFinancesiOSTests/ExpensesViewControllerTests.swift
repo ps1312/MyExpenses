@@ -51,6 +51,22 @@ class ExpensesViewControllerTests: XCTestCase {
         XCTAssertTrue(sut.isShowingErrorView)
     }
 
+    func test_errorViewRetry_requestsForExpenseItems() {
+        let (sut, loaderSpy) = makeSUT()
+
+        sut.loadViewIfNeeded()
+
+        loaderSpy.completeWith(error: anyNSError())
+
+        let errorView = sut.tableView.backgroundView as! ErrorView
+
+        errorView.retryButton.allTargets.forEach { target in
+            errorView.retryButton.actions(forTarget: target, forControlEvent: .touchUpInside)?.forEach { (target as NSObject).perform(Selector($0)) }
+        }
+
+        XCTAssertEqual(loaderSpy.callsCount, 2)
+    }
+
     func test_loadExpensesSuccess_displaysExpenseItems() {
         let (sut, loaderSpy) = makeSUT()
 

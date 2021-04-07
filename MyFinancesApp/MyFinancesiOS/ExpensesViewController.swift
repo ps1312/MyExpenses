@@ -14,9 +14,14 @@ public class ExpenseViewCell: UITableViewCell {
     public let createdAtLabel: UILabel = UILabel()
 }
 
+public class ErrorView: UIView {
+    public let retryButton: UIButton = UIButton()
+}
+
 public class ExpensesViewController: UITableViewController {
     private var expenses = [ExpenseItem]()
     private var loader: ExpensesLoader?
+    private var errorView: ErrorView = ErrorView()
 
     public convenience init(loader: ExpensesLoader) {
         self.init()
@@ -29,6 +34,8 @@ public class ExpensesViewController: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
 
+        errorView.retryButton.addTarget(self, action: #selector(self.refresh), for: .touchUpInside)
+
         refresh()
     }
 
@@ -38,7 +45,7 @@ public class ExpensesViewController: UITableViewController {
         loader?.load { [weak self] result in
             switch (result) {
             case .failure:
-                self?.tableView.backgroundView = UIView()
+                self?.tableView.backgroundView = self?.errorView
             case .success(let items):
                 self?.expenses = items
             }
