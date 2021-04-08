@@ -116,7 +116,7 @@ class ExpensesViewControllerTests: XCTestCase {
         return (sut,  loaderSpy)
     }
 
-    func makeExpense(title: String = "Any title", amount: (value: Float, text: String), createdAt: (value: Date, text: String)) -> (model: ExpenseItem, amountText: String, createdAtText: String) {
+    func makeExpense(title: String = "Any title", amount: (value: Double, text: String), createdAt: (value: Date, text: String)) -> (model: ExpenseItem, amountText: String, createdAtText: String) {
         let model = ExpenseItem(id: UUID(), title: title, amount: amount.value, createdAt: createdAt.value)
 
         return (model, amountText: amount.text, createdAtText: createdAt.text)
