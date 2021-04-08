@@ -63,13 +63,10 @@ public class ExpensesViewController: UITableViewController {
         let expense = expenses[indexPath.row]
         cell.titleLabel.text = expense.title
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "pt_BR")
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .short
-        dateFormatter.doesRelativeDateFormatting = true
-
-        cell.createdAtLabel.text = dateFormatter.string(from: expense.createdAt).replacingOccurrences(of: " ", with: " às ")
+        let formatter = RelativeDateTimeFormatter()
+        formatter.locale = Locale(identifier: "pt_BR")
+        formatter.dateTimeStyle = .named
+        cell.createdAtLabel.text = formatter.localizedString(for: expense.createdAt, relativeTo: Date())
 
         let numberFormatter = NumberFormatter()
         numberFormatter.groupingSeparator = "."
@@ -82,5 +79,9 @@ public class ExpensesViewController: UITableViewController {
 
         cell.amountLabel.text = "R$ " + numberFormatter.string(from: expense.amount as NSNumber)!
         return cell
+    }
+
+    func formatDate() {
+        
     }
 }

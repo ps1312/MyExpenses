@@ -68,44 +68,43 @@ class ExpensesViewControllerTests: XCTestCase {
     }
 
     func test_loadExpensesSuccess_displaysExpenseItems() {
+        let now = Date()
         let (sut, loaderSpy) = makeSUT()
 
         let expense1 = makeExpense(
-            amount: 0.99, amountText: "R$ 0,99",
-            timestamp: 1617757108, createdAtText: "Hoje às 21:58"
+            amount: (value: 0.99, text: "R$ 0,99"),
+            createdAt: (value: now.adding(minutes: -5), text: "há 5 minutos")
         )
 
         let expense2 = makeExpense(
-            amount: 0.99, amountText: "R$ 0,99",
-            timestamp: 1617670708, createdAtText: "Ontem às 21:58"
+            amount: (value: 15.99, text: "R$ 15,99"),
+            createdAt: (value: now.adding(minutes: -60), text: "há 1 hora")
         )
 
         let expense3 = makeExpense(
-            amount: 250.53, amountText: "R$ 250,53",
-            timestamp: 1617584308, createdAtText: "Anteontem às 21:58"
+            amount: (value: 0.99, text: "R$ 0,99"),
+            createdAt: (value: now.adding(days: -1), text: "há 1 dia")
         )
-
-        let expense4 = makeExpense(
-            amount: 250.53, amountText: "R$ 250,53",
-            timestamp: 1617497908, createdAtText: "03/04/2021 às 21:58"
-        )
-
-        let expectedItems = [expense1, expense2, expense3, expense4]
-        let expectedItemsModels = [expense1.model, expense2.model, expense3.model, expense4.model]
 
         sut.loadViewIfNeeded()
-        loaderSpy.completeWith(items: expectedItemsModels)
+        loaderSpy.completeWith(items: [], at: 0)
+        assertThat(sut, isRendering: [])
 
-        let items = sut.tableView.dataSource?.tableView(sut.tableView, numberOfRowsInSection: 0)
-        XCTAssertEqual(items, 4)
+        sut.simulateUserInitiatedExpensesReload()
+        loaderSpy.completeWith(items: [expense1.model], at: 1)
+        assertThat(sut, isRendering: [expense1.model])
 
-        expectedItems.enumerated().forEach { index, expense in
-            let ds = sut.tableView.dataSource
-            let index = IndexPath(row: index, section: 0)
-            let cell = ds?.tableView(sut.tableView, cellForRowAt: index) as! ExpenseViewCell
-            XCTAssertEqual(cell.title, expense.model.title)
-            XCTAssertEqual(cell.amount, expense.amountText)
-            XCTAssertEqual(cell.createdAt, expense.createdAtText)
+        sut.simulateUserInitiatedExpensesReload()
+        loaderSpy.completeWith(items: [expense1.model, expense2.model, expense3.model], at: 2)
+        assertThat(sut, isRendering: [expense1.model, expense2.model, expense3.model])
+    }
+
+    func assertThat(_ sut: ExpensesViewController, isRendering items: [ExpenseItem]) {
+        XCTAssertEqual(sut.numberOfRenderedExpenseItemViews, items.count)
+
+        items.enumerated().forEach { index, expense in
+            let cell = sut.expenseItemView(at: index) as! ExpenseViewCell
+            XCTAssertEqual(cell.title, expense.title)
         }
     }
 
@@ -117,9 +116,14 @@ class ExpensesViewControllerTests: XCTestCase {
         return (sut,  loaderSpy)
     }
 
-    func makeExpense(title: String = "Any title", amount: Float = 9.99, amountText: String = "R$ 9,99", timestamp: Double = 1617841530, createdAtText: String = "Amanhã às 21:25") -> (model: ExpenseItem, amountText: String, createdAtText: String) {
-        let model = ExpenseItem(id: UUID(), title: title, amount: amount, createdAt: Date(timeIntervalSince1970: timestamp))
-        return (model, amountText, createdAtText)
+    func makeExpense(title: String = "Any title", amount: (value: Float, text: String), createdAt: (value: Date, text: String)) -> (model: ExpenseItem, amountText: String, createdAtText: String) {
+        let model = ExpenseItem(id: UUID(), title: title, amount: amount.value, createdAt: createdAt.value)
+
+        return (model, amountText: amount.text, createdAtText: createdAt.text)
+    }
+
+    func makeExpenseCell(amountText: String, createdAtText: String) -> (amountText: String, createdAtText: String) {
+        return (amountText: amountText, createdAtText: createdAtText)
     }
 
     class LoaderSpy: ExpensesLoader {
@@ -139,6 +143,16 @@ class ExpensesViewControllerTests: XCTestCase {
         func completeWith(items: [ExpenseItem], at index: Int = 0) {
             completions[index](.success(items))
         }
+    }
+}
+
+private extension Date {
+    func adding(minutes: Int) -> Date {
+        return Calendar(identifier: .gregorian).date(byAdding: .minute, value: minutes, to: self)!
+    }
+
+    func adding(days: Int) -> Date {
+        return Calendar(identifier: .gregorian).date(byAdding: .day, value: days, to: self)!
     }
 }
 
@@ -165,8 +179,18 @@ private extension ExpensesViewController {
         return self.tableView.backgroundView !== nil
     }
 
+    var numberOfRenderedExpenseItemViews: Int {
+        return (tableView.dataSource?.tableView(tableView, numberOfRowsInSection: 0))!
+    }
+
     func simulateUserInitiatedExpensesReload() {
         refreshControl?.simulatePullToRefresh()
+    }
+
+    func expenseItemView(at row: Int) -> UITableViewCell? {
+        let ds = tableView.dataSource
+        let index = IndexPath(row: row, section: 0)
+        return ds?.tableView(tableView, cellForRowAt: index)
     }
 }
 
