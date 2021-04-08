@@ -47,7 +47,6 @@ class ExpensesViewControllerTests: XCTestCase {
         XCTAssertFalse(sut.isShowingErrorView)
 
         loaderSpy.completeWith(error: anyNSError())
-
         XCTAssertTrue(sut.isShowingErrorView)
     }
 
@@ -57,9 +56,7 @@ class ExpensesViewControllerTests: XCTestCase {
         sut.loadViewIfNeeded()
         loaderSpy.completeWith(error: anyNSError())
 
-        let errorView = sut.tableView.backgroundView as! ErrorView
-        errorView.retryButton.simulateTap()
-
+        sut.simulateRetryAction()
         XCTAssertEqual(loaderSpy.callsCount, 2)
     }
 
@@ -83,15 +80,13 @@ class ExpensesViewControllerTests: XCTestCase {
         )
 
         sut.loadViewIfNeeded()
-        loaderSpy.completeWith(items: [], at: 0)
+        loaderSpy.completeWith(items: [])
         assertThat(sut, isRendering: [])
 
-        sut.simulateUserInitiatedExpensesReload()
-        loaderSpy.completeWith(items: [expense1.model], at: 1)
+        loaderSpy.completeWith(items: [expense1.model])
         assertThat(sut, isRendering: [expense1.model])
 
-        sut.simulateUserInitiatedExpensesReload()
-        loaderSpy.completeWith(items: [expense1.model, expense2.model, expense3.model], at: 2)
+        loaderSpy.completeWith(items: [expense1.model, expense2.model, expense3.model])
         assertThat(sut, isRendering: [expense1.model, expense2.model, expense3.model])
     }
 
@@ -181,6 +176,11 @@ private extension ExpensesViewController {
 
     func simulateUserInitiatedExpensesReload() {
         refreshControl?.simulatePullToRefresh()
+    }
+
+    func simulateRetryAction() {
+        let errorView = tableView.backgroundView as! ErrorView
+        errorView.retryButton.simulateTap()
     }
 
     func expenseItemView(at row: Int) -> UITableViewCell? {
