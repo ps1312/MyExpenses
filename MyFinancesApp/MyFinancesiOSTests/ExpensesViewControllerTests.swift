@@ -10,6 +10,11 @@ import MyFinances
 import MyFinancesiOS
 
 class ExpensesViewControllerTests: XCTestCase {
+    var todayAtFixedHour: Date = {
+        let fixedDate = Date(timeIntervalSince1970: 1617912000)
+        return Calendar(identifier: .gregorian).date(bySettingHour: 20, minute: 00, second: 00, of: fixedDate)!
+    }()
+
     func test_loadExpensesActions_requestsForExpenseItems() {
         let (sut, loaderSpy) = makeSUT()
         XCTAssertEqual(loaderSpy.callsCount, 0, "Expected no loading requests before view is loaded")
@@ -61,22 +66,21 @@ class ExpensesViewControllerTests: XCTestCase {
     }
 
     func test_loadExpensesSuccess_displaysExpenseItems() {
-        let now = Date()
         let (sut, loaderSpy) = makeSUT()
 
         let expense1 = makeExpense(
             amount: (value: 0.99, text: "R$ 0,99"),
-            createdAt: (value: now.adding(minutes: -5), text: "há 5 minutos")
+            createdAt: (value: todayAtFixedHour, text: "Hoje às 20:00")
         )
 
         let expense2 = makeExpense(
             amount: (value: 15.99, text: "R$ 15,99"),
-            createdAt: (value: now.adding(minutes: -60), text: "há 1 hora")
+            createdAt: (value: todayAtFixedHour.adding(days: -1), text: "Ontem às 20:00")
         )
 
         let expense3 = makeExpense(
             amount: (value: 0.99, text: "R$ 0,99"),
-            createdAt: (value: now.adding(days: -1), text: "há 1 dia")
+            createdAt: (value: todayAtFixedHour.adding(days: -3), text: "05/04/2021 às 20:00")
         )
 
         sut.loadViewIfNeeded()
@@ -84,18 +88,20 @@ class ExpensesViewControllerTests: XCTestCase {
         assertThat(sut, isRendering: [])
 
         loaderSpy.completeWith(items: [expense1.model])
-        assertThat(sut, isRendering: [expense1.model])
+        assertThat(sut, isRendering: [expense1])
 
         loaderSpy.completeWith(items: [expense1.model, expense2.model, expense3.model])
-        assertThat(sut, isRendering: [expense1.model, expense2.model, expense3.model])
+        assertThat(sut, isRendering: [expense1, expense2, expense3])
     }
 
-    func assertThat(_ sut: ExpensesViewController, isRendering items: [ExpenseItem]) {
+    func assertThat(_ sut: ExpensesViewController, isRendering items: [(model: ExpenseItem, amountText: String, createdAtText: String)]) {
         XCTAssertEqual(sut.numberOfRenderedExpenseItemViews, items.count)
 
         items.enumerated().forEach { index, expense in
             let cell = sut.expenseItemView(at: index) as! ExpenseViewCell
-            XCTAssertEqual(cell.title, expense.title)
+            XCTAssertEqual(cell.title, expense.model.title)
+            XCTAssertEqual(cell.createdAt, expense.createdAtText)
+            XCTAssertEqual(cell.amount, expense.amountText)
         }
     }
 
