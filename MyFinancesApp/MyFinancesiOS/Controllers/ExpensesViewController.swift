@@ -8,16 +8,6 @@
 import UIKit
 import MyFinances
 
-public class ExpenseViewCell: UITableViewCell {
-    public let titleLabel: UILabel = UILabel()
-    public let amountLabel: UILabel = UILabel()
-    public let createdAtLabel: UILabel = UILabel()
-}
-
-public class ErrorView: UIView {
-    public let retryButton: UIButton = UIButton()
-}
-
 public class ExpensesViewController: UITableViewController {
     private var expenses = [ExpenseItem]()
     private var loader: ExpensesLoader?
