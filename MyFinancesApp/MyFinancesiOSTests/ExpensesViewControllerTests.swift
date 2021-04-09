@@ -13,7 +13,12 @@ class ExpensesViewControllerTests: XCTestCase {
     let todayAtFixedHour: Date = Calendar(identifier: .gregorian).date(bySettingHour: 20, minute: 00, second: 00, of: Date())!
 
     // 05/04/2021 at 20:00
-    let fixedDate: Date = Date(timeIntervalSince1970: 1617922800)
+    let fixedDate: Date = {
+        let fixed = Date(timeIntervalSince1970: 1617922800)
+        let date = Calendar(identifier: .gregorian).date(bySettingHour: 20, minute: 00, second: 00, of: fixed)!
+        
+        return date
+    }()
 
     func test_loadExpensesActions_requestsForExpenseItems() {
         let (sut, loaderSpy) = makeSUT()
