@@ -15,7 +15,9 @@ class ExpensesViewControllerTests: XCTestCase {
     // 05/04/2021 at 20:00
     let fixedDate: Date = {
         let fixed = Date(timeIntervalSince1970: 1617922800)
-        let date = Calendar(identifier: .gregorian).date(bySettingHour: 20, minute: 00, second: 00, of: fixed)!
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "America/Sao_Paulo")!
+        let date = calendar.date(bySettingHour: 20, minute: 00, second: 00, of: fixed)!
         
         return date
     }()
