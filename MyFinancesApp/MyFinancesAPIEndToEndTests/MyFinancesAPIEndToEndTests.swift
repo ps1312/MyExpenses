@@ -62,8 +62,8 @@ class MyFinancesAPIEndToEndTests: XCTestCase {
         return titles[index]
     }
 
-    func amount(at index: Int) -> Float {
-        let amounts: [Float] = [
+    func amount(at index: Int) -> Double {
+        let amounts: [Double] = [
             99999.99,
             19.9
         ]

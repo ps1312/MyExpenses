@@ -133,7 +133,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
         return (sut, client)
     }
 
-    func makeExpenseItem(id: UUID, title: String, amount: Float, createdAt: (date: Date, iso8601String: String)) -> (ExpenseItem, String) {
+    func makeExpenseItem(id: UUID, title: String, amount: Double, createdAt: (date: Date, iso8601String: String)) -> (ExpenseItem, String) {
         let model = ExpenseItem(id: id, title: title, amount: amount, createdAt: createdAt.date)
 
         let json = """
