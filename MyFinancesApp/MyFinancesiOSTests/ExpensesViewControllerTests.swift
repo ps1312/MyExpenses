@@ -45,26 +45,6 @@ class ExpensesViewControllerTests: XCTestCase {
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once reload completes")
     }
 
-    func test_loadExpensesFailure_showsErrorViewOnLoadFailure() {
-        let (sut, loaderSpy) = makeSUT()
-
-        sut.loadViewIfNeeded()
-        XCTAssertFalse(sut.isShowingErrorView)
-
-        loaderSpy.completeWith(error: anyNSError())
-        XCTAssertTrue(sut.isShowingErrorView)
-    }
-
-    func test_errorViewRetry_requestsForExpenseItems() {
-        let (sut, loaderSpy) = makeSUT()
-
-        sut.loadViewIfNeeded()
-        loaderSpy.completeWith(error: anyNSError())
-
-        sut.simulateRetryAction()
-        XCTAssertEqual(loaderSpy.callsCount, 2)
-    }
-
     func test_loadExpensesSuccess_displaysExpenseItems() {
         let (sut, loaderSpy) = makeSUT()
 
@@ -182,11 +162,6 @@ private extension ExpensesViewController {
 
     func simulateUserInitiatedExpensesReload() {
         refreshControl?.simulatePullToRefresh()
-    }
-
-    func simulateRetryAction() {
-        let errorView = tableView.backgroundView as! ErrorView
-        errorView.retryButton.simulateTap()
     }
 
     func expenseItemView(at row: Int) -> UITableViewCell? {

@@ -10,7 +10,6 @@ import MyFinances
 
 public class ExpensesViewController: UITableViewController {
     private var refreshController: ExpensesRefreshViewController?
-    private var errorView: ErrorView = ErrorView()
     private var cellControllers = [ExpenseCellViewController]() {
         didSet { tableView.reloadData() }
     }
@@ -23,23 +22,11 @@ public class ExpensesViewController: UITableViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        refreshController?.onRefresh = { [weak self] result in
-            switch (result) {
-            case .failure:
-                self?.tableView.backgroundView = self?.errorView
-            case .success(let items):
-                self?.cellControllers = items.map { ExpenseCellViewController(model: $0) }
-            }
+        refreshController?.onRefresh = { [weak self] items in
+            self?.cellControllers = items.map { ExpenseCellViewController(model: $0) }
         }
 
         refreshControl = refreshController?.view
-
-        errorView.retryButton.addTarget(self, action: #selector(retryButtonPress), for: .touchUpInside)
-
-        refreshController?.refresh()
-    }
-
-    @objc func retryButtonPress() {
         refreshController?.refresh()
     }
 

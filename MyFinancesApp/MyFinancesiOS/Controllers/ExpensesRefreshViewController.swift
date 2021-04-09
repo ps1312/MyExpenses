@@ -21,17 +21,17 @@ class ExpensesRefreshViewController: NSObject {
         return refreshControl
     }()
 
-    var onRefresh: ((Result<[ExpenseItem], Error>) -> Void)?
+    var onRefresh: (([ExpenseItem]) -> Void)?
 
     @objc func refresh() {
         view.beginRefreshing()
 
         loader.load { [weak self] result in
             switch (result) {
-            case .failure(let error):
-                self?.onRefresh?(.failure(error))
+            case .failure:
+                break
             case .success(let items):
-                self?.onRefresh?(.success(items))
+                self?.onRefresh?(items)
             }
 
             self?.view.endRefreshing()
