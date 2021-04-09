@@ -10,6 +10,11 @@ import MyFinances
 import MyFinancesiOS
 
 class ExpensesViewControllerTests: XCTestCase {
+    let todayAtFixedHour: Date = Calendar(identifier: .gregorian).date(bySettingHour: 20, minute: 00, second: 00, of: Date())!
+
+    // 05/04/2021 at 20:00
+    let fixedDate: Date = Date(timeIntervalSince1970: 1617922800)
+
     func test_loadExpensesActions_requestsForExpenseItems() {
         let (sut, loaderSpy) = makeSUT()
         XCTAssertEqual(loaderSpy.callsCount, 0, "Expected no loading requests before view is loaded")
@@ -41,17 +46,16 @@ class ExpensesViewControllerTests: XCTestCase {
     }
 
     func test_loadExpensesSuccess_displaysExpenseItems() {
-        let fixedDate = Date(timeIntervalSince1970: 1617922800)
         let (sut, loaderSpy) = makeSUT()
 
         let expense1 = makeExpense(
             amount: (value: 0.99, text: "R$ 0,99"),
-            createdAt: (value: fixedDate, text: "Hoje às 20:00")
+            createdAt: (value: todayAtFixedHour, text: "Hoje às 20:00")
         )
 
         let expense2 = makeExpense(
             amount: (value: 15.99, text: "R$ 15,99"),
-            createdAt: (value: fixedDate.adding(days: -1), text: "Ontem às 20:00")
+            createdAt: (value: todayAtFixedHour.adding(days: -1), text: "Ontem às 20:00")
         )
 
         let expense3 = makeExpense(
