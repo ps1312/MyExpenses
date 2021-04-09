@@ -21,7 +21,6 @@ class ExpenseCellViewController {
         cell.titleLabel.text = expense.title
 
         let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(identifier: "America/Sao_Paulo")
         dateFormatter.locale = Locale(identifier: "pt_BR")
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short

@@ -12,16 +12,6 @@ import MyFinancesiOS
 class ExpensesViewControllerTests: XCTestCase {
     let todayAtFixedHour: Date = Calendar(identifier: .gregorian).date(bySettingHour: 20, minute: 00, second: 00, of: Date())!
 
-    // 05/04/2021 at 20:00
-    let fixedDate: Date = {
-        let fixed = Date(timeIntervalSince1970: 1617922800)
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(identifier: "America/Sao_Paulo")!
-        let date = calendar.date(bySettingHour: 20, minute: 00, second: 00, of: fixed)!
-        
-        return date
-    }()
-
     func test_loadExpensesActions_requestsForExpenseItems() {
         let (sut, loaderSpy) = makeSUT()
         XCTAssertEqual(loaderSpy.callsCount, 0, "Expected no loading requests before view is loaded")
@@ -65,11 +55,6 @@ class ExpensesViewControllerTests: XCTestCase {
             createdAt: (value: todayAtFixedHour.adding(days: -1), text: "Ontem às 20:00")
         )
 
-        let expense3 = makeExpense(
-            amount: (value: 0.99, text: "R$ 0,99"),
-            createdAt: (value: fixedDate.adding(days: -3), text: "05/04/2021 às 20:00")
-        )
-
         sut.loadViewIfNeeded()
         loaderSpy.completeWith(items: [])
         assertThat(sut, isRendering: [])
@@ -77,8 +62,8 @@ class ExpensesViewControllerTests: XCTestCase {
         loaderSpy.completeWith(items: [expense1.model])
         assertThat(sut, isRendering: [expense1])
 
-        loaderSpy.completeWith(items: [expense1.model, expense2.model, expense3.model])
-        assertThat(sut, isRendering: [expense1, expense2, expense3])
+        loaderSpy.completeWith(items: [expense1.model, expense2.model])
+        assertThat(sut, isRendering: [expense1, expense2])
     }
 
     func assertThat(_ sut: ExpensesViewController, isRendering items: [(model: ExpenseItem, amountText: String, createdAtText: String)]) {
