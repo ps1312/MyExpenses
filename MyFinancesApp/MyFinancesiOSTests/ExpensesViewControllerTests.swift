@@ -55,6 +55,12 @@ class ExpensesViewControllerTests: XCTestCase {
             createdAt: (value: todayAtFixedHour.adding(days: -1), text: "Ontem às 20:00")
         )
 
+        let date = Date(timeIntervalSince1970: 1609498800)
+        let expense3 = makeExpense(
+            amount: (value: 0.99, text: "R$ 0,99"),
+            createdAt: (value: date, text: "01/01/2021 às 08:00")
+        )
+
         sut.loadViewIfNeeded()
         loaderSpy.completeWith(items: [])
         assertThat(sut, isRendering: [])
@@ -62,8 +68,8 @@ class ExpensesViewControllerTests: XCTestCase {
         loaderSpy.completeWith(items: [expense1.model])
         assertThat(sut, isRendering: [expense1])
 
-        loaderSpy.completeWith(items: [expense1.model, expense2.model])
-        assertThat(sut, isRendering: [expense1, expense2])
+        loaderSpy.completeWith(items: [expense1.model, expense2.model, expense3.model])
+        assertThat(sut, isRendering: [expense1, expense2, expense3])
     }
 
     func assertThat(_ sut: ExpensesViewController, isRendering items: [(model: ExpenseItem, amountText: String, createdAtText: String)]) {
