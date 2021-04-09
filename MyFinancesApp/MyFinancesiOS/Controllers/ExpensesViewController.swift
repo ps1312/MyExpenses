@@ -9,9 +9,11 @@ import UIKit
 import MyFinances
 
 public class ExpensesViewController: UITableViewController {
-    private var expenses = [ExpenseItem]()
     private var refreshController: ExpensesRefreshViewController?
     private var errorView: ErrorView = ErrorView()
+    private var cellControllers = [ExpenseCellViewController]() {
+        didSet { tableView.reloadData() }
+    }
 
     public convenience init(loader: ExpensesLoader) {
         self.init()
@@ -26,7 +28,7 @@ public class ExpensesViewController: UITableViewController {
             case .failure:
                 self?.tableView.backgroundView = self?.errorView
             case .success(let items):
-                self?.expenses = items
+                self?.cellControllers = items.map { ExpenseCellViewController(model: $0) }
             }
         }
 
@@ -42,36 +44,10 @@ public class ExpensesViewController: UITableViewController {
     }
 
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return expenses.count
+        return cellControllers.count
     }
 
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = ExpenseViewCell()
-        let expense = expenses[indexPath.row]
-        cell.titleLabel.text = expense.title
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "pt_BR")
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .short
-        dateFormatter.doesRelativeDateFormatting = true
-
-        cell.createdAtLabel.text = dateFormatter.string(from: expense.createdAt).replacingOccurrences(of: " ", with: " às ")
-
-        let numberFormatter = NumberFormatter()
-        numberFormatter.groupingSeparator = "."
-        numberFormatter.groupingSize = 3
-        numberFormatter.usesGroupingSeparator = true
-        numberFormatter.decimalSeparator = ","
-        numberFormatter.numberStyle = .decimal
-        numberFormatter.minimumFractionDigits = 2
-        numberFormatter.maximumFractionDigits = 2
-
-        cell.amountLabel.text = "R$ " + numberFormatter.string(from: expense.amount as NSNumber)!
-        return cell
-    }
-
-    func formatDate() {
-        
+        return cellControllers[indexPath.row].view
     }
 }

@@ -20,6 +20,7 @@
 		3A690E0F2618B3B200080E08 /* MyFinancesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A690E062618B3B200080E08 /* MyFinancesiOS.framework */; };
 		3A7BEFE52604284000EDF385 /* ExpenseItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BEFE42604284000EDF385 /* ExpenseItemsMapper.swift */; };
 		3A94690B261FE16500C60A8F /* ExpensesRefreshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A94690A261FE16500C60A8F /* ExpensesRefreshViewController.swift */; };
+		3A946911261FE26100C60A8F /* ExpenseCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A946910261FE26100C60A8F /* ExpenseCellViewController.swift */; };
 		3AAB78BD261A05B5009E41B8 /* XCTestCase+TestMemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */; };
 		3AAB78C2261A0713009E41B8 /* SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94AB926078774003A612C /* SharedHelpers.swift */; };
 		3ABD8CE626195C7D006C5C07 /* ExpensesViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD8CE526195C7D006C5C07 /* ExpensesViewControllerTests.swift */; };
@@ -96,6 +97,7 @@
 		3A690E152618B3B200080E08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A7BEFE42604284000EDF385 /* ExpenseItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseItemsMapper.swift; sourceTree = "<group>"; };
 		3A94690A261FE16500C60A8F /* ExpensesRefreshViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesRefreshViewController.swift; sourceTree = "<group>"; };
+		3A946910261FE26100C60A8F /* ExpenseCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCellViewController.swift; sourceTree = "<group>"; };
 		3ABD8CE526195C7D006C5C07 /* ExpensesViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewControllerTests.swift; sourceTree = "<group>"; };
 		3AF06D7F261F2E760074D73A /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		3AF06D89261F2EE20074D73A /* ExpenseViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseViewCell.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 			children = (
 				3A42A0A9261D297900683DDC /* ExpensesViewController.swift */,
 				3A94690A261FE16500C60A8F /* ExpensesRefreshViewController.swift */,
+				3A946910261FE26100C60A8F /* ExpenseCellViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 			files = (
 				3A42A0AA261D297900683DDC /* ExpensesViewController.swift in Sources */,
 				3AF06D8A261F2EE20074D73A /* ExpenseViewCell.swift in Sources */,
+				3A946911261FE26100C60A8F /* ExpenseCellViewController.swift in Sources */,
 				3AF06D80261F2E760074D73A /* ErrorView.swift in Sources */,
 				3A94690B261FE16500C60A8F /* ExpensesRefreshViewController.swift in Sources */,
 			);
