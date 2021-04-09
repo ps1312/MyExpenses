@@ -1,5 +1,6 @@
 before_install:
   - export TZ=America/Sao_Paulo
+  - sudo systemsetup -settimezone America/Sao_Paulo
 os: osx
 osx_image: xcode12.4
 language: swift
