@@ -10,38 +10,35 @@ import MyFinances
 
 public class ExpensesViewController: UITableViewController {
     private var expenses = [ExpenseItem]()
-    private var loader: ExpensesLoader?
+    private var refreshController: ExpensesRefreshViewController?
     private var errorView: ErrorView = ErrorView()
 
     public convenience init(loader: ExpensesLoader) {
         self.init()
-        self.loader = loader
+        self.refreshController = ExpensesRefreshViewController(loader: loader)
     }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-
-        errorView.retryButton.addTarget(self, action: #selector(self.refresh), for: .touchUpInside)
-
-        refresh()
-    }
-
-    @objc func refresh() {
-        refreshControl?.beginRefreshing()
-
-        loader?.load { [weak self] result in
+        refreshController?.onRefresh = { [weak self] result in
             switch (result) {
             case .failure:
                 self?.tableView.backgroundView = self?.errorView
             case .success(let items):
                 self?.expenses = items
             }
-            self?.refreshControl?.endRefreshing()
-
         }
+
+        refreshControl = refreshController?.view
+
+        errorView.retryButton.addTarget(self, action: #selector(retryButtonPress), for: .touchUpInside)
+
+        refreshController?.refresh()
+    }
+
+    @objc func retryButtonPress() {
+        refreshController?.refresh()
     }
 
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
