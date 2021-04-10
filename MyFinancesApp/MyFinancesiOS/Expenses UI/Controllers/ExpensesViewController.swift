@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import MyFinances
 
 public class ExpensesViewController: UITableViewController {
     private var refreshController: ExpensesRefreshViewController?
