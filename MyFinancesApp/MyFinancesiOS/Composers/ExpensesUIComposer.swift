@@ -16,10 +16,14 @@ public final class ExpensesUIComposer {
 
         let expensesController = ExpensesViewController(refreshController: refreshController)
 
-        refreshController.onRefresh = { [weak expensesController] items in
-            expensesController?.cellControllers = items.map { ExpenseCellViewController(model: $0) }
-        }
+        refreshController.onRefresh = adaptExpensesModelsToCellControllers(expensesController: expensesController)
 
         return expensesController
+    }
+
+    private static func adaptExpensesModelsToCellControllers(expensesController: ExpensesViewController) -> (([ExpenseItem]) -> Void) {
+        return { [weak expensesController] items in
+            expensesController?.cellControllers = items.map { ExpenseCellViewController(model: $0) }
+        }
     }
 }
