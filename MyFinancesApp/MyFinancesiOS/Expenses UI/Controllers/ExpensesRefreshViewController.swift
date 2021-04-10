@@ -20,7 +20,7 @@ class ExpensesRefreshViewController: NSObject {
     }
 
     func bind(_ view: UIRefreshControl) -> UIRefreshControl {
-        viewModel.isLoading = { isLoading in
+        viewModel.onIsLoadingChange = { isLoading in
             isLoading ? view.beginRefreshing() : view.endRefreshing()
         }
 
