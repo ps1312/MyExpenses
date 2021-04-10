@@ -12,7 +12,8 @@ public final class ExpensesUIComposer {
     private init() {}
 
     public static func compose(loader: ExpensesLoader) -> ExpensesViewController {
-        let refreshController = ExpensesRefreshViewController(loader: loader)
+        let expensesViewModel = ExpensesViewModel(loader: loader)
+        let refreshController = ExpensesRefreshViewController(viewModel: expensesViewModel)
 
         let expensesController = ExpensesViewController(refreshController: refreshController)
 

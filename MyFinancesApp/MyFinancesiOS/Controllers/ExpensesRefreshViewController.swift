@@ -9,32 +9,35 @@ import UIKit
 import MyFinances
 
 class ExpensesRefreshViewController: NSObject {
-    private let loader: ExpensesLoader
+    private let viewModel: ExpensesViewModel
+    private(set) lazy var view = bind(UIRefreshControl())
 
-    init(loader: ExpensesLoader) {
-        self.loader = loader
+    init(viewModel: ExpensesViewModel) {
+        self.viewModel = viewModel
     }
-
-    private(set) lazy var view: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        return refreshControl
-    }()
 
     var onRefresh: (([ExpenseItem]) -> Void)?
 
     @objc func refresh() {
-        view.beginRefreshing()
+        viewModel.loadExpenses()
+    }
 
-        loader.load { [weak self] result in
-            switch (result) {
-            case .failure:
-                break
-            case .success(let items):
+    func bind(_ view: UIRefreshControl) -> UIRefreshControl {
+        viewModel.onChange = { [weak self] state in
+            switch state {
+            case .pending:
+                view.endRefreshing()
+
+            case .loading:
+                view.beginRefreshing()
+
+            case .loaded(let items):
                 self?.onRefresh?(items)
             }
-
-            self?.view.endRefreshing()
         }
+
+        view.addTarget(self, action: #selector(refresh), for: .valueChanged)
+
+        return view
     }
 }
