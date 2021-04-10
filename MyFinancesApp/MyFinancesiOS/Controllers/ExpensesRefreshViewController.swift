@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import MyFinances
 
 class ExpensesRefreshViewController: NSObject {
     private let viewModel: ExpensesViewModel
@@ -16,8 +15,6 @@ class ExpensesRefreshViewController: NSObject {
         self.viewModel = viewModel
     }
 
-    var onRefresh: (([ExpenseItem]) -> Void)?
-
     @objc func refresh() {
         viewModel.loadExpenses()
     }
@@ -25,10 +22,6 @@ class ExpensesRefreshViewController: NSObject {
     func bind(_ view: UIRefreshControl) -> UIRefreshControl {
         viewModel.isLoading = { isLoading in
             isLoading ? view.beginRefreshing() : view.endRefreshing()
-        }
-
-        viewModel.onLoad = { [weak self] expenses in
-            self?.onRefresh?(expenses)
         }
 
         view.addTarget(self, action: #selector(refresh), for: .valueChanged)

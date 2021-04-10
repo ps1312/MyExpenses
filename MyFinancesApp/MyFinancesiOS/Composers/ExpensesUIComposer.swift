@@ -17,7 +17,7 @@ public final class ExpensesUIComposer {
 
         let expensesController = ExpensesViewController(refreshController: refreshController)
 
-        refreshController.onRefresh = adaptExpensesModelsToCellControllers(expensesController: expensesController)
+        expensesViewModel.onExpensesLoad = adaptExpensesModelsToCellControllers(expensesController: expensesController)
 
         return expensesController
     }

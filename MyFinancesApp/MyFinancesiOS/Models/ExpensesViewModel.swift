@@ -16,14 +16,14 @@ class ExpensesViewModel {
     }
 
     var isLoading: ((Bool) -> Void)?
-    var onLoad: (([ExpenseItem]) -> Void)?
+    var onExpensesLoad: (([ExpenseItem]) -> Void)?
 
     func loadExpenses() {
         isLoading?(true)
 
         loader.load { [weak self] result in
             if let items = try? result.get() {
-                self?.onLoad?(items)
+                self?.onExpensesLoad?(items)
             }
 
             self?.isLoading?(false)
