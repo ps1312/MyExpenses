@@ -15,27 +15,18 @@ class ExpensesViewModel {
         self.loader = loader
     }
 
-    enum State {
-        case pending
-        case loading
-        case loaded(_ items: [ExpenseItem])
-    }
-
-    var state: State = State.pending {
-        didSet { onChange?(state) }
-    }
-
-    var onChange: ((State) -> Void)?
+    var isLoading: ((Bool) -> Void)?
+    var onLoad: (([ExpenseItem]) -> Void)?
 
     func loadExpenses() {
-        state = .loading
+        isLoading?(true)
 
         loader.load { [weak self] result in
             if let items = try? result.get() {
-                self?.state = .loaded(items)
+                self?.onLoad?(items)
             }
 
-            self?.state = .pending
+            self?.isLoading?(false)
         }
     }
 }

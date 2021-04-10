@@ -23,17 +23,12 @@ class ExpensesRefreshViewController: NSObject {
     }
 
     func bind(_ view: UIRefreshControl) -> UIRefreshControl {
-        viewModel.onChange = { [weak self] state in
-            switch state {
-            case .pending:
-                view.endRefreshing()
+        viewModel.isLoading = { isLoading in
+            isLoading ? view.beginRefreshing() : view.endRefreshing()
+        }
 
-            case .loading:
-                view.beginRefreshing()
-
-            case .loaded(let items):
-                self?.onRefresh?(items)
-            }
+        viewModel.onLoad = { [weak self] expenses in
+            self?.onRefresh?(expenses)
         }
 
         view.addTarget(self, action: #selector(refresh), for: .valueChanged)
