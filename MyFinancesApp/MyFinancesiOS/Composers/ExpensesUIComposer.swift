@@ -24,7 +24,10 @@ public final class ExpensesUIComposer {
 
     private static func adaptExpensesModelsToCellControllers(expensesController: ExpensesViewController) -> (([ExpenseItem]) -> Void) {
         return { [weak expensesController] items in
-            expensesController?.cellControllers = items.map { ExpenseCellViewController(model: $0) }
+            expensesController?.cellControllers = items.map { model in
+                let viewModel = ExpenseCellViewModel(model: model)
+                return ExpenseCellViewController(viewModel: viewModel)
+            }
         }
     }
 }
