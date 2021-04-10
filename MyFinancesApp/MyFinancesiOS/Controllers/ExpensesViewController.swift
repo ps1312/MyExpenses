@@ -10,21 +10,17 @@ import MyFinances
 
 public class ExpensesViewController: UITableViewController {
     private var refreshController: ExpensesRefreshViewController?
-    private var cellControllers = [ExpenseCellViewController]() {
+    var cellControllers = [ExpenseCellViewController]() {
         didSet { tableView.reloadData() }
     }
 
-    public convenience init(loader: ExpensesLoader) {
+    convenience init(refreshController: ExpensesRefreshViewController) {
         self.init()
-        self.refreshController = ExpensesRefreshViewController(loader: loader)
+        self.refreshController = refreshController
     }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
-        refreshController?.onRefresh = { [weak self] items in
-            self?.cellControllers = items.map { ExpenseCellViewController(model: $0) }
-        }
 
         refreshControl = refreshController?.view
         refreshController?.refresh()

@@ -85,7 +85,7 @@ class ExpensesViewControllerTests: XCTestCase {
 
     func makeSUT(file: StaticString = #file, line: UInt = #line) -> (ExpensesViewController, LoaderSpy) {
         let loaderSpy = LoaderSpy()
-        let sut = ExpensesViewController(loader: loaderSpy)
+        let sut = ExpensesUIComposer.compose(loader: loaderSpy)
         testMemoryLeak(loaderSpy, file: file, line: line)
         testMemoryLeak(sut, file: file, line: line)
         return (sut,  loaderSpy)
