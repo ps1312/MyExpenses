@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ExpenseItemCell" rowHeight="96" id="sHS-Vm-6Nx" customClass="ExpenseItemViewCell" customModule="MyFinancesPrototype" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ExpenseItemCell" rowHeight="96" id="sHS-Vm-6Nx" customClass="ExpenseViewCell" customModule="MyFinancesiOS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sHS-Vm-6Nx" id="vxz-TY-dH6">
@@ -63,6 +63,11 @@
                                         <constraint firstItem="ZuE-ed-YZ2" firstAttribute="top" secondItem="vxz-TY-dH6" secondAttribute="topMargin" priority="999" constant="8" id="yuj-aa-74t"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="amountLabel" destination="5jq-m8-EvI" id="vW0-QD-yEV"/>
+                                    <outlet property="createdAtLabel" destination="dGv-3T-fjh" id="2bM-F2-8tC"/>
+                                    <outlet property="titleLabel" destination="VbS-mr-fCe" id="lru-Lb-QdR"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

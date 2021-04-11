@@ -24,6 +24,6 @@ public class ExpensesViewController: UITableViewController {
     }
 
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return cellControllers[indexPath.row].view
+        return cellControllers[indexPath.row].view(in: tableView)
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 public class ExpenseViewCell: UITableViewCell {
-    public let titleLabel: UILabel = UILabel()
-    public let amountLabel: UILabel = UILabel()
-    public let createdAtLabel: UILabel = UILabel()
+    @IBOutlet public var titleLabel: UILabel!
+    @IBOutlet public var amountLabel: UILabel!
+    @IBOutlet public var createdAtLabel: UILabel!
 }

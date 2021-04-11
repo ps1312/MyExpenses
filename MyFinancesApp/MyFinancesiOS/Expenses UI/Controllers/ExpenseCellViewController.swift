@@ -9,13 +9,14 @@ import UIKit
 
 class ExpenseCellViewController {
     private let viewModel: ExpenseCellViewModel
-    private(set) lazy var view: UITableViewCell = bind(ExpenseViewCell())
 
     init(viewModel: ExpenseCellViewModel) {
         self.viewModel = viewModel
     }
 
-    func bind(_ cell: ExpenseViewCell) -> ExpenseViewCell {
+    func view(in tableView: UITableView) -> ExpenseViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ExpenseItemCell") as! ExpenseViewCell
+
         cell.titleLabel.text = viewModel.title
         cell.createdAtLabel.text = viewModel.createdAt
         cell.amountLabel.text = viewModel.amount
