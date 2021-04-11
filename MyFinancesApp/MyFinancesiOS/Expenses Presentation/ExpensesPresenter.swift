@@ -8,7 +8,7 @@
 import Foundation
 import MyFinances
 
-protocol ExpensesLoadView: class {
+protocol ExpensesLoadView {
     func display(isLoading: Bool)
 }
 
@@ -23,7 +23,7 @@ class ExpensesPresenter {
         self.loader = loader
     }
 
-    weak var loadView: ExpensesLoadView?
+    var loadView: ExpensesLoadView?
     var expensesView: ExpensesView?
 
     func loadExpenses() {

@@ -16,7 +16,7 @@ public final class ExpensesUIComposer {
         let refreshController = ExpensesRefreshViewController(presenter: expensesPresenter)
 
         let expensesController = ExpensesViewController(refreshController: refreshController)
-        expensesPresenter.loadView = refreshController
+        expensesPresenter.loadView = WeakRefVirtualProxy(refreshController)
         expensesPresenter.expensesView = ExpensesViewAdapter(controller: expensesController)
 
         return expensesController
@@ -29,6 +29,18 @@ public final class ExpensesUIComposer {
                 return ExpenseCellViewController(viewModel: viewModel)
             }
         }
+    }
+}
+
+class WeakRefVirtualProxy<T: AnyObject>: ExpensesLoadView where T: ExpensesLoadView {
+    private weak var object: T?
+
+    init (_ object: T) {
+        self.object = object
+    }
+
+    func display(isLoading: Bool) {
+        object?.display(isLoading: isLoading)
     }
 }
 
