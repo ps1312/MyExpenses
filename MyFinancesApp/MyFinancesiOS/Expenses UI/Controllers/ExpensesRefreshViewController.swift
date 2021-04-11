@@ -7,25 +7,29 @@
 
 import UIKit
 
-class ExpensesRefreshViewController: NSObject {
-    private let viewModel: ExpensesViewModel
-    private(set) lazy var view = bind(UIRefreshControl())
+class ExpensesRefreshViewController: NSObject, ExpensesLoadView {
+    private let presenter: ExpensesPresenter
+    private(set) lazy var view = makeView()
 
-    init(viewModel: ExpensesViewModel) {
-        self.viewModel = viewModel
+    init(presenter: ExpensesPresenter) {
+        self.presenter = presenter
     }
 
     @objc func refresh() {
-        viewModel.loadExpenses()
+        presenter.loadExpenses()
     }
 
-    func bind(_ view: UIRefreshControl) -> UIRefreshControl {
-        viewModel.onIsLoadingChange = { isLoading in
-            isLoading ? view.beginRefreshing() : view.endRefreshing()
+    func display(isLoading: Bool) {
+        if isLoading {
+            view.beginRefreshing()
+        } else {
+            view.endRefreshing()
         }
+    }
 
+    func makeView() -> UIRefreshControl {
+        let view = UIRefreshControl()
         view.addTarget(self, action: #selector(refresh), for: .valueChanged)
-
         return view
     }
 }

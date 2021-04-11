@@ -12,12 +12,12 @@ public final class ExpensesUIComposer {
     private init() {}
 
     public static func compose(loader: ExpensesLoader) -> ExpensesViewController {
-        let expensesViewModel = ExpensesViewModel(loader: loader)
-        let refreshController = ExpensesRefreshViewController(viewModel: expensesViewModel)
+        let expensesPresenter = ExpensesPresenter(loader: loader)
+        let refreshController = ExpensesRefreshViewController(presenter: expensesPresenter)
 
         let expensesController = ExpensesViewController(refreshController: refreshController)
-
-        expensesViewModel.onExpensesLoad = adaptExpensesModelsToCellControllers(expensesController: expensesController)
+        expensesPresenter.loadView = refreshController
+        expensesPresenter.expensesView = ExpensesViewAdapter(controller: expensesController)
 
         return expensesController
     }
@@ -28,6 +28,21 @@ public final class ExpensesUIComposer {
                 let viewModel = ExpenseCellViewModel(model: model)
                 return ExpenseCellViewController(viewModel: viewModel)
             }
+        }
+    }
+}
+
+class ExpensesViewAdapter: ExpensesView {
+    private weak var controller: ExpensesViewController?
+
+    init(controller: ExpensesViewController) {
+        self.controller = controller
+    }
+
+    func display(expenses: [ExpenseItem]) {
+        controller?.cellControllers = expenses.map { model in
+            let viewModel = ExpenseCellViewModel(model: model)
+            return ExpenseCellViewController(viewModel: viewModel)
         }
     }
 }
