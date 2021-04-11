@@ -13,18 +13,19 @@ public final class ExpensesUIComposer {
     private init() {}
 
     public static func compose(loader: ExpensesLoader) -> ExpensesViewController {
+        let expensesController = makeController()
+
         let expensesViewModel = ExpensesViewModel(loader: loader)
-
-        let bundle = Bundle(for: ExpensesViewController.self)
-        let storyboard = UIStoryboard(name: "Expenses", bundle: bundle)
-        let expensesController = storyboard.instantiateInitialViewController() as! ExpensesViewController
-
-        let refreshController = expensesController.refreshController
-        refreshController?.viewModel = expensesViewModel
-
+        expensesController.viewModel = expensesViewModel
         expensesViewModel.onExpensesLoad = adaptExpensesModelsToCellControllers(expensesController: expensesController)
 
         return expensesController
+    }
+
+    private static func makeController() -> ExpensesViewController {
+        let bundle = Bundle(for: ExpensesViewController.self)
+        let storyboard = UIStoryboard(name: "Expenses", bundle: bundle)
+        return storyboard.instantiateInitialViewController() as! ExpensesViewController
     }
 
     private static func adaptExpensesModelsToCellControllers(expensesController: ExpensesViewController) -> (([ExpenseItem]) -> Void) {

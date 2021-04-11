@@ -8,15 +8,24 @@
 import UIKit
 
 public class ExpensesViewController: UITableViewController {
-    @IBOutlet var refreshController: ExpensesRefreshViewController?
     var cellControllers = [ExpenseCellViewController]() {
         didSet { tableView.reloadData() }
     }
 
+    var viewModel: ExpensesViewModel?
+
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        refreshController?.refresh()
+        viewModel?.onIsLoadingChange = { [weak self] isLoading in
+            isLoading ? self?.refreshControl?.beginRefreshing() : self?.refreshControl?.endRefreshing()
+        }
+
+        refresh()
+    }
+
+    @IBAction func refresh() {
+        viewModel?.loadExpenses()
     }
 
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

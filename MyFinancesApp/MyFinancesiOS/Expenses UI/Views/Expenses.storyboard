@@ -80,19 +80,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
-                            <action selector="refresh" destination="3a5-8b-Vc2" eventType="valueChanged" id="VQy-7M-W6S"/>
+                            <action selector="refresh" destination="W3h-qC-tLO" eventType="valueChanged" id="c5i-HK-SQk"/>
                         </connections>
                     </refreshControl>
-                    <connections>
-                        <outlet property="refreshController" destination="3a5-8b-Vc2" id="DZP-MY-2NS"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XK5-dn-GnB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <customObject id="3a5-8b-Vc2" customClass="ExpensesRefreshViewController" customModule="MyFinancesiOS" customModuleProvider="target">
-                    <connections>
-                        <outlet property="view" destination="4kq-Be-7JX" id="k0w-w1-QIK"/>
-                    </connections>
-                </customObject>
             </objects>
             <point key="canvasLocation" x="-2.8985507246376816" y="-289.28571428571428"/>
         </scene>
