@@ -8,20 +8,14 @@
 import UIKit
 
 public class ExpensesViewController: UITableViewController {
-    private var refreshController: ExpensesRefreshViewController?
+    @IBOutlet var refreshController: ExpensesRefreshViewController?
     var cellControllers = [ExpenseCellViewController]() {
         didSet { tableView.reloadData() }
-    }
-
-    convenience init(refreshController: ExpensesRefreshViewController) {
-        self.init()
-        self.refreshController = refreshController
     }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        refreshControl = refreshController?.view
         refreshController?.refresh()
     }
 

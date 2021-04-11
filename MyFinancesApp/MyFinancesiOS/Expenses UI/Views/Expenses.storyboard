@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="W3h-qC-tLO">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--My Expenses-->
+        <scene sceneID="vcy-OS-kHk">
+            <objects>
+                <tableViewController id="W3h-qC-tLO" customClass="ExpensesViewController" customModule="MyFinancesiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hy7-a8-rgv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ExpenseItemCell" rowHeight="96" id="sHS-Vm-6Nx" customClass="ExpenseItemViewCell" customModule="MyFinancesPrototype" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="96"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sHS-Vm-6Nx" id="vxz-TY-dH6">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZuE-ed-YZ2" userLabel="Item Container">
+                                            <rect key="frame" x="20" y="19" width="374" height="58"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZnO-bQ-Zx0" userLabel="Description Container">
+                                                    <rect key="frame" x="0.0" y="0.0" width="183" height="58"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mc Germes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VbS-mr-fCe" userLabel="title">
+                                                            <rect key="frame" x="0.0" y="0.0" width="183" height="30.5"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hoje, às 15:03" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGv-3T-fjh" userLabel="createdAt">
+                                                            <rect key="frame" x="0.0" y="38.5" width="183" height="19.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="VbS-mr-fCe" firstAttribute="height" secondItem="ZnO-bQ-Zx0" secondAttribute="height" multiplier="0.525862" id="raB-7V-kp3"/>
+                                                    </constraints>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R$ 9999,99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5jq-m8-EvI" userLabel="amount">
+                                                    <rect key="frame" x="191" y="0.0" width="183" height="58"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="ZuE-ed-YZ2" secondAttribute="bottom" priority="999" constant="8" id="0w6-xw-aho"/>
+                                        <constraint firstItem="ZuE-ed-YZ2" firstAttribute="leading" secondItem="vxz-TY-dH6" secondAttribute="leadingMargin" id="NHo-OO-qXg"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ZuE-ed-YZ2" secondAttribute="trailing" id="f6P-Dq-dyC"/>
+                                        <constraint firstItem="ZuE-ed-YZ2" firstAttribute="top" secondItem="vxz-TY-dH6" secondAttribute="topMargin" priority="999" constant="8" id="yuj-aa-74t"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="W3h-qC-tLO" id="1jJ-Jo-eDf"/>
+                            <outlet property="delegate" destination="W3h-qC-tLO" id="aK9-Vf-Gne"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="My Expenses" id="OiE-Xy-fex"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="4kq-Be-7JX">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refresh" destination="3a5-8b-Vc2" eventType="valueChanged" id="VQy-7M-W6S"/>
+                        </connections>
+                    </refreshControl>
+                    <connections>
+                        <outlet property="refreshController" destination="3a5-8b-Vc2" id="DZP-MY-2NS"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XK5-dn-GnB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <customObject id="3a5-8b-Vc2" customClass="ExpensesRefreshViewController" customModule="MyFinancesiOS" customModuleProvider="target">
+                    <connections>
+                        <outlet property="view" destination="4kq-Be-7JX" id="k0w-w1-QIK"/>
+                    </connections>
+                </customObject>
+            </objects>
+            <point key="canvasLocation" x="-2.8985507246376816" y="-289.28571428571428"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

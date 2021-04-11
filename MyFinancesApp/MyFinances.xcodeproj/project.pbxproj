@@ -17,6 +17,7 @@
 		3A2B0FCF2602DCA900D59C4D /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B0FCE2602DCA900D59C4D /* HTTPClient.swift */; };
 		3A42A0AA261D297900683DDC /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A42A0A9261D297900683DDC /* ExpensesViewController.swift */; };
 		3A5849D126058616002CAE6C /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5849D026058616002CAE6C /* URLSessionHTTPClientTests.swift */; };
+		3A5AA61D26233A65009EC4F5 /* Expenses.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A5AA61C26233A65009EC4F5 /* Expenses.storyboard */; };
 		3A690E0F2618B3B200080E08 /* MyFinancesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A690E062618B3B200080E08 /* MyFinancesiOS.framework */; };
 		3A7BEFE52604284000EDF385 /* ExpenseItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BEFE42604284000EDF385 /* ExpenseItemsMapper.swift */; };
 		3A94690B261FE16500C60A8F /* ExpensesRefreshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A94690A261FE16500C60A8F /* ExpensesRefreshViewController.swift */; };
@@ -93,6 +94,7 @@
 		3A2B0FCE2602DCA900D59C4D /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		3A42A0A9261D297900683DDC /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
 		3A5849D026058616002CAE6C /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
+		3A5AA61C26233A65009EC4F5 /* Expenses.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Expenses.storyboard; sourceTree = "<group>"; };
 		3A690E062618B3B200080E08 /* MyFinancesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyFinancesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A690E092618B3B200080E08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A690E0E2618B3B200080E08 /* MyFinancesiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFinancesiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -289,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				3AF06D89261F2EE20074D73A /* ExpenseViewCell.swift */,
+				3A5AA61C26233A65009EC4F5 /* Expenses.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A5AA61D26233A65009EC4F5 /* Expenses.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

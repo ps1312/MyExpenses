@@ -7,15 +7,20 @@
 
 import Foundation
 import MyFinances
+import UIKit
 
 public final class ExpensesUIComposer {
     private init() {}
 
     public static func compose(loader: ExpensesLoader) -> ExpensesViewController {
         let expensesViewModel = ExpensesViewModel(loader: loader)
-        let refreshController = ExpensesRefreshViewController(viewModel: expensesViewModel)
 
-        let expensesController = ExpensesViewController(refreshController: refreshController)
+        let bundle = Bundle(for: ExpensesViewController.self)
+        let storyboard = UIStoryboard(name: "Expenses", bundle: bundle)
+        let expensesController = storyboard.instantiateInitialViewController() as! ExpensesViewController
+
+        let refreshController = expensesController.refreshController
+        refreshController?.viewModel = expensesViewModel
 
         expensesViewModel.onExpensesLoad = adaptExpensesModelsToCellControllers(expensesController: expensesController)
 
