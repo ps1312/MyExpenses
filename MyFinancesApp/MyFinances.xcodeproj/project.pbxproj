@@ -27,6 +27,7 @@
 		3AD7C1AC2621240800B68964 /* ExpensesUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7C1AB2621240800B68964 /* ExpensesUIComposer.swift */; };
 		3AD7C1B72621E97900B68964 /* ExpensesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7C1B62621E97900B68964 /* ExpensesViewModel.swift */; };
 		3AD7C1C12621F15600B68964 /* ExpenseCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7C1C02621F15600B68964 /* ExpenseCellViewModel.swift */; };
+		3AD9867F2624B5C300680A43 /* Expenses.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3AD9867E2624B5C300680A43 /* Expenses.strings */; };
 		3AF06D8A261F2EE20074D73A /* ExpenseViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF06D89261F2EE20074D73A /* ExpenseViewCell.swift */; };
 		3AF94ABA26078774003A612C /* SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94AB926078774003A612C /* SharedHelpers.swift */; };
 		3AF94AC02607B49A003A612C /* XCTestCase+TestMemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */; };
@@ -104,6 +105,7 @@
 		3AD7C1AB2621240800B68964 /* ExpensesUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesUIComposer.swift; sourceTree = "<group>"; };
 		3AD7C1B62621E97900B68964 /* ExpensesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewModel.swift; sourceTree = "<group>"; };
 		3AD7C1C02621F15600B68964 /* ExpenseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCellViewModel.swift; sourceTree = "<group>"; };
+		3AD9867E2624B5C300680A43 /* Expenses.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Expenses.strings; sourceTree = "<group>"; };
 		3AF06D89261F2EE20074D73A /* ExpenseViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseViewCell.swift; sourceTree = "<group>"; };
 		3AF94AB926078774003A612C /* SharedHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedHelpers.swift; sourceTree = "<group>"; };
 		3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+TestMemoryLeak.swift"; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 			children = (
 				3AD7C1B62621E97900B68964 /* ExpensesViewModel.swift */,
 				3AD7C1C02621F15600B68964 /* ExpenseCellViewModel.swift */,
+				3AD9867E2624B5C300680A43 /* Expenses.strings */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -494,6 +497,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A5AA61D26233A65009EC4F5 /* Expenses.storyboard in Resources */,
+				3AD9867F2624B5C300680A43 /* Expenses.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

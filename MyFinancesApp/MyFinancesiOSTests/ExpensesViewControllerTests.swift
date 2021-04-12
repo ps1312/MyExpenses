@@ -12,6 +12,19 @@ import MyFinancesiOS
 class ExpensesViewControllerTests: XCTestCase {
     let todayAtFixedHour: Date = Calendar(identifier: .gregorian).date(bySettingHour: 20, minute: 00, second: 00, of: Date())!
 
+    func test_viewTitle_displaysLocalizedTitle() {
+        let (sut, _) = makeSUT()
+
+        sut.loadViewIfNeeded()
+
+        let bundle = Bundle(for: ExpensesViewController.self)
+        let localizedKey = "EXPENSES_VIEW_TITLE"
+        let localizedTitle = bundle.localizedString(forKey: localizedKey, value: nil, table: "Expenses")
+
+        XCTAssertNotEqual(localizedKey, localizedTitle, "Missing localized string for key: \(localizedKey)")
+        XCTAssertEqual(sut.title, localizedTitle)
+    }
+
     func test_loadExpensesActions_requestsForExpenseItems() {
         let (sut, loaderSpy) = makeSUT()
         XCTAssertEqual(loaderSpy.callsCount, 0, "Expected no loading requests before view is loaded")

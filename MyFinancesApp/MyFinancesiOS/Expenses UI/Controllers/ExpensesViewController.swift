@@ -17,6 +17,8 @@ public class ExpensesViewController: UITableViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = ExpensesViewModel.title
+
         viewModel?.onIsLoadingChange = { [weak self] isLoading in
             isLoading ? self?.refreshControl?.beginRefreshing() : self?.refreshControl?.endRefreshing()
         }
