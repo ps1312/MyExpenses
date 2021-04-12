@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A17BACA2625125E00013F97 /* Expenses.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A17BACC2625125E00013F97 /* Expenses.strings */; };
 		3A29D8062619FD1700794529 /* MyFinances.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2B0F982602CEBF00D59C4D /* MyFinances.framework */; platformFilter = ios; };
 		3A29D8072619FD1700794529 /* MyFinances.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2B0F982602CEBF00D59C4D /* MyFinances.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A2B0FA22602CEC000D59C4D /* MyFinances.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2B0F982602CEBF00D59C4D /* MyFinances.framework */; };
@@ -27,7 +28,6 @@
 		3AD7C1AC2621240800B68964 /* ExpensesUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7C1AB2621240800B68964 /* ExpensesUIComposer.swift */; };
 		3AD7C1B72621E97900B68964 /* ExpensesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7C1B62621E97900B68964 /* ExpensesViewModel.swift */; };
 		3AD7C1C12621F15600B68964 /* ExpenseCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7C1C02621F15600B68964 /* ExpenseCellViewModel.swift */; };
-		3AD9867F2624B5C300680A43 /* Expenses.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3AD9867E2624B5C300680A43 /* Expenses.strings */; };
 		3AF06D8A261F2EE20074D73A /* ExpenseViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF06D89261F2EE20074D73A /* ExpenseViewCell.swift */; };
 		3AF94ABA26078774003A612C /* SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94AB926078774003A612C /* SharedHelpers.swift */; };
 		3AF94AC02607B49A003A612C /* XCTestCase+TestMemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */; };
@@ -83,6 +83,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3A17BACB2625125E00013F97 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Expenses.strings; sourceTree = "<group>"; };
+		3A17BAD1262512BE00013F97 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Expenses.strings"; sourceTree = "<group>"; };
 		3A2B0F982602CEBF00D59C4D /* MyFinances.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyFinances.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A2B0F9C2602CEBF00D59C4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A2B0FA12602CEC000D59C4D /* MyFinancesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFinancesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,7 +107,6 @@
 		3AD7C1AB2621240800B68964 /* ExpensesUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesUIComposer.swift; sourceTree = "<group>"; };
 		3AD7C1B62621E97900B68964 /* ExpensesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewModel.swift; sourceTree = "<group>"; };
 		3AD7C1C02621F15600B68964 /* ExpenseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCellViewModel.swift; sourceTree = "<group>"; };
-		3AD9867E2624B5C300680A43 /* Expenses.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Expenses.strings; sourceTree = "<group>"; };
 		3AF06D89261F2EE20074D73A /* ExpenseViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseViewCell.swift; sourceTree = "<group>"; };
 		3AF94AB926078774003A612C /* SharedHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedHelpers.swift; sourceTree = "<group>"; };
 		3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+TestMemoryLeak.swift"; sourceTree = "<group>"; };
@@ -262,7 +263,7 @@
 			children = (
 				3AD7C1B62621E97900B68964 /* ExpensesViewModel.swift */,
 				3AD7C1C02621F15600B68964 /* ExpenseCellViewModel.swift */,
-				3AD9867E2624B5C300680A43 /* Expenses.strings */,
+				3A17BACC2625125E00013F97 /* Expenses.strings */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -462,6 +463,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"pt-BR",
 			);
 			mainGroup = 3A2B0F8E2602CEBF00D59C4D;
 			productRefGroup = 3A2B0F992602CEBF00D59C4D /* Products */;
@@ -497,7 +499,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A5AA61D26233A65009EC4F5 /* Expenses.storyboard in Resources */,
-				3AD9867F2624B5C300680A43 /* Expenses.strings in Resources */,
+				3A17BACA2625125E00013F97 /* Expenses.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,11 +602,24 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		3A17BACC2625125E00013F97 /* Expenses.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3A17BACB2625125E00013F97 /* en */,
+				3A17BAD1262512BE00013F97 /* pt-BR */,
+			);
+			name = Expenses.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		3A2B0FAA2602CEC000D59C4D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -669,6 +684,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
