@@ -85,6 +85,25 @@ class ExpensesViewControllerTests: XCTestCase {
         assertThat(sut, isRendering: [expense1, expense2, expense3])
     }
 
+    func test_loadExpenses_dispatchesFromBackgrounToMainThread() {
+        let (sut, loaderSpy) = makeSUT()
+
+        let expense = makeExpense(
+            amount: (value: 0.99, text: "R$ 0,99"),
+            createdAt: (value: todayAtFixedHour, text: "Hoje às 20:00")
+        )
+
+        sut.loadViewIfNeeded()
+
+        let exp = expectation(description: "wait for background dispatch")
+        DispatchQueue.global().async {
+            loaderSpy.completeWith(items: [expense.model])
+            exp.fulfill()
+        }
+
+        wait(for: [exp], timeout: 1.0)
+    }
+
     func assertThat(_ sut: ExpensesViewController, isRendering items: [(model: ExpenseItem, amountText: String, createdAtText: String)]) {
         XCTAssertEqual(sut.numberOfRenderedExpenseItemViews, items.count)
 
