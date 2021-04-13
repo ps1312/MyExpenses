@@ -15,7 +15,7 @@ public final class ExpensesUIComposer {
     public static func compose(loader: ExpensesLoader) -> ExpensesViewController {
         let expensesController = makeController()
 
-        let expensesViewModel = ExpensesViewModel(loader: loader)
+        let expensesViewModel = ExpensesViewModel(loader: MainThreadDispatchQueue(decoratee: loader))
         expensesController.viewModel = expensesViewModel
         expensesViewModel.onExpensesLoad = adaptExpensesModelsToCellControllers(expensesController: expensesController)
 
@@ -33,6 +33,26 @@ public final class ExpensesUIComposer {
             expensesController?.cellControllers = items.map { model in
                 let viewModel = ExpenseCellViewModel(model: model)
                 return ExpenseCellViewController(viewModel: viewModel)
+            }
+        }
+    }
+}
+
+class MainThreadDispatchQueue: ExpensesLoader {
+    private let decoratee: ExpensesLoader
+
+    init (decoratee: ExpensesLoader) {
+        self.decoratee = decoratee
+    }
+
+    func load(completion: @escaping (LoadExpensesResult) -> Void) {
+        decoratee.load { result in
+            if Thread.isMainThread {
+                completion(result)
+            } else {
+                DispatchQueue.main.async {
+                    completion(result)
+                }
             }
         }
     }

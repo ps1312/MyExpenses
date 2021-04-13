@@ -9,16 +9,7 @@ import UIKit
 
 public class ExpensesViewController: UITableViewController {
     var cellControllers = [ExpenseCellViewController]() {
-        didSet {
-            if Thread.isMainThread {
-                tableView.reloadData()
-            } else {
-                DispatchQueue.main.async { [weak self] in
-                    self?.tableView.reloadData()
-                }
-            }
-            
-        }
+        didSet { tableView.reloadData() }
     }
 
     var viewModel: ExpensesViewModel?
@@ -29,13 +20,7 @@ public class ExpensesViewController: UITableViewController {
         title = ExpensesViewModel.title
 
         viewModel?.onIsLoadingChange = { [weak self] isLoading in
-            if Thread.isMainThread {
-                isLoading ? self?.refreshControl?.beginRefreshing() : self?.refreshControl?.endRefreshing()
-            } else {
-                DispatchQueue.main.async {
-                    isLoading ? self?.refreshControl?.beginRefreshing() : self?.refreshControl?.endRefreshing()
-                }
-            }
+            isLoading ? self?.refreshControl?.beginRefreshing() : self?.refreshControl?.endRefreshing()
         }
 
         refresh()
