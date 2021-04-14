@@ -23,12 +23,12 @@ class ExpensesViewModel {
     func loadExpenses() {
         onIsLoadingChange?(true)
 
-        loader.load { result in
+        loader.load { [weak self] result in
             if let items = try? result.get() {
-                self.onExpensesLoad?(items)
+                self?.onExpensesLoad?(items)
             }
 
-            self.onIsLoadingChange?(false)
+            self?.onIsLoadingChange?(false)
         }
     }
 
@@ -36,8 +36,7 @@ class ExpensesViewModel {
 
 class ExpensesViewModelTests: XCTestCase {
     func test_loadExpenses_callsExpensesLoader() {
-        let loaderSpy = LoaderSpy()
-        let sut = ExpensesViewModel(loader: loaderSpy)
+        let (sut, loaderSpy) = makeSUT()
 
         sut.loadExpenses()
 
@@ -46,8 +45,7 @@ class ExpensesViewModelTests: XCTestCase {
 
     func test_loadExpenses_executeCallbacksCorrectlyInOrder() {
         var messages = [Messages]()
-        let loaderSpy = LoaderSpy()
-        let sut = ExpensesViewModel(loader: loaderSpy)
+        let (sut, loaderSpy) = makeSUT()
 
         sut.onIsLoadingChange = { isLoading in
             messages.append(.onIsLoadingChange(isLoading))
@@ -66,6 +64,16 @@ class ExpensesViewModelTests: XCTestCase {
             .onExpensesLoad([]),
             .onIsLoadingChange(false)
         ])
+    }
+
+    func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: ExpensesViewModel, loaderSpy: LoaderSpy) {
+        let loaderSpy = LoaderSpy()
+        let sut = ExpensesViewModel(loader: loaderSpy)
+
+        testMemoryLeak(loaderSpy, file: file, line: line)
+        testMemoryLeak(sut, file: file, line: line)
+
+        return (sut, loaderSpy)
     }
 
     enum Messages: Equatable {
