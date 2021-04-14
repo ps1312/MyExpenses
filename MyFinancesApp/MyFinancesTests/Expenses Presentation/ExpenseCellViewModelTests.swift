@@ -10,6 +10,17 @@ import MyFinances
 
 class ExpenseCellViewModel {
     private let model: ExpenseItem
+    private lazy var numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.groupingSeparator = "."
+        numberFormatter.groupingSize = 3
+        numberFormatter.usesGroupingSeparator = true
+        numberFormatter.decimalSeparator = ","
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.minimumFractionDigits = 2
+        numberFormatter.maximumFractionDigits = 2
+        return numberFormatter
+    }()
 
     init(model: ExpenseItem) {
         self.model = model
@@ -17,6 +28,10 @@ class ExpenseCellViewModel {
 
     var title: String {
         return model.title
+    }
+
+    var amount: String {
+        return "R$ " + numberFormatter.string(from: model.amount as NSNumber)!
     }
 }
 
@@ -28,7 +43,15 @@ class ExpenseCellViewModelTests: XCTestCase {
         XCTAssertEqual(sut.title, model.title)
     }
 
-    func makeExpense(title: String = "Any title") -> ExpenseItem {
-        return ExpenseItem(id: UUID(), title: title, amount: 9.99, createdAt: Date())
+    func test_amount_displaysModelAmountFormatted() {
+        let amount = 100.00
+        let model = makeExpense(amount: amount)
+        let sut = ExpenseCellViewModel(model: model)
+
+        XCTAssertEqual(sut.amount, "R$ 100,00")
+    }
+
+    func makeExpense(title: String = "Any title", amount: Double = 9.99) -> ExpenseItem {
+        return ExpenseItem(id: UUID(), title: title, amount: amount, createdAt: Date())
     }
 }
