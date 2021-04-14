@@ -27,7 +27,7 @@ class ExpensesViewModelTests: XCTestCase {
         XCTAssertEqual(loaderSpy.callsCount, 1)
     }
 
-    func test_loadExpenses_executeCallbacksCorrectlyInOrder() {
+    func test_loadExpenses_executeCallbacksCorrectlyInOrderOnHappyPath() {
         var messages = [Messages]()
         let (sut, loaderSpy) = makeSUT()
 
