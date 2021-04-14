@@ -27,6 +27,29 @@ class ExpensesViewModelTests: XCTestCase {
         XCTAssertEqual(loaderSpy.callsCount, 1)
     }
 
+    func test_loadExpenses_executeCallbacksCorrectlyInOrderOnLoadError() {
+        var messages = [Messages]()
+        let (sut, loaderSpy) = makeSUT()
+
+        sut.onIsLoadingChange = { isLoading in
+            messages.append(.onIsLoadingChange(isLoading))
+        }
+
+        sut.onExpensesLoad = { expenses in
+            messages.append(.onExpensesLoad(expenses))
+        }
+
+        sut.loadExpenses()
+
+        loaderSpy.completeWith(error: anyNSError())
+
+        XCTAssertEqual(messages, [
+            .onIsLoadingChange(true),
+            .onIsLoadingChange(false)
+        ])
+
+    }
+
     func test_loadExpenses_executeCallbacksCorrectlyInOrderOnHappyPath() {
         var messages = [Messages]()
         let (sut, loaderSpy) = makeSUT()
@@ -76,6 +99,10 @@ class ExpensesViewModelTests: XCTestCase {
 
         func completeWith(expenses: [ExpenseItem]) {
             completions[0](.success(expenses))
+        }
+
+        func completeWith(error: Error) {
+            completions[0](.failure(error))
         }
     }
 }
