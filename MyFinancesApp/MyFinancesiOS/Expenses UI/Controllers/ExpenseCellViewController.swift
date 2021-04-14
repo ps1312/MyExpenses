@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MyFinances
 
 class ExpenseCellViewController {
     private let viewModel: ExpenseCellViewModel

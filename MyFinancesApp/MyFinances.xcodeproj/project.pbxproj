@@ -31,7 +31,6 @@
 		3AAB78C2261A0713009E41B8 /* SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94AB926078774003A612C /* SharedHelpers.swift */; };
 		3ABD8CE626195C7D006C5C07 /* ExpensesViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD8CE526195C7D006C5C07 /* ExpensesViewControllerTests.swift */; };
 		3AD7C1AC2621240800B68964 /* ExpensesUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7C1AB2621240800B68964 /* ExpensesUIComposer.swift */; };
-		3AD7C1C12621F15600B68964 /* ExpenseCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7C1C02621F15600B68964 /* ExpenseCellViewModel.swift */; };
 		3AF06D8A261F2EE20074D73A /* ExpenseViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF06D89261F2EE20074D73A /* ExpenseViewCell.swift */; };
 		3AF94ABA26078774003A612C /* SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94AB926078774003A612C /* SharedHelpers.swift */; };
 		3AF94AC02607B49A003A612C /* XCTestCase+TestMemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */; };
@@ -114,7 +113,6 @@
 		3A946910261FE26100C60A8F /* ExpenseCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCellViewController.swift; sourceTree = "<group>"; };
 		3ABD8CE526195C7D006C5C07 /* ExpensesViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		3AD7C1AB2621240800B68964 /* ExpensesUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesUIComposer.swift; sourceTree = "<group>"; };
-		3AD7C1C02621F15600B68964 /* ExpenseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCellViewModel.swift; sourceTree = "<group>"; };
 		3AF06D89261F2EE20074D73A /* ExpenseViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseViewCell.swift; sourceTree = "<group>"; };
 		3AF94AB926078774003A612C /* SharedHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedHelpers.swift; sourceTree = "<group>"; };
 		3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+TestMemoryLeak.swift"; sourceTree = "<group>"; };
@@ -234,12 +232,19 @@
 			path = "Expenses API";
 			sourceTree = "<group>";
 		};
+		3A3AE6A12627BA0600EC8729 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		3A5F68FD262716ED001A8832 /* ExpensesPresentation */ = {
 			isa = PBXGroup;
 			children = (
 				3A5F68FE262716FC001A8832 /* ExpensesViewModel.swift */,
-				3A3420A026271D680099F75D /* Expenses.strings */,
 				3A3AE6972627B5BF00EC8729 /* ExpenseCellViewModel.swift */,
+				3A3420A026271D680099F75D /* Expenses.strings */,
 			);
 			path = ExpensesPresentation;
 			sourceTree = "<group>";
@@ -275,18 +280,11 @@
 		3A690E122618B3B200080E08 /* MyFinancesiOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				3A3AE6A12627BA0600EC8729 /* Helpers */,
 				3ABD8CE526195C7D006C5C07 /* ExpensesViewControllerTests.swift */,
 				3A690E152618B3B200080E08 /* Info.plist */,
 			);
 			path = MyFinancesiOSTests;
-			sourceTree = "<group>";
-		};
-		3A73DB4926266A2100C43DAC /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				3AD7C1C02621F15600B68964 /* ExpenseCellViewModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		3ABD8CF126195D19006C5C07 /* Frameworks */ = {
@@ -307,7 +305,6 @@
 		3AD7C1C62621F2E600B68964 /* Expenses UI */ = {
 			isa = PBXGroup;
 			children = (
-				3A73DB4926266A2100C43DAC /* Models */,
 				3AD7C1AA262123FA00B68964 /* Composers */,
 				3AF06D7D261F2E390074D73A /* Controllers */,
 				3AF06D7E261F2E440074D73A /* Views */,
@@ -593,7 +590,6 @@
 				3AF06D8A261F2EE20074D73A /* ExpenseViewCell.swift in Sources */,
 				3A946911261FE26100C60A8F /* ExpenseCellViewController.swift in Sources */,
 				3AD7C1AC2621240800B68964 /* ExpensesUIComposer.swift in Sources */,
-				3AD7C1C12621F15600B68964 /* ExpenseCellViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
