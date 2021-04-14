@@ -14,6 +14,7 @@ class ExpensesViewModel {
     private let loader: ExpensesLoader
 
     var onIsLoadingChange: Observer<Bool>?
+    var onExpensesLoad: Observer<[ExpenseItem]>?
 
     init(loader: ExpensesLoader) {
         self.loader = loader
@@ -22,7 +23,13 @@ class ExpensesViewModel {
     func loadExpenses() {
         onIsLoadingChange?(true)
 
-        loader.load { _ in }
+        loader.load { result in
+            if let items = try? result.get() {
+                self.onExpensesLoad?(items)
+            }
+
+            self.onIsLoadingChange?(false)
+        }
     }
 
 }
@@ -37,7 +44,7 @@ class ExpensesViewModelTests: XCTestCase {
         XCTAssertEqual(loaderSpy.callsCount, 1)
     }
 
-    func test_loadExpenses_callsForIsLoadingChangeCallback() {
+    func test_loadExpenses_executeCallbacksCorrectlyInOrder() {
         var messages = [Messages]()
         let loaderSpy = LoaderSpy()
         let sut = ExpensesViewModel(loader: loaderSpy)
@@ -46,21 +53,37 @@ class ExpensesViewModelTests: XCTestCase {
             messages.append(.onIsLoadingChange(isLoading))
         }
 
+        sut.onExpensesLoad = { expenses in
+            messages.append(.onExpensesLoad(expenses))
+        }
+
         sut.loadExpenses()
 
-        XCTAssertEqual(messages, [.onIsLoadingChange(true)])
+        loaderSpy.completeWith(expenses: [])
+
+        XCTAssertEqual(messages, [
+            .onIsLoadingChange(true),
+            .onExpensesLoad([]),
+            .onIsLoadingChange(false)
+        ])
     }
 
     enum Messages: Equatable {
         case onIsLoadingChange(_ isLoading: Bool)
-        case onExpensesLoad(expenses: [ExpenseItem])
+        case onExpensesLoad(_ expenses: [ExpenseItem])
     }
 
     class LoaderSpy: ExpensesLoader {
+        var completions = [(LoadExpensesResult) -> Void]()
         var callsCount: Int = 0
 
         func load(completion: @escaping (LoadExpensesResult) -> Void) {
             callsCount += 1
+            completions.append(completion)
+        }
+
+        func completeWith(expenses: [ExpenseItem]) {
+            completions[0](.success(expenses))
         }
     }
 }
