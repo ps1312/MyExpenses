@@ -31,46 +31,29 @@ class ExpensesViewModelTests: XCTestCase {
         var messages = [Messages]()
         let (sut, loaderSpy) = makeSUT()
 
-        sut.onIsLoadingChange = { isLoading in
-            messages.append(.onIsLoadingChange(isLoading))
-        }
-
-        sut.onExpensesLoad = { expenses in
-            messages.append(.onExpensesLoad(expenses))
-        }
-
-        sut.loadExpenses()
-
-        loaderSpy.completeWith(error: anyNSError())
-
-        XCTAssertEqual(messages, [
+        let expenctedMessages = [
             .onIsLoadingChange(true),
             .onIsLoadingChange(false)
-        ])
+        ]
 
+        assertMessages(sut, toHaveMessages: expenctedMessages) {
+            loaderSpy.completeWith(error: anyNSError())
+        }
     }
 
     func test_loadExpenses_executeCallbacksCorrectlyInOrderOnHappyPath() {
         var messages = [Messages]()
         let (sut, loaderSpy) = makeSUT()
 
-        sut.onIsLoadingChange = { isLoading in
-            messages.append(.onIsLoadingChange(isLoading))
-        }
-
-        sut.onExpensesLoad = { expenses in
-            messages.append(.onExpensesLoad(expenses))
-        }
-
-        sut.loadExpenses()
-
-        loaderSpy.completeWith(expenses: [])
-
-        XCTAssertEqual(messages, [
+        let expenctedMessages = [
             .onIsLoadingChange(true),
             .onExpensesLoad([]),
             .onIsLoadingChange(false)
-        ])
+        ]
+
+        assertMessages(sut, toHaveMessages: expenctedMessages) {
+            loaderSpy.completeWith(expenses: [])
+        }
     }
 
     func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: ExpensesViewModel, loaderSpy: LoaderSpy) {
@@ -81,6 +64,24 @@ class ExpensesViewModelTests: XCTestCase {
         testMemoryLeak(sut, file: file, line: line)
 
         return (sut, loaderSpy)
+    }
+
+    func assertMessages(_ sut: ExpensesViewModel, toHaveMessages expectedMessages: [Messages],when: () -> Void) {
+        let capturedMessages = [Messages]()
+
+        sut.onIsLoadingChange = { isLoading in
+            capturedMessages.append(.onIsLoadingChange(isLoading))
+        }
+
+        sut.onExpensesLoad = { expenses in
+            capturedMessages.append(.onExpensesLoad(expenses))
+        }
+
+        sut.loadExpenses()
+
+        when()
+
+        XCTAssertEqual(capturedMessages, expectedMessages)
     }
 
     enum Messages: Equatable {
