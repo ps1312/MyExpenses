@@ -8,46 +8,6 @@
 import XCTest
 import MyFinances
 
-class ExpenseCellViewModel {
-    private let model: ExpenseItem
-    private lazy var numberFormatter: NumberFormatter = {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.groupingSeparator = "."
-        numberFormatter.groupingSize = 3
-        numberFormatter.usesGroupingSeparator = true
-        numberFormatter.decimalSeparator = ","
-        numberFormatter.numberStyle = .decimal
-        numberFormatter.minimumFractionDigits = 2
-        numberFormatter.maximumFractionDigits = 2
-        return numberFormatter
-    }()
-
-    private lazy var dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "pt_BR")
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .short
-        dateFormatter.doesRelativeDateFormatting = true
-        return dateFormatter
-    }()
-
-    init(model: ExpenseItem) {
-        self.model = model
-    }
-
-    var title: String {
-        return model.title
-    }
-
-    var amount: String {
-        return "R$ " + numberFormatter.string(from: model.amount as NSNumber)!
-    }
-
-    var createdAt: String {
-        return dateFormatter.string(from: model.createdAt).replacingOccurrences(of: " ", with: " às ")
-    }
-}
-
 class ExpenseCellViewModelTests: XCTestCase {
     let todayAtFixedHour: Date = Calendar(identifier: .gregorian).date(bySettingHour: 20, minute: 00, second: 00, of: Date())!
 

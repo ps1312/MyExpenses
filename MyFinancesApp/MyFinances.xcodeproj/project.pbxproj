@@ -18,6 +18,7 @@
 		3A34209926271C620099F75D /* ExpensesLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A34209826271C620099F75D /* ExpensesLocalizationTests.swift */; };
 		3A34209E26271D680099F75D /* Expenses.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A3420A026271D680099F75D /* Expenses.strings */; };
 		3A3AE6922627AEDC00EC8729 /* ExpenseCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3AE6912627AEDC00EC8729 /* ExpenseCellViewModelTests.swift */; };
+		3A3AE6982627B5BF00EC8729 /* ExpenseCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3AE6972627B5BF00EC8729 /* ExpenseCellViewModel.swift */; };
 		3A42A0AA261D297900683DDC /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A42A0A9261D297900683DDC /* ExpensesViewController.swift */; };
 		3A5849D126058616002CAE6C /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5849D026058616002CAE6C /* URLSessionHTTPClientTests.swift */; };
 		3A5AA61D26233A65009EC4F5 /* Expenses.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A5AA61C26233A65009EC4F5 /* Expenses.storyboard */; };
@@ -99,6 +100,7 @@
 		3A34209F26271D680099F75D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Expenses.strings; sourceTree = "<group>"; };
 		3A3420A526271D6E0099F75D /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Expenses.strings"; sourceTree = "<group>"; };
 		3A3AE6912627AEDC00EC8729 /* ExpenseCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCellViewModelTests.swift; sourceTree = "<group>"; };
+		3A3AE6972627B5BF00EC8729 /* ExpenseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCellViewModel.swift; sourceTree = "<group>"; };
 		3A42A0A9261D297900683DDC /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
 		3A5849D026058616002CAE6C /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		3A5AA61C26233A65009EC4F5 /* Expenses.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Expenses.storyboard; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			children = (
 				3A5F68FE262716FC001A8832 /* ExpensesViewModel.swift */,
 				3A3420A026271D680099F75D /* Expenses.strings */,
+				3A3AE6972627B5BF00EC8729 /* ExpenseCellViewModel.swift */,
 			);
 			path = ExpensesPresentation;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A2B0FCB2602DC7200D59C4D /* RemoteExpensesLoader.swift in Sources */,
+				3A3AE6982627B5BF00EC8729 /* ExpenseCellViewModel.swift in Sources */,
 				3A7BEFE52604284000EDF385 /* ExpenseItemsMapper.swift in Sources */,
 				3A2B0FB82602D16A00D59C4D /* ExpensesLoader.swift in Sources */,
 				3A2B0FCF2602DCA900D59C4D /* HTTPClient.swift in Sources */,
