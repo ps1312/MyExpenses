@@ -8,32 +8,6 @@
 import XCTest
 import MyFinances
 
-class ExpensesViewModel {
-    typealias Observer<T> = ((T) -> Void)
-
-    private let loader: ExpensesLoader
-
-    var onIsLoadingChange: Observer<Bool>?
-    var onExpensesLoad: Observer<[ExpenseItem]>?
-
-    init(loader: ExpensesLoader) {
-        self.loader = loader
-    }
-
-    func loadExpenses() {
-        onIsLoadingChange?(true)
-
-        loader.load { [weak self] result in
-            if let items = try? result.get() {
-                self?.onExpensesLoad?(items)
-            }
-
-            self?.onIsLoadingChange?(false)
-        }
-    }
-
-}
-
 class ExpensesViewModelTests: XCTestCase {
     func test_loadExpenses_callsExpensesLoader() {
         let (sut, loaderSpy) = makeSUT()
