@@ -203,10 +203,9 @@
 			isa = PBXGroup;
 			children = (
 				3AF94AB826078769003A612C /* Helpers */,
-				3A2B0FA62602CEC000D59C4D /* RemoteExpensesLoaderTests.swift */,
-				3A5849D026058616002CAE6C /* URLSessionHTTPClientTests.swift */,
+				3A5F6904262717A5001A8832 /* Expenses API */,
+				3A5F6905262717B3001A8832 /* Expenses Presentation */,
 				3A2B0FA82602CEC000D59C4D /* Info.plist */,
-				3A73DB3F2626687100C43DAC /* ExpensesViewModelTests.swift */,
 			);
 			path = MyFinancesTests;
 			sourceTree = "<group>";
@@ -237,6 +236,23 @@
 				3A5F68FE262716FC001A8832 /* ExpensesViewModel.swift */,
 			);
 			path = ExpensesPresentation;
+			sourceTree = "<group>";
+		};
+		3A5F6904262717A5001A8832 /* Expenses API */ = {
+			isa = PBXGroup;
+			children = (
+				3A2B0FA62602CEC000D59C4D /* RemoteExpensesLoaderTests.swift */,
+				3A5849D026058616002CAE6C /* URLSessionHTTPClientTests.swift */,
+			);
+			path = "Expenses API";
+			sourceTree = "<group>";
+		};
+		3A5F6905262717B3001A8832 /* Expenses Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				3A73DB3F2626687100C43DAC /* ExpensesViewModelTests.swift */,
+			);
+			path = "Expenses Presentation";
 			sourceTree = "<group>";
 		};
 		3A690E072618B3B200080E08 /* MyFinancesiOS */ = {
