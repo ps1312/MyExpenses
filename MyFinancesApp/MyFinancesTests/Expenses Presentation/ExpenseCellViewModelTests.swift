@@ -22,6 +22,15 @@ class ExpenseCellViewModel {
         return numberFormatter
     }()
 
+    private lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "pt_BR")
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        dateFormatter.doesRelativeDateFormatting = true
+        return dateFormatter
+    }()
+
     init(model: ExpenseItem) {
         self.model = model
     }
@@ -33,9 +42,15 @@ class ExpenseCellViewModel {
     var amount: String {
         return "R$ " + numberFormatter.string(from: model.amount as NSNumber)!
     }
+
+    var createdAt: String {
+        return dateFormatter.string(from: model.createdAt).replacingOccurrences(of: " ", with: " às ")
+    }
 }
 
 class ExpenseCellViewModelTests: XCTestCase {
+    let todayAtFixedHour: Date = Calendar(identifier: .gregorian).date(bySettingHour: 20, minute: 00, second: 00, of: Date())!
+
     func test_title_displaysModelTitle() {
         let model = makeExpense()
         let sut = ExpenseCellViewModel(model: model)
@@ -51,7 +66,15 @@ class ExpenseCellViewModelTests: XCTestCase {
         XCTAssertEqual(sut.amount, "R$ 100,00")
     }
 
-    func makeExpense(title: String = "Any title", amount: Double = 9.99) -> ExpenseItem {
-        return ExpenseItem(id: UUID(), title: title, amount: amount, createdAt: Date())
+    func test_createdAt_displaysModelCreatedAtFormatted() {
+        let createdAt = todayAtFixedHour
+        let model = makeExpense(createdAt: createdAt)
+        let sut = ExpenseCellViewModel(model: model)
+
+        XCTAssertEqual(sut.createdAt, "Hoje às 20:00")
+    }
+
+    func makeExpense(title: String = "Any title", amount: Double = 9.99, createdAt: Date = Date()) -> ExpenseItem {
+        return ExpenseItem(id: UUID(), title: title, amount: amount, createdAt: createdAt)
     }
 }
