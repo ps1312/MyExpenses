@@ -9,6 +9,16 @@ import XCTest
 import MyFinances
 
 class ExpensesViewModelTests: XCTestCase {
+    func test_title_isLocalized() {
+        let title = ExpensesViewModel.title
+
+        let bundle = Bundle(for: ExpensesViewModel.self)
+        let localizedKey = "EXPENSES_VIEW_TITLE"
+        let localizedTitle = bundle.localizedString(forKey: localizedKey, value: nil, table: "Expenses")
+
+        XCTAssertEqual(title, localizedTitle)
+    }
+
     func test_loadExpenses_callsExpensesLoader() {
         let (sut, loaderSpy) = makeSUT()
 

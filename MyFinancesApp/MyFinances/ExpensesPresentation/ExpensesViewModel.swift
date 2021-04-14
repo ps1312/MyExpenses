@@ -15,6 +15,15 @@ public class ExpensesViewModel {
     public var onIsLoadingChange: Observer<Bool>?
     public var onExpensesLoad: Observer<[ExpenseItem]>?
 
+    public static var title: String {
+        return NSLocalizedString(
+            "EXPENSES_VIEW_TITLE",
+            tableName: "Expenses",
+            bundle: Bundle(for: ExpensesViewModel.self),
+            value: "",
+            comment: "Localized expense title text")
+    }
+
     public init(loader: ExpensesLoader) {
         self.loader = loader
     }
