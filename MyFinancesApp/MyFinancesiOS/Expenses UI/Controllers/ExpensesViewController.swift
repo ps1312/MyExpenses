@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MyFinances
 
 public class ExpensesViewController: UITableViewController {
     var cellControllers = [ExpenseCellViewController]() {

@@ -17,7 +17,7 @@ class ExpensesViewControllerTests: XCTestCase {
 
         sut.loadViewIfNeeded()
 
-        let bundle = Bundle(for: ExpensesViewController.self)
+        let bundle = Bundle(for: ExpensesViewModel.self)
         let localizedKey = "EXPENSES_VIEW_TITLE"
         let localizedTitle = bundle.localizedString(forKey: localizedKey, value: nil, table: "Expenses")
 
