@@ -28,31 +28,29 @@ class ExpensesViewModelTests: XCTestCase {
     }
 
     func test_loadExpenses_executeCallbacksCorrectlyInOrderOnLoadError() {
-        var messages = [Messages]()
         let (sut, loaderSpy) = makeSUT()
 
-        let expenctedMessages = [
+        let expectedMessages: [Messages] = [
             .onIsLoadingChange(true),
             .onIsLoadingChange(false)
         ]
 
-        assertMessages(sut, toHaveMessages: expenctedMessages) {
+        assertMessages(sut, toHaveMessages: expectedMessages) {
             loaderSpy.completeWith(error: anyNSError())
         }
     }
 
     func test_loadExpenses_executeCallbacksCorrectlyInOrderOnHappyPath() {
-        var messages = [Messages]()
         let (sut, loaderSpy) = makeSUT()
 
-        let expenctedMessages = [
+        let expectedMessages: [Messages] = [
             .onIsLoadingChange(true),
             .onExpensesLoad([]),
             .onIsLoadingChange(false)
         ]
 
-        assertMessages(sut, toHaveMessages: expenctedMessages) {
-            loaderSpy.completeWith(expenses: [])
+        assertMessages(sut, toHaveMessages: expectedMessages) {
+            loaderSpy.completeWith(items: [])
         }
     }
 
@@ -66,8 +64,8 @@ class ExpensesViewModelTests: XCTestCase {
         return (sut, loaderSpy)
     }
 
-    func assertMessages(_ sut: ExpensesViewModel, toHaveMessages expectedMessages: [Messages],when: () -> Void) {
-        let capturedMessages = [Messages]()
+    func assertMessages(_ sut: ExpensesViewModel, toHaveMessages expectedMessages: [Messages], when: () -> Void) {
+        var capturedMessages = [Messages]()
 
         sut.onIsLoadingChange = { isLoading in
             capturedMessages.append(.onIsLoadingChange(isLoading))
@@ -87,23 +85,5 @@ class ExpensesViewModelTests: XCTestCase {
     enum Messages: Equatable {
         case onIsLoadingChange(_ isLoading: Bool)
         case onExpensesLoad(_ expenses: [ExpenseItem])
-    }
-
-    class LoaderSpy: ExpensesLoader {
-        var completions = [(LoadExpensesResult) -> Void]()
-        var callsCount: Int = 0
-
-        func load(completion: @escaping (LoadExpensesResult) -> Void) {
-            callsCount += 1
-            completions.append(completion)
-        }
-
-        func completeWith(expenses: [ExpenseItem]) {
-            completions[0](.success(expenses))
-        }
-
-        func completeWith(error: Error) {
-            completions[0](.failure(error))
-        }
     }
 }
