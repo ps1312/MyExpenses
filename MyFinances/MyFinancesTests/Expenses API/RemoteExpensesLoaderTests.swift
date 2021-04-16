@@ -28,7 +28,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
     func test_load_deliversNoConnectivityErrorOnClientError() {
         let (sut, client) = makeSUT()
 
-        expect(sut, toCompleteWith: .failure(RemoteExpensesLoader.Error.connectivity)) {
+        expect(sut, toCompleteWith: failure(.connectivity)) {
             client.completeWith(error: anyNSError())
         }
     }
@@ -38,7 +38,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
 
         let subjects = [199, 201, 300, 400, 500]
         subjects.enumerated().forEach { index, code in
-            expect(sut, toCompleteWith: .failure(RemoteExpensesLoader.Error.invalidData)) {
+            expect(sut, toCompleteWith: failure(.invalidData)) {
                 let emptyListJSON = Data("{ \"items\": []}".utf8)
                 client.completeWith(withStatusCode: code, data: emptyListJSON, at: index)
             }
@@ -48,7 +48,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
     func test_load_deliversInvalidDataOn200StatusCodeAndInvalidJSON() {
         let (sut, client) = makeSUT()
 
-        expect(sut, toCompleteWith: .failure(RemoteExpensesLoader.Error.invalidData)) {
+        expect(sut, toCompleteWith: failure(.invalidData)) {
             let invalidJSON = Data("invalid json".utf8)
             client.completeWith(withStatusCode: 200, data: invalidJSON)
         }
@@ -191,4 +191,7 @@ class RemoteExpensesLoaderTests: XCTestCase {
         }
     }
 
+    private func failure(_ error: RemoteExpensesLoader.Error) -> RemoteExpensesLoader.Result {
+        return .failure(error)
+    }
 }

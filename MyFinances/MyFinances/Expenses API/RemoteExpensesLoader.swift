@@ -23,7 +23,7 @@ public class RemoteExpensesLoader: ExpensesLoader {
 
     public typealias Result = LoadExpensesResult
 
-    public func load(completion: @escaping (LoadExpensesResult) -> Void) {
+    public func load(completion: @escaping (Result) -> Void) {
         client.get(from: url) { [weak self] result in
             guard self != nil else { return }
 
