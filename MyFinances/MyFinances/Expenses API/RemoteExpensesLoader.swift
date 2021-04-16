@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class RemoteExpensesLoader {
+public class RemoteExpensesLoader: ExpensesLoader {
     private let url: URL
     private let client: HTTPClient
 
@@ -21,15 +21,15 @@ public class RemoteExpensesLoader {
         case invalidData
     }
 
-    public typealias Result = Swift.Result<[ExpenseItem], Error>
+    public typealias Result = LoadExpensesResult
 
-    public func load(completion: @escaping (Result) -> Void) {
+    public func load(completion: @escaping (LoadExpensesResult) -> Void) {
         client.get(from: url) { [weak self] result in
             guard self != nil else { return }
 
             switch result {
             case .failure:
-                completion(.failure(.connectivity))
+                completion(.failure(Error.connectivity))
 
             case let .success((data, response)):
                 completion(ExpenseItemsMapper.map(response, data))

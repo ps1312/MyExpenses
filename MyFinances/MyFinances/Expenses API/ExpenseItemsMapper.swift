@@ -48,12 +48,12 @@ extension Root: Decodable {
 }
 
 internal class ExpenseItemsMapper {
-    internal static func map(_ response: HTTPURLResponse, _ data: Data) -> RemoteExpensesLoader.Result {
+    internal static func map(_ response: HTTPURLResponse, _ data: Data) -> ExpensesLoader.LoadExpensesResult {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
 
         guard response.statusCode == 200, let root = try? decoder.decode(Root.self, from: data) else {
-            return .failure(.invalidData)
+            return .failure(RemoteExpensesLoader.Error.invalidData)
         }
 
         return .success(root.expenses.sorted(by: {$0.createdAt.timeIntervalSince1970 > $1.createdAt.timeIntervalSince1970}))

@@ -15,6 +15,10 @@
 		3A1AEB8426290CCB00031E46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AEB8226290CCB00031E46 /* LaunchScreen.storyboard */; };
 		3A1AEB8F26290CCB00031E46 /* MyFinancesAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1AEB8E26290CCB00031E46 /* MyFinancesAppTests.swift */; };
 		3A1AEB9A26290CCB00031E46 /* MyFinancesAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1AEB9926290CCB00031E46 /* MyFinancesAppUITests.swift */; };
+		3A1AEBB026290D7A00031E46 /* MyFinances.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1AEBAE26290D7A00031E46 /* MyFinances.framework */; };
+		3A1AEBB126290D7A00031E46 /* MyFinances.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1AEBAE26290D7A00031E46 /* MyFinances.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3A1AEBB226290D7A00031E46 /* MyFinancesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1AEBAF26290D7A00031E46 /* MyFinancesiOS.framework */; };
+		3A1AEBB326290D7A00031E46 /* MyFinancesiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1AEBAF26290D7A00031E46 /* MyFinancesiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +38,21 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3A1AEBB426290D7A00031E46 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3A1AEBB126290D7A00031E46 /* MyFinances.framework in Embed Frameworks */,
+				3A1AEBB326290D7A00031E46 /* MyFinancesiOS.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3A1AEB7426290CC900031E46 /* MyFinancesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFinancesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A1AEB7726290CC900031E46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +68,8 @@
 		3A1AEB9526290CCB00031E46 /* MyFinancesAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFinancesAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A1AEB9926290CCB00031E46 /* MyFinancesAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFinancesAppUITests.swift; sourceTree = "<group>"; };
 		3A1AEB9B26290CCB00031E46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3A1AEBAE26290D7A00031E46 /* MyFinances.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MyFinances.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A1AEBAF26290D7A00031E46 /* MyFinancesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MyFinancesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A1AEBB026290D7A00031E46 /* MyFinances.framework in Frameworks */,
+				3A1AEBB226290D7A00031E46 /* MyFinancesiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +106,7 @@
 				3A1AEB8D26290CCB00031E46 /* MyFinancesAppTests */,
 				3A1AEB9826290CCB00031E46 /* MyFinancesAppUITests */,
 				3A1AEB7526290CC900031E46 /* Products */,
+				3A1AEBAD26290D7A00031E46 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +152,15 @@
 			path = MyFinancesAppUITests;
 			sourceTree = "<group>";
 		};
+		3A1AEBAD26290D7A00031E46 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3A1AEBAE26290D7A00031E46 /* MyFinances.framework */,
+				3A1AEBAF26290D7A00031E46 /* MyFinancesiOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,6 +171,7 @@
 				3A1AEB7026290CC900031E46 /* Sources */,
 				3A1AEB7126290CC900031E46 /* Frameworks */,
 				3A1AEB7226290CC900031E46 /* Resources */,
+				3A1AEBB426290D7A00031E46 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
