@@ -14,7 +14,6 @@
 		3A1AEB8126290CCB00031E46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AEB8026290CCB00031E46 /* Assets.xcassets */; };
 		3A1AEB8426290CCB00031E46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AEB8226290CCB00031E46 /* LaunchScreen.storyboard */; };
 		3A1AEB8F26290CCB00031E46 /* MyFinancesAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1AEB8E26290CCB00031E46 /* MyFinancesAppTests.swift */; };
-		3A1AEB9A26290CCB00031E46 /* MyFinancesAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1AEB9926290CCB00031E46 /* MyFinancesAppUITests.swift */; };
 		3A1AEBB026290D7A00031E46 /* MyFinances.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1AEBAE26290D7A00031E46 /* MyFinances.framework */; };
 		3A1AEBB126290D7A00031E46 /* MyFinances.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1AEBAE26290D7A00031E46 /* MyFinances.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A1AEBB226290D7A00031E46 /* MyFinancesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1AEBAF26290D7A00031E46 /* MyFinancesiOS.framework */; };
@@ -23,13 +22,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		3A1AEB8B26290CCB00031E46 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A1AEB6C26290CC900031E46 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3A1AEB7326290CC900031E46;
-			remoteInfo = MyFinancesApp;
-		};
-		3A1AEB9626290CCB00031E46 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3A1AEB6C26290CC900031E46 /* Project object */;
 			proxyType = 1;
@@ -65,9 +57,6 @@
 		3A1AEB8A26290CCB00031E46 /* MyFinancesAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFinancesAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A1AEB8E26290CCB00031E46 /* MyFinancesAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFinancesAppTests.swift; sourceTree = "<group>"; };
 		3A1AEB9026290CCB00031E46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3A1AEB9526290CCB00031E46 /* MyFinancesAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFinancesAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A1AEB9926290CCB00031E46 /* MyFinancesAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFinancesAppUITests.swift; sourceTree = "<group>"; };
-		3A1AEB9B26290CCB00031E46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A1AEBAE26290D7A00031E46 /* MyFinances.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MyFinances.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A1AEBAF26290D7A00031E46 /* MyFinancesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MyFinancesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -89,13 +78,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3A1AEB9226290CCB00031E46 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -104,7 +86,6 @@
 			children = (
 				3A1AEB7626290CC900031E46 /* MyFinancesApp */,
 				3A1AEB8D26290CCB00031E46 /* MyFinancesAppTests */,
-				3A1AEB9826290CCB00031E46 /* MyFinancesAppUITests */,
 				3A1AEB7526290CC900031E46 /* Products */,
 				3A1AEBAD26290D7A00031E46 /* Frameworks */,
 			);
@@ -115,7 +96,6 @@
 			children = (
 				3A1AEB7426290CC900031E46 /* MyFinancesApp.app */,
 				3A1AEB8A26290CCB00031E46 /* MyFinancesAppTests.xctest */,
-				3A1AEB9526290CCB00031E46 /* MyFinancesAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -141,15 +121,6 @@
 				3A1AEB9026290CCB00031E46 /* Info.plist */,
 			);
 			path = MyFinancesAppTests;
-			sourceTree = "<group>";
-		};
-		3A1AEB9826290CCB00031E46 /* MyFinancesAppUITests */ = {
-			isa = PBXGroup;
-			children = (
-				3A1AEB9926290CCB00031E46 /* MyFinancesAppUITests.swift */,
-				3A1AEB9B26290CCB00031E46 /* Info.plist */,
-			);
-			path = MyFinancesAppUITests;
 			sourceTree = "<group>";
 		};
 		3A1AEBAD26290D7A00031E46 /* Frameworks */ = {
@@ -200,24 +171,6 @@
 			productReference = 3A1AEB8A26290CCB00031E46 /* MyFinancesAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3A1AEB9426290CCB00031E46 /* MyFinancesAppUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3A1AEBA426290CCB00031E46 /* Build configuration list for PBXNativeTarget "MyFinancesAppUITests" */;
-			buildPhases = (
-				3A1AEB9126290CCB00031E46 /* Sources */,
-				3A1AEB9226290CCB00031E46 /* Frameworks */,
-				3A1AEB9326290CCB00031E46 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3A1AEB9726290CCB00031E46 /* PBXTargetDependency */,
-			);
-			name = MyFinancesAppUITests;
-			productName = MyFinancesAppUITests;
-			productReference = 3A1AEB9526290CCB00031E46 /* MyFinancesAppUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -231,10 +184,6 @@
 						CreatedOnToolsVersion = 12.4;
 					};
 					3A1AEB8926290CCB00031E46 = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = 3A1AEB7326290CC900031E46;
-					};
-					3A1AEB9426290CCB00031E46 = {
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = 3A1AEB7326290CC900031E46;
 					};
@@ -255,7 +204,6 @@
 			targets = (
 				3A1AEB7326290CC900031E46 /* MyFinancesApp */,
 				3A1AEB8926290CCB00031E46 /* MyFinancesAppTests */,
-				3A1AEB9426290CCB00031E46 /* MyFinancesAppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -272,13 +220,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3A1AEB8826290CCB00031E46 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3A1AEB9326290CCB00031E46 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -306,14 +247,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3A1AEB9126290CCB00031E46 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3A1AEB9A26290CCB00031E46 /* MyFinancesAppUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -321,11 +254,6 @@
 			isa = PBXTargetDependency;
 			target = 3A1AEB7326290CC900031E46 /* MyFinancesApp */;
 			targetProxy = 3A1AEB8B26290CCB00031E46 /* PBXContainerItemProxy */;
-		};
-		3A1AEB9726290CCB00031E46 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3A1AEB7326290CC900031E46 /* MyFinancesApp */;
-			targetProxy = 3A1AEB9626290CCB00031E46 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -547,46 +475,6 @@
 			};
 			name = Release;
 		};
-		3A1AEBA526290CCB00031E46 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 99FHZVWMRA;
-				INFOPLIST_FILE = MyFinancesAppUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.MyFinancesAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MyFinancesApp;
-			};
-			name = Debug;
-		};
-		3A1AEBA626290CCB00031E46 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 99FHZVWMRA;
-				INFOPLIST_FILE = MyFinancesAppUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.MyFinancesAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MyFinancesApp;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -613,15 +501,6 @@
 			buildConfigurations = (
 				3A1AEBA226290CCB00031E46 /* Debug */,
 				3A1AEBA326290CCB00031E46 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3A1AEBA426290CCB00031E46 /* Build configuration list for PBXNativeTarget "MyFinancesAppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3A1AEBA526290CCB00031E46 /* Debug */,
-				3A1AEBA626290CCB00031E46 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

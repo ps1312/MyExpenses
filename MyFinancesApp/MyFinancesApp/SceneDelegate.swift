@@ -17,6 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
 
+        configureView()
+    }
+
+    func configureView() {
         let url = URL(string: "https://my-finances-715d4-default-rtdb.firebaseio.com/expenses.json")!
         let loader = RemoteExpensesLoader(url: url, client: URLSessionHTTPClient())
         let controller = UINavigationController(rootViewController: ExpensesUIComposer.compose(loader: loader))
