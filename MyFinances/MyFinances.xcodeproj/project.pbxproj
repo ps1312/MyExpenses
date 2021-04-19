@@ -232,13 +232,6 @@
 			path = "Expenses API";
 			sourceTree = "<group>";
 		};
-		3A3AE6A12627BA0600EC8729 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
 		3A5F68FD262716ED001A8832 /* ExpensesPresentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,7 +273,6 @@
 		3A690E122618B3B200080E08 /* MyFinancesiOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				3A3AE6A12627BA0600EC8729 /* Helpers */,
 				3ABD8CE526195C7D006C5C07 /* ExpensesViewControllerTests.swift */,
 				3A690E152618B3B200080E08 /* Info.plist */,
 			);
