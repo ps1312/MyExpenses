@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import MyFinancesiOS
 @testable import MyFinancesApp
 
 class MyFinancesAppTests: XCTestCase {
@@ -17,7 +18,12 @@ class MyFinancesAppTests: XCTestCase {
 
         sut.configureView()
 
-        XCTAssertTrue(sut.window?.rootViewController is UINavigationController)
+        let root = sut.window?.rootViewController
+        let navigationController = root as? UINavigationController
+        let topViewController = navigationController?.topViewController
+
+        XCTAssertNotNil(navigationController, "Expected a navigation controller root, got \(String(describing: root))")
+        XCTAssertTrue(topViewController is ExpensesViewController, "Expected top view controller to be of type ExpensesViewController, got \(String(describing: topViewController))")
     }
 
 }
