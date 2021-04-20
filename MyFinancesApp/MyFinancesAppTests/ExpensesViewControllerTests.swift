@@ -179,7 +179,7 @@ private extension ExpenseViewCell {
     }
 }
 
-private extension ExpensesViewController {
+extension ExpensesViewController {
     var isShowingLoadingIndicator: Bool {
         return refreshControl?.isRefreshing == true
     }
