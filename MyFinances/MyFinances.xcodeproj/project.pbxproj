@@ -29,8 +29,6 @@
 		3A946911261FE26100C60A8F /* ExpenseCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A946910261FE26100C60A8F /* ExpenseCellViewController.swift */; };
 		3AAB78BD261A05B5009E41B8 /* XCTestCase+TestMemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */; };
 		3AAB78C2261A0713009E41B8 /* SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94AB926078774003A612C /* SharedHelpers.swift */; };
-		3ABD8CE626195C7D006C5C07 /* ExpensesViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD8CE526195C7D006C5C07 /* ExpensesViewControllerTests.swift */; };
-		3AD7C1AC2621240800B68964 /* ExpensesUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7C1AB2621240800B68964 /* ExpensesUIComposer.swift */; };
 		3AF06D8A261F2EE20074D73A /* ExpenseViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF06D89261F2EE20074D73A /* ExpenseViewCell.swift */; };
 		3AF94ABA26078774003A612C /* SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94AB926078774003A612C /* SharedHelpers.swift */; };
 		3AF94AC02607B49A003A612C /* XCTestCase+TestMemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */; };
@@ -111,8 +109,6 @@
 		3A73DB3F2626687100C43DAC /* ExpensesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewModelTests.swift; sourceTree = "<group>"; };
 		3A7BEFE42604284000EDF385 /* ExpenseItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseItemsMapper.swift; sourceTree = "<group>"; };
 		3A946910261FE26100C60A8F /* ExpenseCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCellViewController.swift; sourceTree = "<group>"; };
-		3ABD8CE526195C7D006C5C07 /* ExpensesViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		3AD7C1AB2621240800B68964 /* ExpensesUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesUIComposer.swift; sourceTree = "<group>"; };
 		3AF06D89261F2EE20074D73A /* ExpenseViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseViewCell.swift; sourceTree = "<group>"; };
 		3AF94AB926078774003A612C /* SharedHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedHelpers.swift; sourceTree = "<group>"; };
 		3AF94ABF2607B49A003A612C /* XCTestCase+TestMemoryLeak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+TestMemoryLeak.swift"; sourceTree = "<group>"; };
@@ -273,7 +269,6 @@
 		3A690E122618B3B200080E08 /* MyFinancesiOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				3ABD8CE526195C7D006C5C07 /* ExpensesViewControllerTests.swift */,
 				3A690E152618B3B200080E08 /* Info.plist */,
 			);
 			path = MyFinancesiOSTests;
@@ -286,18 +281,9 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3AD7C1AA262123FA00B68964 /* Composers */ = {
-			isa = PBXGroup;
-			children = (
-				3AD7C1AB2621240800B68964 /* ExpensesUIComposer.swift */,
-			);
-			path = Composers;
-			sourceTree = "<group>";
-		};
 		3AD7C1C62621F2E600B68964 /* Expenses UI */ = {
 			isa = PBXGroup;
 			children = (
-				3AD7C1AA262123FA00B68964 /* Composers */,
 				3AF06D7D261F2E390074D73A /* Controllers */,
 				3AF06D7E261F2E440074D73A /* Views */,
 			);
@@ -581,7 +567,6 @@
 				3A42A0AA261D297900683DDC /* ExpensesViewController.swift in Sources */,
 				3AF06D8A261F2EE20074D73A /* ExpenseViewCell.swift in Sources */,
 				3A946911261FE26100C60A8F /* ExpenseCellViewController.swift in Sources */,
-				3AD7C1AC2621240800B68964 /* ExpensesUIComposer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,7 +575,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AAB78BD261A05B5009E41B8 /* XCTestCase+TestMemoryLeak.swift in Sources */,
-				3ABD8CE626195C7D006C5C07 /* ExpensesViewControllerTests.swift in Sources */,
 				3AAB78C2261A0713009E41B8 /* SharedHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,7 @@
 import XCTest
 import MyFinances
 import MyFinancesiOS
+import MyFinancesApp
 
 class ExpensesViewControllerTests: XCTestCase {
     let todayAtFixedHour: Date = Calendar(identifier: .gregorian).date(bySettingHour: 20, minute: 00, second: 00, of: Date())!
@@ -132,6 +133,26 @@ class ExpensesViewControllerTests: XCTestCase {
     func makeExpenseCell(amountText: String, createdAtText: String) -> (amountText: String, createdAtText: String) {
         return (amountText: amountText, createdAtText: createdAtText)
     }
+
+    class LoaderSpy: ExpensesLoader {
+        var completions = [((LoadExpensesResult) -> Void)]()
+        var callsCount: Int {
+            return completions.count
+        }
+
+        public func load(completion: @escaping (LoadExpensesResult) -> Void) {
+            completions.append(completion)
+        }
+
+        func completeWith(error: Error, at index: Int = 0) {
+            completions[index](.failure(error))
+        }
+
+        func completeWith(items: [ExpenseItem], at index: Int = 0) {
+            completions[index](.success(items))
+        }
+    }
+
 }
 
 private extension Date {

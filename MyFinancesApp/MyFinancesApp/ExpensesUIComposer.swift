@@ -7,6 +7,7 @@
 
 import Foundation
 import MyFinances
+import MyFinancesiOS
 import UIKit
 
 public final class ExpensesUIComposer {

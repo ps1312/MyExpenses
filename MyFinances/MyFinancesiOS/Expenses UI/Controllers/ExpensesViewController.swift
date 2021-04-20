@@ -9,11 +9,11 @@ import UIKit
 import MyFinances
 
 public class ExpensesViewController: UITableViewController {
-    var cellControllers = [ExpenseCellViewController]() {
+    public var cellControllers = [ExpenseCellViewController]() {
         didSet { tableView.reloadData() }
     }
 
-    var viewModel: ExpensesViewModel?
+    public var viewModel: ExpensesViewModel?
 
     public override func viewDidLoad() {
         super.viewDidLoad()

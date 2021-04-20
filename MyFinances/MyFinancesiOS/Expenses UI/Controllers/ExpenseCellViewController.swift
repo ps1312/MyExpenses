@@ -8,10 +8,10 @@
 import UIKit
 import MyFinances
 
-class ExpenseCellViewController {
+public class ExpenseCellViewController {
     private let viewModel: ExpenseCellViewModel
 
-    init(viewModel: ExpenseCellViewModel) {
+    public init(viewModel: ExpenseCellViewModel) {
         self.viewModel = viewModel
     }
 
