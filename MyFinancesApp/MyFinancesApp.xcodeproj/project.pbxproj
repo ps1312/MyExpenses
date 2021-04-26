@@ -13,11 +13,12 @@
 		3A1AEB7F26290CC900031E46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AEB7D26290CC900031E46 /* Main.storyboard */; };
 		3A1AEB8126290CCB00031E46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AEB8026290CCB00031E46 /* Assets.xcassets */; };
 		3A1AEB8426290CCB00031E46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AEB8226290CCB00031E46 /* LaunchScreen.storyboard */; };
-		3A1AEB8F26290CCB00031E46 /* MyFinancesAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1AEB8E26290CCB00031E46 /* MyFinancesAppTests.swift */; };
+		3A1AEB8F26290CCB00031E46 /* ExpensesAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1AEB8E26290CCB00031E46 /* ExpensesAcceptanceTests.swift */; };
 		3A1AEBB026290D7A00031E46 /* MyFinances.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1AEBAE26290D7A00031E46 /* MyFinances.framework */; };
 		3A1AEBB126290D7A00031E46 /* MyFinances.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1AEBAE26290D7A00031E46 /* MyFinances.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A1AEBB226290D7A00031E46 /* MyFinancesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1AEBAF26290D7A00031E46 /* MyFinancesiOS.framework */; };
 		3A1AEBB326290D7A00031E46 /* MyFinancesiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1AEBAF26290D7A00031E46 /* MyFinancesiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AD1DE1726370675008AF7A4 /* SceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD1DE1626370675008AF7A4 /* SceneDelegateTests.swift */; };
 		3ADDD9A3262E5B4800076C62 /* ExpensesViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDD9A2262E5B4800076C62 /* ExpensesViewControllerTests.swift */; };
 		3ADDD9AB262E5B6A00076C62 /* ExpensesUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDD9AA262E5B6A00076C62 /* ExpensesUIComposer.swift */; };
 		3ADDD9BB262E5C3100076C62 /* XCTestCase+TestMemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDD9BA262E5C3100076C62 /* XCTestCase+TestMemoryLeak.swift */; };
@@ -59,10 +60,11 @@
 		3A1AEB8326290CCB00031E46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A1AEB8526290CCB00031E46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A1AEB8A26290CCB00031E46 /* MyFinancesAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFinancesAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A1AEB8E26290CCB00031E46 /* MyFinancesAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFinancesAppTests.swift; sourceTree = "<group>"; };
+		3A1AEB8E26290CCB00031E46 /* ExpensesAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesAcceptanceTests.swift; sourceTree = "<group>"; };
 		3A1AEB9026290CCB00031E46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A1AEBAE26290D7A00031E46 /* MyFinances.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MyFinances.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A1AEBAF26290D7A00031E46 /* MyFinancesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MyFinancesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AD1DE1626370675008AF7A4 /* SceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegateTests.swift; sourceTree = "<group>"; };
 		3ADDD9A2262E5B4800076C62 /* ExpensesViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewControllerTests.swift; sourceTree = "<group>"; };
 		3ADDD9AA262E5B6A00076C62 /* ExpensesUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesUIComposer.swift; sourceTree = "<group>"; };
 		3ADDD9BA262E5C3100076C62 /* XCTestCase+TestMemoryLeak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+TestMemoryLeak.swift"; sourceTree = "<group>"; };
@@ -128,7 +130,8 @@
 			children = (
 				3ADDD9B9262E5C1C00076C62 /* Helpers */,
 				3ADDD9A2262E5B4800076C62 /* ExpensesViewControllerTests.swift */,
-				3A1AEB8E26290CCB00031E46 /* MyFinancesAppTests.swift */,
+				3A1AEB8E26290CCB00031E46 /* ExpensesAcceptanceTests.swift */,
+				3AD1DE1626370675008AF7A4 /* SceneDelegateTests.swift */,
 				3A1AEB9026290CCB00031E46 /* Info.plist */,
 			);
 			path = MyFinancesAppTests;
@@ -264,10 +267,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A1AEB8F26290CCB00031E46 /* MyFinancesAppTests.swift in Sources */,
+				3A1AEB8F26290CCB00031E46 /* ExpensesAcceptanceTests.swift in Sources */,
 				3ADDD9C9262E5CBA00076C62 /* SharedHelpers.swift in Sources */,
 				3ADDD9BB262E5C3100076C62 /* XCTestCase+TestMemoryLeak.swift in Sources */,
 				3ADDD9A3262E5B4800076C62 /* ExpensesViewControllerTests.swift in Sources */,
+				3AD1DE1726370675008AF7A4 /* SceneDelegateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,21 +12,6 @@ import MyFinancesiOS
 
 class MyFinancesAppTests: XCTestCase {
 
-    func test_sceneWillConnectToSession_configuresRootViewController() {
-        let window = UIWindow()
-        let sut = SceneDelegate()
-        sut.window = window
-
-        sut.configureView()
-
-        let root = sut.window?.rootViewController
-        let navigationController = root as? UINavigationController
-        let topViewController = navigationController?.topViewController
-
-        XCTAssertNotNil(navigationController, "Expected a navigation controller root, got \(String(describing: root))")
-        XCTAssertTrue(topViewController is ExpensesViewController, "Expected top view controller to be of type ExpensesViewController, got \(String(describing: topViewController))")
-    }
-
     func test_onLaunch_displaysListWithRemoteExpensesWhenUserHasConnection() {
         let expensesController = launch(httpClient: HTTPClientStub.online(response))
 
