@@ -28,19 +28,20 @@ class MyFinancesAppTests: XCTestCase {
     }
 
     func test_onLaunch_displaysListWithRemoteExpensesWhenUserHasConnection() {
-        let httpClient = HTTPClientStub()
-        let sut = SceneDelegate(httpClient: httpClient)
-        sut.window = UIWindow()
-
-        sut.configureView()
-        let nav = sut.window?.rootViewController as? UINavigationController
-        let expensesController = nav?.topViewController as! ExpensesViewController
+        let expensesController = launch(httpClient: HTTPClientStub.online(response))
 
         XCTAssertEqual(expensesController.numberOfRenderedExpenseItemViews, 2)
     }
 
     func test_onLaunch_displaysEmptyListWhenUserHasNoConnection() {
-        let httpClient = HTTPClientOfflineStub()
+        let expensesController = launch(httpClient: HTTPClientStub.offline)
+
+        XCTAssertEqual(expensesController.numberOfRenderedExpenseItemViews, 0)
+    }
+
+    //MARK: - HELPERS
+
+    private func launch(httpClient: HTTPClient) -> ExpensesViewController {
         let sut = SceneDelegate(httpClient: httpClient)
         sut.window = UIWindow()
 
@@ -48,58 +49,39 @@ class MyFinancesAppTests: XCTestCase {
         let nav = sut.window?.rootViewController as? UINavigationController
         let expensesController = nav?.topViewController as! ExpensesViewController
 
-        XCTAssertEqual(expensesController.numberOfRenderedExpenseItemViews, 0)
+        return expensesController
     }
 
-    class HTTPClientOfflineStub: HTTPClient {
+    private func response() -> (Data, HTTPURLResponse) {
+        return (makeResponseData(), HTTPURLResponse(url: anyURL(), statusCode: 200, httpVersion: nil, headerFields: nil)!)
+    }
+
+    private func makeResponseData() -> Data {
+        let item1JSON = makeExpenseItemJSON()
+        let item2JSON = makeExpenseItemJSON()
+
+        return "{\(item1JSON),\(item2JSON)}".data(using: .utf8)!
+    }
+
+    private class HTTPClientStub: HTTPClient {
+        private let stub: HTTPClient.Result
+
+        private init(stub: HTTPClient.Result) {
+            self.stub = stub
+        }
+
+        static var offline: HTTPClient {
+            HTTPClientStub(stub: .failure(anyNSError()))
+        }
+
+        static func online(_ stub: () -> (Data, HTTPURLResponse)) -> HTTPClient {
+            return HTTPClientStub(stub: .success(stub()))
+        }
 
         func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
-            completion(.failure(anyNSError()))
+            completion(stub)
         }
 
     }
 
-    class HTTPClientStub: HTTPClient {
-        func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
-
-            let (_, item1JSON) = makeExpenseItem(
-                id: UUID(),
-                title: "a title",
-                amount: 35.99,
-                createdAt: (date: Date(timeIntervalSince1970: 1616266800), iso8601String: "2021-03-20T19:00:00+00:00")
-            )
-
-            let (_, item2JSON) = makeExpenseItem(
-                id: UUID(),
-                title: "second title",
-                amount: 0.99,
-                createdAt: (date: Date(timeIntervalSince1970: 1616112660), iso8601String: "2021-03-19T00:11:00+00:00")
-            )
-
-            let json = """
-            {
-                \(item1JSON),
-                \(item2JSON)
-            }
-            """.data(using: .utf8)!
-
-            let response = (json, HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!)
-
-            completion(.success(response))
-        }
-
-        func makeExpenseItem(id: UUID, title: String, amount: Double, createdAt: (date: Date, iso8601String: String)) -> (ExpenseItem, String) {
-            let model = ExpenseItem(id: id, title: title, amount: amount, createdAt: createdAt.date)
-
-            let json = """
-                "\(model.id.uuidString)": {
-                    "title": "\(title)",
-                    "amount": \(amount),
-                    "created_at": "\(createdAt.iso8601String)",
-                }
-            """
-
-            return (model, json)
-        }
-    }
 }
