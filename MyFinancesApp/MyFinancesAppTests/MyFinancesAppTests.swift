@@ -27,7 +27,7 @@ class MyFinancesAppTests: XCTestCase {
         XCTAssertTrue(topViewController is ExpensesViewController, "Expected top view controller to be of type ExpensesViewController, got \(String(describing: topViewController))")
     }
 
-    func test_onLaunch_displaysRemoteExpensesWhenUserHasConnection() {
+    func test_onLaunch_displaysListWithRemoteExpensesWhenUserHasConnection() {
         let httpClient = HTTPClientStub()
         let sut = SceneDelegate(httpClient: httpClient)
         sut.window = UIWindow()
@@ -37,6 +37,26 @@ class MyFinancesAppTests: XCTestCase {
         let expensesController = nav?.topViewController as! ExpensesViewController
 
         XCTAssertEqual(expensesController.numberOfRenderedExpenseItemViews, 2)
+    }
+
+    func test_onLaunch_displaysEmptyListWhenUserHasNoConnection() {
+        let httpClient = HTTPClientOfflineStub()
+        let sut = SceneDelegate(httpClient: httpClient)
+        sut.window = UIWindow()
+
+        sut.configureView()
+        let nav = sut.window?.rootViewController as? UINavigationController
+        let expensesController = nav?.topViewController as! ExpensesViewController
+
+        XCTAssertEqual(expensesController.numberOfRenderedExpenseItemViews, 0)
+    }
+
+    class HTTPClientOfflineStub: HTTPClient {
+
+        func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
+            completion(.failure(anyNSError()))
+        }
+
     }
 
     class HTTPClientStub: HTTPClient {
