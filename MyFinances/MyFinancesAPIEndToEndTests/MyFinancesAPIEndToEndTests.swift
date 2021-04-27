@@ -23,7 +23,7 @@ class MyFinancesAPIEndToEndTests: XCTestCase {
     }
 
     func getExpensesResult(file: StaticString = #file, line: UInt = #line) -> RemoteExpensesLoader.Result {
-        let url = URL(string: "https://nextjs-vercel-jzg31jrxq-ps1312.vercel.app/api/static-expenses")!
+        let url = URL(string: "https://nextjs-vercel-m89ktz5t1-ps1312.vercel.app/expenses.json")!
         let client = URLSessionHTTPClient()
         let loader = RemoteExpensesLoader(url: url, client: client)
 
