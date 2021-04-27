@@ -7,6 +7,7 @@
 
 import XCTest
 import MyFinancesiOS
+import MyFinances
 
 class ExpensesSnapshotTests: XCTestCase {
 
@@ -18,12 +19,30 @@ class ExpensesSnapshotTests: XCTestCase {
         record(snapshot: sut.snapshot(), named: "EMPTY_EXPENSES")
     }
 
+    func test_withContent() {
+        let sut = makeSUT()
+
+        sut.cellControllers = [
+            makeExpenseCellController(),
+            makeExpenseCellController(),
+        ]
+
+        record(snapshot: sut.snapshot(), named: "EXPENSES_WITH_CONTENT")
+    }
+
     private func makeSUT() -> ExpensesViewController {
         let bundle = Bundle(for: ExpensesViewController.self)
         let storyboard = UIStoryboard(name: "Expenses", bundle: bundle)
         let controller = storyboard.instantiateInitialViewController() as! ExpensesViewController
         controller.loadViewIfNeeded()
         return controller
+    }
+
+    private func makeExpenseCellController() -> ExpenseCellViewController {
+        let fixedDate = Date(timeIntervalSince1970: 1609498800)
+        let model = ExpenseItem(id: UUID(), title: "any title", amount: 99.99, createdAt: fixedDate)
+        let viewModel = ExpenseCellViewModel(model: model)
+        return ExpenseCellViewController(viewModel: viewModel)
     }
 
     private func record(snapshot: UIImage, named name: String, file: StaticString = #file, line: UInt = #line) {
