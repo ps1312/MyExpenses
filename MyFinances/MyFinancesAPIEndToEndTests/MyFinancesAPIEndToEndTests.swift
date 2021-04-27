@@ -23,7 +23,7 @@ class MyFinancesAPIEndToEndTests: XCTestCase {
     }
 
     func getExpensesResult(file: StaticString = #file, line: UInt = #line) -> RemoteExpensesLoader.Result {
-        let url = URL(string: "https://my-finances-715d4-default-rtdb.firebaseio.com/expenses.json")!
+        let url = URL(string: "https://my-finances-715d4-default-rtdb.firebaseio.com/static-expenses.json")!
         let client = URLSessionHTTPClient()
         let loader = RemoteExpensesLoader(url: url, client: client)
 
